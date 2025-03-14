@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function Portfolio() {
-  return <div></div>;
+  return <div className="text-black">Portfolio page</div>;
 }

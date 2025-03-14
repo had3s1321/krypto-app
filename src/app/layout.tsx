@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
@@ -32,7 +33,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${space_grotesk.variable}`}>
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <nav className="flex w-full gap-6 bg-green-700">
+          <Link href="/">Home</Link>
+          <Link href="/coin/bitcoin">Bitcoin</Link>
+          <Link href="/coin/ethereum">Ethereum</Link>
+          <Link href="/portfolio">Portfolio</Link>
+        </nav>
+        {children}
+      </body>
     </html>
   );
 }

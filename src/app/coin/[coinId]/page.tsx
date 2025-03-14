@@ -8,5 +8,5 @@ export default async function TaskDetail({
 }) {
   const { coinId } = await params;
 
-  return <div>This is the {coinId} page</div>;
+  return <div className="text-black">This is the {coinId} page</div>;
 }

@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <div></div>;
+  return <div className="text-black">Home page</div>;
 }
