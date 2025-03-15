@@ -182,3 +182,20 @@ export const PortfolioIcon = () => {
     </svg>
   );
 };
+
+export const SearchIcon = () => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      fill="none"
+      viewBox="0 0 20 20"
+    >
+      <path
+        fill="color(display-p3 0.2588 0.2588 0.5255)"
+        d="M8.334 2.083a6.25 6.25 0 0 1 4.97 10.04l3.952 3.954a.833.833 0 0 1-1.1 1.248l-.078-.07-3.954-3.952a6.25 6.25 0 1 1-3.79-11.22m0 1.667a4.583 4.583 0 1 0 0 9.166 4.583 4.583 0 0 0 0-9.166"
+      ></path>
+    </svg>
+  );
+};
