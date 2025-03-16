@@ -2,50 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-size: 14px;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-input,
-button {
-  font: inherit;
-}
-
-p:hover,
-h1:hover,
-h2:hover,
-h3:hover,
-span:hover {
-  cursor: default;
-}
-
-button > *:hover {
-  cursor: pointer;
-}
-
-li {
-  list-style: none;
-}
-
 @layer base {
   :root {
-    --background: #f2f5fa;
+    --background: #f3f5f9;
     --foreground: #ffffff;
     --primary: #aaabed;
     --primary-foreground: #a2a3ed;
     --secondary: #e4e5fb;
     --secondary-foreground: #353574;
     --clr-text: #0a0a0a;
+    --clr-nav-bg: #ffffff;
+    --clr-nav-text: #424286;
+    --clr-nav-foreground: #ebebfd;
+    --clr-hover: #ccccfa;
     /* shadcn-specific */
     --card: #ffffff;
     --card-foreground: #0a0a0a;
@@ -76,6 +45,10 @@ li {
     --secondary: #232337;
     --secondary-foreground: #1f1934;
     --clr-text: #ffffff;
+    --clr-nav-bg: #13121b;
+    --clr-nav-text: #ffffff;
+    --clr-nav-foreground: #181826;
+    --clr-hover: #3c3d7e;
     /* shadcn-specific */
     --card: #0a0a0a;
     --card-foreground: #fafafa;
@@ -105,4 +78,40 @@ li {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  background: var(--background);
+}
+
+input,
+button {
+  font: inherit;
+}
+
+p:hover,
+h1:hover,
+h2:hover,
+h3:hover,
+span:hover {
+  cursor: default;
+}
+
+button > *:hover {
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
 }

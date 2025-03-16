@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import PageHeader from "@/components/PageHeader";
 import "./globals.css";
+import { ThemeProvider } from "@/contexts/themeProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -32,11 +33,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${space_grotesk.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${space_grotesk.variable}`}
+    >
       <body className={`antialiased`}>
-        <PageHeader />
-
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <PageHeader />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

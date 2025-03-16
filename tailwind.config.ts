@@ -14,7 +14,7 @@ export default {
         foreground: "var(--foreground)",
         card: {
           DEFAULT: "var(--card)",
-          foreground: "(var(--card-foreground)",
+          foreground: "var(--card-foreground)",
         },
         popover: {
           DEFAULT: "var(--popover)",
@@ -40,9 +40,9 @@ export default {
           DEFAULT: "var(--destructive)",
           foreground: "var(--destructive-foreground)",
         },
-        border: "(var(--border))",
-        input: "(var(--input))",
-        ring: "(var(--ring))",
+        border: "var(--border)",
+        input: "var(--input)",
+        ring: "var(--ring)",
         chart: {
           "1": "(var(--chart-1))",
           "2": "(var(--chart-2))",

@@ -1,12 +1,15 @@
-import Link from "next/link";
+import NavLinks from "./NavLinks";
+import NavLogo from "./NavLogo";
+import NavToolBar from "./NavToolBar";
 
 const NavBar = () => {
   return (
-    <nav className="flex w-full gap-6 bg-green-700">
-      <Link href="/">Home</Link>
-      <Link href="/coin/bitcoin">Bitcoin</Link>
-      <Link href="/coin/ethereum">Ethereum</Link>
-      <Link href="/portfolio">Portfolio</Link>
+    <nav className="flex w-full bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)]">
+      <div className="mx-auto flex h-12 w-full max-w-[1440px] justify-between">
+        <NavLogo />
+        <NavLinks />
+        <NavToolBar />
+      </div>
     </nav>
   );
 };
