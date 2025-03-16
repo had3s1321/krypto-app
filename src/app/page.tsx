@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import PageTabs from "@/components/ui/PageTabs";
 
 export const metadata: Metadata = {
-  title: "Krypto Land | Live Crypto Prices, Charts & Converter",
+  title: "Krypto Land | Live Crypto Prices, Charts & Compare",
   description:
-    "Track real-time prices of top cryptocurrencies, compare coins with interactive charts, and convert between crypto assets easily.",
+    "Track real-time prices of top cryptocurrencies, compare coins with interactive charts, and stay up-to-date with the latest crypto market trends.",
   // TODO: add openGraph and twitter entries, when the app will be deployed
 };
 
