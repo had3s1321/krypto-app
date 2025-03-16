@@ -6,7 +6,8 @@ export const parseCarouselSliderData = (data: CoinsListMarketData) => {
       name: el.name,
       symbol: el.symbol,
       image: el.image,
-      price_change_percentage_24h: el.price_change_percentage_24h,
+      price: el.current_price,
+      priceChange: el.price_change_percentage_24h,
     };
   });
 };
