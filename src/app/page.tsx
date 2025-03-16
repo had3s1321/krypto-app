@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import PageTabs from "@/components/ui/PageTabs";
 
 export const metadata: Metadata = {
   title: "Krypto Land | Live Crypto Prices, Charts & Converter",
@@ -8,5 +9,9 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <div className="text-black">Home page</div>;
+  return (
+    <div className="mx-auto w-full max-w-[1296] text-black">
+      <PageTabs route="Coins" />
+    </div>
+  );
 }

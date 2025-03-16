@@ -1,3 +1,5 @@
+import { PageOptions } from "@/components/ui/PageTabs";
+
 export const parsePercentageValue = (arg: string | number) => {
   if (typeof arg === "number") return arg;
   if (isNaN(+arg[0])) return parseFloat(arg.substring(1));
@@ -9,4 +11,9 @@ export const roundNumber = (num: number, decimals: number) => {
     return (num / 1000000000).toFixed(decimals);
   if (num > 999999999999) return (num / 1000000000000).toFixed(decimals);
   return num.toFixed(decimals);
+};
+
+export const handlePageTabLink = (string: PageOptions) => {
+  if (string === "Coins") return "/";
+  return "/convertor";
 };
