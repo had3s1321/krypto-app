@@ -13,6 +13,7 @@ const StatsBar = () => {
           name={el.name}
           value={el.value}
           hasProgressBar={el.hasProgressBar}
+          progressBarColor={el.progressBarColor}
         />
       ))}
     </div>

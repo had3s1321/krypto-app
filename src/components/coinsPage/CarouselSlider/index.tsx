@@ -16,7 +16,7 @@ const CarouselSlider = () => {
 
   return (
     <>
-      <h3 className="mb-8 font-grotesk text-sm">
+      <h3 className="mb-8 font-grotesk text-sm text-[var(--clr-nav-text)]">
         Select the currency to view statistics
       </h3>
       <Carousel className="w-full">
@@ -26,11 +26,11 @@ const CarouselSlider = () => {
               key={el.name}
               className="basis-1/5 [&:not(:first-child)]:pl-2"
             >
-              <div>
+              <div className="rounded-md bg-[var(--foreground)]">
                 <Card className="flex items-center border-none px-4 shadow-none">
                   <Image src={el.image} alt={el.name} width={32} height={32} />
-                  <CardContent className="flex flex-col items-start justify-center gap-1 p-3">
-                    <span className="text-xl font-semibold">
+                  <CardContent className="flex flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">
+                    <span className="text-xl font-medium">
                       {el.name} ({el.symbol})
                     </span>
                     <span className="flex">

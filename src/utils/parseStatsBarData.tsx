@@ -36,18 +36,21 @@ export const parseStatsBarData = (
         ) : (
           <DownIcon />
         ),
+      progressBarColor: "bg-[#FFFFFF]",
     },
     {
       value: `${roundNumber(data.market_cap_percentage.btc, 0)}%`,
 
       hasProgressBar: true,
       icon: <BitcoinIcon />,
+      progressBarColor: "bg-[#F7931A]",
     },
     {
       value: `${roundNumber(data.market_cap_percentage.eth, 0)}%`,
 
       hasProgressBar: true,
       icon: <EthereumIcon />,
+      progressBarColor: "bg-[#849DFF]",
     },
   ];
 };
