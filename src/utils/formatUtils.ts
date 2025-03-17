@@ -19,3 +19,10 @@ export const handlePageTabLink = (string: PageOptions) => {
   if (string === "Coins") return "/";
   return "/convertor";
 };
+
+export const getTime = (dateStamp: number) => {
+  const date = new Date(dateStamp);
+  const hours = date.getHours().toString();
+  const minutes = date.getMinutes().toString();
+  return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
+};
