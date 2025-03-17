@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Charts from "@/components/ui/Charts";
 import PageTabs from "@/components/ui/PageTabs";
 import CarouselSlider from "@/components/coinsPage/CarouselSlider";
 
@@ -14,6 +15,7 @@ export default function Home() {
     <div className="mx-auto w-full max-w-[1296] text-black">
       <PageTabs route="Coins" />
       <CarouselSlider />
+      <Charts />
     </div>
   );
 }
