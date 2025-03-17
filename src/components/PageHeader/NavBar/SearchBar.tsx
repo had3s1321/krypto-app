@@ -16,7 +16,7 @@ const SearchBar = () => {
     setValue(e.target.value);
   };
   return (
-    <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-3 [&>svg]:ml-3">
+    <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-2.5 [&>svg]:ml-3">
       <Input
         value={value}
         placeholder="Search..."

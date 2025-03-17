@@ -9,13 +9,13 @@ export interface StatsBarElementProps {
   hasProgressBar?: boolean;
   progressBarColor?: string;
 }
-
 const StatsBarElement = ({
   icon,
   name,
   value,
   changeValue,
   hasProgressBar,
+  progressBarColor,
 }: StatsBarElementProps) => {
   const progressValue = changeValue ? changeValue : parsePercentageValue(value);
 
@@ -26,7 +26,11 @@ const StatsBarElement = ({
       <span>{value}</span>
       <span>
         {hasProgressBar ? (
-          <Progress className="w-20" value={progressValue} />
+          <Progress
+            className="w-20"
+            value={progressValue}
+            indicatorClassName={progressBarColor}
+          />
         ) : null}
       </span>
     </div>
