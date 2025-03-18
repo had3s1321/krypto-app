@@ -31,6 +31,10 @@ interface CoinMarketData {
   atl_date: string;
   roi: ROI | null;
   last_updated: string;
+  sparkline_in_7d: {
+    price: number[];
+  };
+  price_change_percentage_1h_in_currency: number;
 }
 
 export type CoinsListMarketData = CoinMarketData[];

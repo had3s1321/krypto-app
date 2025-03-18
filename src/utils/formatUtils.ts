@@ -28,3 +28,7 @@ export const getTime = (dateStamp: number) => {
   const minutes = date.getUTCMinutes().toLocaleString();
   return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
 };
+
+export const getSevenDaysPercentage = (firstVal: number, lastVal: number) => {
+  return ((lastVal - firstVal) / firstVal) * 100;
+};
