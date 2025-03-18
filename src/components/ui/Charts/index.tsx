@@ -1,5 +1,6 @@
 import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
+import IntervalTabs from "./IntervalTabs";
 import { parseChartData } from "@/utils/parseChartData";
 import { btc_chart_24h_data } from "@/utils/mockData/btc_chart_24h_data";
 import { eth_chart_24h_data } from "@/utils/mockData/eth_chart_24h_data";
@@ -19,7 +20,7 @@ export type CoinInfosData = {
 }[];
 
 const Charts = () => {
-  // TODO will receive max 2 coins either via or from  redux
+  // TODO will receive max 2 coins either via props or from  redux
   const areaChartData = parseChartData(
     [btc_chart_24h_data, eth_chart_24h_data],
     "prices",
@@ -47,10 +48,13 @@ const Charts = () => {
   ];
 
   return (
-    <div className="flex justify-between font-grotesk">
-      <CustomAreaChart chartData={areaChartData} coinInfos={coinInfos} />
-      <CustomBarChart chartData={barChartData} coinInfos={coinInfos} />
-    </div>
+    <>
+      <div className="mb-5 flex justify-between font-grotesk">
+        <CustomAreaChart chartData={areaChartData} coinInfos={coinInfos} />
+        <CustomBarChart chartData={barChartData} coinInfos={coinInfos} />
+      </div>
+      <IntervalTabs />
+    </>
   );
 };
 
