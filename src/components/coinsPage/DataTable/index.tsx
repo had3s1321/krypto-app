@@ -1,11 +1,16 @@
+import { Progress } from "@/components/ui/shadcn/progress";
 import {
   Table,
   TableBody,
   TableCaption,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
+import { roundNumber } from "@/utils/formatUtils";
+import { coins_market_data } from "@/utils/mockData/coins_market_data";
+import { parseTableData } from "@/utils/parseTableData";
 
 const DataTable = () => {
   const tableHeaderConfig = [
@@ -20,8 +25,10 @@ const DataTable = () => {
     { name: "Last 7d", styles: "w-[15%]" },
   ];
 
+  const data = parseTableData(coins_market_data);
+
   return (
-    <Table>
+    <Table className="w-full border-separate border-spacing-y-2">
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow>
@@ -33,7 +40,36 @@ const DataTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow></TableRow>
+        {data.map((el) => (
+          <TableRow
+            key={el.symbol}
+            className="bg mb-8 h-16 bg-[var(--foreground)]"
+          >
+            <TableCell className="rounded-l-md">{el.rank}</TableCell>
+            <TableCell>
+              {el.name} ({el.symbol})
+            </TableCell>
+            <TableCell>{el.price}</TableCell>
+            <TableCell>{el.change1h.toFixed(2)}</TableCell>
+            <TableCell>{el.change24h.toFixed(2)}</TableCell>
+            <TableCell>{el.change7d.toFixed(2)}</TableCell>
+            <TableCell>
+              <div className="flex justify-between">
+                <span>{roundNumber(el.progress1.volume24h, 2)}</span>
+                <span>{roundNumber(el.progress1.marketCap, 2)}</span>
+              </div>
+              <Progress value={+roundNumber(el.progress1.volume24h, 2)} />
+            </TableCell>
+            <TableCell>
+              <div className="flex justify-between">
+                <span>{roundNumber(el.progress2.circulatingSupply, 0)}</span>
+                <span>{roundNumber(el.progress2.totalSupply, 0)}</span>
+              </div>
+              <Progress />
+            </TableCell>
+            <TableCell className="rounded-l-md">Chart</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );

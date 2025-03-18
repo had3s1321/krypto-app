@@ -4,6 +4,7 @@ import { CoinsListMarketData } from "./types/CoinsListMarketData";
 export const parseTableData = (data: CoinsListMarketData) => {
   return data.map((el) => {
     return {
+      rank: el.market_cap_rank,
       image: el.image,
       name: el.name,
       symbol: el.symbol,
