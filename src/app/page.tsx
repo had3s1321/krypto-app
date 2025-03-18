@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Charts from "@/components/ui/Charts";
 import PageTabs from "@/components/ui/PageTabs";
 import CarouselSlider from "@/components/coinsPage/CarouselSlider";
+import DataTable from "@/components/coinsPage/DataTable";
 
 export const metadata: Metadata = {
   title: "Krypto Land | Live Crypto Prices, Charts & Compare",
@@ -16,6 +17,7 @@ export default function Home() {
       <PageTabs route="Coins" />
       <CarouselSlider />
       <Charts />
+      <DataTable />
     </div>
   );
 }
