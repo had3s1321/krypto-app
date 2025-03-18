@@ -2,12 +2,9 @@
 
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
-import { btc_chart_24h_data } from "@/utils/mockData/btc_chart_24h_data";
-import { parseChartData } from "@/utils/parseChartData";
+import { ParsedChartData } from "..";
 
-const CustomBarChart = () => {
-  const chartData = parseChartData(btc_chart_24h_data, "total_volumes");
-
+const CustomBarChart = ({ chartData }: { chartData: ParsedChartData }) => {
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -30,13 +27,19 @@ const CustomBarChart = () => {
         data={chartData}
         margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
       >
-        <text x={30} y={40} fontSize={14} fill="#000000">
+        <text x={30} y={40} fontSize={20} fill="var(--clr-text)">
           Volume 24h
         </text>
-        <text x={30} y={60} fontSize={14} fill="#000000">
+        <text
+          x={30}
+          y={80}
+          fontSize={28}
+          fontWeight={700}
+          fill="var(--clr-text)"
+        >
           Total volume placeholder
         </text>
-        <text x={30} y={80} fontSize={14} fill="#000000">
+        <text x={30} y={105} fontSize={16} fill="var(--clr-nav-text)">
           Date placeholder
         </text>
         <defs>
