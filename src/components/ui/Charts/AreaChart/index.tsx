@@ -28,6 +28,7 @@ const CustomAreaChart = ({
       className="min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)]"
     >
       <AreaChart
+        data={chartData}
         width={730}
         height={250}
         margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
@@ -74,21 +75,19 @@ const CustomAreaChart = ({
           axisLine={false}
           tickLine={false}
         />
-        <YAxis domain={["dataMin - 2000", "dataMax + 2000"]} hide />
+        <YAxis domain={["dataMin - 5000", "dataMax + 5000"]} hide />
         <Tooltip />
         <Area
-          data={chartData[0]}
           type="monotone"
-          dataKey="value"
+          dataKey="coin1"
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
         />
         {chartData.length > 1 ? (
           <Area
-            data={chartData[1]}
             type="monotone"
-            dataKey="value"
+            dataKey="coin2"
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"

@@ -28,6 +28,7 @@ const CustomBarChart = ({
       className="min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)]"
     >
       <BarChart
+        data={chartData}
         width={730}
         height={250}
         margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
@@ -73,20 +74,18 @@ const CustomBarChart = ({
           tickLine={false}
         />
         <YAxis domain={["dataMin - 500", "dataMax + 500"]} hide />
-        <Tooltip />
+        <Tooltip cursor={false} />
         <Bar
-          data={chartData[0]}
           type="monotone"
-          dataKey="value"
+          dataKey="coin1"
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
         />
         {chartData.length > 1 ? (
           <Bar
-            data={chartData[1]}
             type="monotone"
-            dataKey="value"
+            dataKey="coin2"
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"

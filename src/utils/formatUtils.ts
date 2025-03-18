@@ -24,7 +24,7 @@ export const handlePageTabLink = (string: PageOptions) => {
 // time to local time once I get the location
 export const getTime = (dateStamp: number) => {
   const date = new Date(dateStamp);
-  const hours = date.getUTCHours().toString();
-  const minutes = date.getUTCMinutes().toString();
+  const hours = date.getUTCHours().toLocaleString();
+  const minutes = date.getUTCMinutes().toLocaleString();
   return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
 };
