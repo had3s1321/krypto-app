@@ -2,9 +2,15 @@
 
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
-import { ParsedChartData } from "..";
+import { CoinInfosData, ParsedChartData } from "..";
 
-const CustomAreaChart = ({ chartData }: { chartData: ParsedChartData }) => {
+const CustomAreaChart = ({
+  chartData,
+  coinInfos,
+}: {
+  chartData: ParsedChartData;
+  coinInfos: CoinInfosData;
+}) => {
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -24,11 +30,13 @@ const CustomAreaChart = ({ chartData }: { chartData: ParsedChartData }) => {
       <AreaChart
         width={730}
         height={250}
-        data={chartData}
         margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
       >
         <text x={30} y={40} fontSize={20} fill="var(--clr-text)">
-          Coin
+          {coinInfos.map((el, i) => {
+            if (i === 1) return ` - ${el.name} (${el.symbol})`;
+            return `${el.name} (${el.symbol})`;
+          })}
         </text>
         <text
           x={30}
@@ -37,20 +45,28 @@ const CustomAreaChart = ({ chartData }: { chartData: ParsedChartData }) => {
           fontWeight={700}
           fill="var(--clr-text)"
         >
-          Market cap maybe?
+          {coinInfos.map((el, i) => {
+            if (i === 1) return " - " + el.marketCap;
+            return el.marketCap;
+          })}
         </text>
         <text x={30} y={105} fontSize={16} fill="var(--clr-nav-text)">
-          Date placeholder
+          {coinInfos.map((el, i) => {
+            if (i === 1) return null;
+            return el.date;
+          })}
         </text>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
             <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
           </linearGradient>
-          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-            <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-          </linearGradient>
+          {chartData.length > 1 ? (
+            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+            </linearGradient>
+          ) : null}
         </defs>
         <XAxis
           dataKey="time"
@@ -61,12 +77,23 @@ const CustomAreaChart = ({ chartData }: { chartData: ParsedChartData }) => {
         <YAxis domain={["dataMin - 2000", "dataMax + 2000"]} hide />
         <Tooltip />
         <Area
+          data={chartData[0]}
           type="monotone"
           dataKey="value"
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
         />
+        {chartData.length > 1 ? (
+          <Area
+            data={chartData[1]}
+            type="monotone"
+            dataKey="value"
+            stroke="#82ca9d"
+            fillOpacity={1}
+            fill="url(#colorPv)"
+          />
+        ) : null}
       </AreaChart>
     </ChartContainer>
   );
