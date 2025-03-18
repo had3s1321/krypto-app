@@ -55,7 +55,7 @@ const CurrencyDropdown = () => {
               value={el.name}
               className="flex"
             >
-              <span className="-ml-1 flex items-center justify-center gap-0.5 bg-[var(--clr-nav-foreground)] py-2 pl-5 pr-7 hover:bg-[var(--clr-hover)]">
+              <span className="-ml-1 flex items-center justify-center gap-0.5 bg-[var(--clr-nav-foreground)] py-2 pl-5 pr-7 text-[var(--clr-nav-text)] hover:bg-[var(--clr-hover)]">
                 {el.icon}
                 {el.name}
               </span>

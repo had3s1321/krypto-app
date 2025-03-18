@@ -7,7 +7,7 @@ export const parsePercentageValue = (arg: string | number) => {
 };
 
 // TODO works for now, but not scalable, maybe track the number of total
-// decimals a number has
+// decimals a number has - use Intl.NumberFormat
 export const roundNumber = (num: number, decimals: number) => {
   if (num > 9999999999 && num < 999999999999)
     return (num / 1000000000).toFixed(decimals);
@@ -20,9 +20,11 @@ export const handlePageTabLink = (string: PageOptions) => {
   return "/convertor";
 };
 
+// TODO needed to use utc because of hydration errors, so will need to convert
+// time to local time once I get the location
 export const getTime = (dateStamp: number) => {
   const date = new Date(dateStamp);
-  const hours = date.getHours().toString();
-  const minutes = date.getMinutes().toString();
+  const hours = date.getUTCHours().toLocaleString();
+  const minutes = date.getUTCMinutes().toLocaleString();
   return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
 };
