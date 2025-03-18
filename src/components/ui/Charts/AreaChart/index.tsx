@@ -71,6 +71,16 @@ const CustomAreaChart = ({
         </defs>
         <XAxis
           dataKey="time"
+          tick={({ x, y, payload }) => (
+            <text
+              x={x - 10}
+              y={y + 10}
+              textAnchor="middle"
+              style={{ fill: "var(--clr-text)", fontSize: 12 }}
+            >
+              {payload.value}
+            </text>
+          )}
           minTickGap={100}
           axisLine={false}
           tickLine={false}

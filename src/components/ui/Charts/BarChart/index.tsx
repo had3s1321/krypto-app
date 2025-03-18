@@ -69,6 +69,16 @@ const CustomBarChart = ({
 
         <XAxis
           dataKey="time"
+          tick={({ x, y, payload }) => (
+            <text
+              x={x}
+              y={y + 10}
+              textAnchor="middle"
+              style={{ fill: "var(--clr-text)", fontSize: 12 }}
+            >
+              {payload.value}
+            </text>
+          )}
           minTickGap={100}
           axisLine={false}
           tickLine={false}
