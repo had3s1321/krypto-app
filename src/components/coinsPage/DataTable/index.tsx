@@ -1,4 +1,5 @@
-import { Progress } from "@/components/ui/shadcn/progress";
+import ProgressCell from "./ProgressCell";
+import NameCell from "./NameCell";
 import {
   Table,
   TableBody,
@@ -8,13 +9,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { roundNumber } from "@/utils/formatUtils";
 import { coins_market_data } from "@/utils/mockData/coins_market_data";
 import { parseTableData } from "@/utils/parseTableData";
 
 const DataTable = () => {
   const tableHeaderConfig = [
-    { name: "#", styles: "w-[3%]" },
+    { name: "#", styles: "w-[3%] text-center" },
     { name: "Name", styles: "w-[20%]" },
     { name: "Price", styles: "w-[8%]" },
     { name: "1h%", styles: "w-[8%]" },
@@ -31,7 +31,7 @@ const DataTable = () => {
     <Table className="w-full border-separate border-spacing-y-2">
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
-        <TableRow>
+        <TableRow className="text-[var(--clr-nav-text)]">
           {tableHeaderConfig.map((el) => (
             <TableHead key={el.name} className={el.styles}>
               {el.name}
@@ -45,29 +45,25 @@ const DataTable = () => {
             key={el.symbol}
             className="bg mb-8 h-16 bg-[var(--foreground)]"
           >
-            <TableCell className="rounded-l-md">{el.rank}</TableCell>
-            <TableCell>
-              {el.name} ({el.symbol})
+            <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">
+              {el.rank}
             </TableCell>
-            <TableCell>{el.price}</TableCell>
+            <NameCell image={el.image} name={el.name} symbol={el.symbol} />
+            <TableCell className="font-semibold text-[var(--clr-text)]">
+              {el.price}
+            </TableCell>
             <TableCell>{el.change1h.toFixed(2)}</TableCell>
             <TableCell>{el.change24h.toFixed(2)}</TableCell>
             <TableCell>{el.change7d.toFixed(2)}</TableCell>
-            <TableCell>
-              <div className="flex justify-between">
-                <span>{roundNumber(el.progress1.volume24h, 2)}</span>
-                <span>{roundNumber(el.progress1.marketCap, 2)}</span>
-              </div>
-              <Progress value={+roundNumber(el.progress1.volume24h, 2)} />
-            </TableCell>
-            <TableCell>
-              <div className="flex justify-between">
-                <span>{roundNumber(el.progress2.circulatingSupply, 0)}</span>
-                <span>{roundNumber(el.progress2.totalSupply, 0)}</span>
-              </div>
-              <Progress />
-            </TableCell>
-            <TableCell className="rounded-l-md">Chart</TableCell>
+            <ProgressCell
+              data1={el.progress1.volume24h}
+              data2={el.progress1.marketCap}
+            />
+            <ProgressCell
+              data1={el.progress2.circulatingSupply}
+              data2={el.progress2.totalSupply}
+            />
+            {/* <ChartCell data={el.chart} /> */}
           </TableRow>
         ))}
       </TableBody>
