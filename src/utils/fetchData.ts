@@ -1,21 +1,15 @@
 "use server";
 
-type FetchOptions = {
-  cache?: RequestCache;
-  headers?: HeadersInit;
-};
-
 export const fetchData = async <T>(
   url: string,
-  localData: T | undefined,
-  { cache = "force-cache", headers }: FetchOptions,
+  localData?: T | undefined,
+  cache: RequestCache = "force-cache",
 ): Promise<T> => {
   const options: RequestInit = {
     method: "GET",
     headers: {
       accept: "application/json",
       "x-cg-demo-api-key": process.env.COINGECKO_API_KEY,
-      ...headers,
     } as HeadersInit,
     cache,
   };

@@ -11,8 +11,10 @@ import { StatsBarData } from "./types/StatsBarData";
 import { roundNumber } from "./formatUtils";
 
 export const parseStatsBarData = (
-  data: StatsBarData,
+  response: StatsBarData,
 ): StatsBarElementProps[] => {
+  const { data } = response;
+
   return [
     {
       name: "Coins",

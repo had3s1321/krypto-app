@@ -1,12 +1,12 @@
-import { stats_bar } from "@/utils/mockData/status_bar";
-import { parseStatsBarData } from "@/utils/parseStatsBarData";
+import { getStatsBarData } from "@/actions/getStatsBarData";
 import StatsBarElement from "./StatusBarElement";
 
-const StatsBar = () => {
-  const parsedData = parseStatsBarData(stats_bar);
+const StatsBar = async () => {
+  const data = await getStatsBarData();
+
   return (
     <div className="flex h-14 w-full justify-center gap-8 bg-[var(--secondary-foreground)] text-xs text-[#ffffff;]">
-      {parsedData.map((el, i) => (
+      {data.map((el, i) => (
         <StatsBarElement
           key={i} // eslint-disable-line
           icon={el.icon}
