@@ -1,3 +1,5 @@
+"use server";
+
 import { fetchData } from "@/utils/fetchData";
 import { StatsBarData } from "@/utils/types/StatsBarData";
 import { parseStatsBarData } from "@/utils/parseStatsBarData";
