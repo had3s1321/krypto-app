@@ -22,7 +22,7 @@ export interface CarouselItemInterface {
   priceChange: number;
 }
 
-const CarouselSlider = ({ data }: { data: CarouselItemInterface[] }) => {
+const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
   const [selectedItems, setSelectedItems] = useState<CarouselItemInterface[]>(
     [],
   );
@@ -88,4 +88,4 @@ const CarouselSlider = ({ data }: { data: CarouselItemInterface[] }) => {
   );
 };
 
-export default CarouselSlider;
+export default CoinsCarousel;

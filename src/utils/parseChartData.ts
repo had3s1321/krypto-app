@@ -1,4 +1,4 @@
-import { ParsedChartData } from "@/components/ui/Charts";
+import { ParsedChartData } from "@/components/coinsPage/ComparisonCharts";
 import { ChartData } from "./types/ChartData";
 
 export const parseChartData = (

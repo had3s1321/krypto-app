@@ -19,7 +19,7 @@ export type CoinInfosData = {
   volume: string;
 }[];
 
-const Charts = () => {
+const ComparisonCharts = () => {
   // TODO will receive max 2 coins either via props or from  redux
   const areaChartData = parseChartData(
     [btc_chart_24h_data, eth_chart_24h_data],
@@ -58,4 +58,4 @@ const Charts = () => {
   );
 };
 
-export default Charts;
+export default ComparisonCharts;
