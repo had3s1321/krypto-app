@@ -1,4 +1,4 @@
-import { getCarouselSliderData } from "@/actions/getCoinMarketData";
+import { getCarouselSliderData } from "@/actions/getCoinCarouselData";
 import CoinsCarousel from "./CoinsCarousel";
 
 const CoinSlider = async () => {

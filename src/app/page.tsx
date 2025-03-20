@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import PageTabs from "@/components/ui/PageTabs";
-import DataTable from "@/components/coinsPage/DataTable";
+import DataTable from "@/components/coinsPage/CoinTable";
 import CoinSlider from "@/components/coinsPage/CoinSlider";
 import ComparisonCharts from "@/components/coinsPage/ComparisonCharts";
 

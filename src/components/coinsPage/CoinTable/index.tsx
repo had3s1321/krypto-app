@@ -9,10 +9,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { coins_market_data } from "@/utils/mockData/coins_market_data";
-import { parseTableData } from "@/utils/parseTableData";
+import { getCoinTableData } from "@/actions/getCoinTableData";
 
-const DataTable = () => {
+const CoinTable = async () => {
   const tableHeaderConfig = [
     { name: "#", styles: "w-[3%] text-center" },
     { name: "Name", styles: "w-[20%]" },
@@ -25,7 +24,7 @@ const DataTable = () => {
     { name: "Last 7d", styles: "w-[15%]" },
   ];
 
-  const data = parseTableData(coins_market_data);
+  const data = await getCoinTableData();
 
   return (
     <Table className="w-full border-separate border-spacing-y-2">
@@ -71,4 +70,4 @@ const DataTable = () => {
   );
 };
 
-export default DataTable;
+export default CoinTable;
