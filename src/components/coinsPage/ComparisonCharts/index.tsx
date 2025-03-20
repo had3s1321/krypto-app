@@ -1,9 +1,7 @@
 import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
 import IntervalTabs from "./IntervalTabs";
-import { parseChartData } from "@/utils/parseChartData";
-import { btc_chart_24h_data } from "@/utils/mockData/btc_chart_24h_data";
-import { eth_chart_24h_data } from "@/utils/mockData/eth_chart_24h_data";
+import { getChartData } from "@/actions/getChartData";
 
 export type ParsedChartData = {
   time: string;
@@ -19,17 +17,10 @@ export type CoinInfosData = {
   volume: string;
 }[];
 
-const ComparisonCharts = () => {
+const ComparisonCharts = async () => {
   // TODO will receive max 2 coins either via props or from  redux
-  const areaChartData = parseChartData(
-    [btc_chart_24h_data, eth_chart_24h_data],
-    "prices",
-  );
-  const barChartData = parseChartData(
-    [btc_chart_24h_data, eth_chart_24h_data],
-    "total_volumes",
-  );
-  // TODO receive this infos through props or make an api call
+  const { prices, volumes } = await getChartData("bitcoin", "ethereum");
+  // TODO will receive max 2 coins either via props or from  redux
   const coinInfos: CoinInfosData = [
     {
       name: "Bitcoin",
@@ -50,8 +41,8 @@ const ComparisonCharts = () => {
   return (
     <>
       <div className="mb-5 flex justify-between font-grotesk">
-        <CustomAreaChart chartData={areaChartData} coinInfos={coinInfos} />
-        <CustomBarChart chartData={barChartData} coinInfos={coinInfos} />
+        <CustomAreaChart chartData={prices} coinInfos={coinInfos} />
+        <CustomBarChart chartData={volumes} coinInfos={coinInfos} />
       </div>
       <IntervalTabs />
     </>
