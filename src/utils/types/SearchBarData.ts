@@ -8,10 +8,10 @@ export interface Coin {
   large?: string;
 }
 
-export interface SearchBarData {
+export type SearchBarData = {
   coins: Coin[];
   exchanges: Record<string, string>[];
   icons: unknown[];
   categories: Record<string, string>[];
   nfts: Record<string, string>[];
-}
+} | null;

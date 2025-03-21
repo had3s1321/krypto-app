@@ -1,8 +1,8 @@
 import { Metadata } from "next";
-import Charts from "@/components/ui/Charts";
 import PageTabs from "@/components/ui/PageTabs";
-import CarouselSlider from "@/components/coinsPage/CarouselSlider";
-import DataTable from "@/components/coinsPage/DataTable";
+import DataTable from "@/components/coinsPage/CoinTable";
+import CoinSlider from "@/components/coinsPage/CoinSlider";
+import ComparisonCharts from "@/components/coinsPage/ComparisonCharts";
 
 export const metadata: Metadata = {
   title: "Krypto Land | Live Crypto Prices, Charts & Compare",
@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <div className="mx-auto w-full max-w-[1296] text-black">
       <PageTabs route="Coins" />
-      <CarouselSlider />
-      <Charts />
+      <CoinSlider />
+      <ComparisonCharts />
       <DataTable />
     </div>
   );
