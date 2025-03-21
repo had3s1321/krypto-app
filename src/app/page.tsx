@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full max-w-[1296] text-black">
+    <main className="mx-auto w-full max-w-[1296] text-black">
       <PageTabs route="Coins" />
       <CoinSlider />
       <ComparisonCharts />
       <DataTable />
-    </div>
+    </main>
   );
 }

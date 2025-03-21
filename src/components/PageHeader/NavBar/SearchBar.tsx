@@ -23,7 +23,7 @@ const SearchBar = () => {
     }
 
     getSearchBarData(value).then((response) => setData(response));
-  }, [debounceValue]);
+  }, [debounceValue]); // eslint-disable-line
 
   return (
     <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-2.5 [&>svg]:ml-3">
