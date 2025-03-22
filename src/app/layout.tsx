@@ -3,6 +3,7 @@ import { Inter, Space_Grotesk } from "next/font/google";
 import PageHeader from "@/components/PageHeader";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/themeProvider";
+import StoreProvider from "./StoreProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -39,15 +40,17 @@ export default function RootLayout({
       className={`${inter.variable} ${space_grotesk.variable}`}
     >
       <body className={`antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <PageHeader />
-          {children}
-        </ThemeProvider>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <PageHeader />
+            {children}
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   );

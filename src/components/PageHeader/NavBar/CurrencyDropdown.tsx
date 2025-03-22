@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { changeCurrency, Currencies } from "@/lib/features/user/userSlice";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,23 +16,27 @@ import {
   PoundSterlingIcon,
 } from "@/components/ui/icons";
 
-interface Currencies {
-  name: "USD" | "EUR" | "GBP";
+interface CurrenciesConfig {
+  name: Currencies;
   icon: React.ReactNode;
 }
 
-const currencies: Currencies[] = [
+const currencies: CurrenciesConfig[] = [
   { name: "USD", icon: <DollarIcon /> },
   { name: "EUR", icon: <EuroIcon /> },
   { name: "GBP", icon: <PoundSterlingIcon /> },
 ];
 
 const CurrencyDropdown = () => {
-  const [selectedCurrency, setSelectedCurrency] = useState(currencies[0]);
+  const currency = useAppSelector((state) => state.user.currency);
+  const dispatch = useAppDispatch();
 
+  const selectedCurrency =
+    currencies.find((el) => el.name === currency) || currencies[0];
   const handleSelectedCurrency = (value: string) => {
-    const selectedCurrency = currencies.find((el) => el.name === value);
-    if (selectedCurrency) setSelectedCurrency(selectedCurrency);
+    const currenciesList = currencies.map((curr) => curr.name);
+    if (currenciesList.includes(value as Currencies))
+      dispatch(changeCurrency(value as Currencies));
   };
 
   return (
@@ -45,7 +50,7 @@ const CurrencyDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="border-none bg-[var(--clr-nav-foreground)]">
         <DropdownMenuRadioGroup
-          value={selectedCurrency.name}
+          value={currency}
           onValueChange={handleSelectedCurrency}
           className="[&>[data-state=checked]]:hidden"
         >
