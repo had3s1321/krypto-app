@@ -1,10 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
 import coinsReducer from "./features/coins/coinsSlice";
-import userReducer from "./features/user/userSlice";
+import userReducer, {
+  initialState as userInitialState,
+} from "./features/user/userSlice";
 
-export const makeStore = () => {
+export const makeStore = (preloadedLocale: string) => {
   return configureStore({
     reducer: { coins: coinsReducer, user: userReducer },
+    preloadedState: {
+      user: {
+        ...userInitialState,
+        locale: preloadedLocale,
+      },
+    },
   });
 };
 

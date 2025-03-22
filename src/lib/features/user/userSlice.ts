@@ -4,9 +4,13 @@ export type Currencies = "USD" | "EUR" | "GBP";
 
 interface InitialUserSettings {
   currency: Currencies;
+  locale: string;
 }
 
-const initialState: InitialUserSettings = { currency: "USD" };
+export const initialState: InitialUserSettings = {
+  currency: "USD",
+  locale: "",
+};
 
 const userSlice = createSlice({
   name: "user",
@@ -15,9 +19,12 @@ const userSlice = createSlice({
     changeCurrency: (state, action: PayloadAction<Currencies>) => {
       state.currency = action.payload;
     },
+    changeLocale: (state, action: PayloadAction<string>) => {
+      state.locale = action.payload;
+    },
   },
 });
 
-export const { changeCurrency } = userSlice.actions;
+export const { changeCurrency, changeLocale } = userSlice.actions;
 
 export default userSlice.reducer;

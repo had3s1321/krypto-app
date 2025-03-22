@@ -28,7 +28,7 @@ const currencies: CurrenciesConfig[] = [
 ];
 
 const CurrencyDropdown = () => {
-  const currency = useAppSelector((state) => state.user.currency);
+  const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const selectedCurrency =
