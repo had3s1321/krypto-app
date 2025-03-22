@@ -6,14 +6,16 @@ const StatsBar = async () => {
 
   return (
     <div className="flex h-14 w-full justify-center gap-8 bg-[var(--secondary-foreground)] text-xs text-[#ffffff;]">
-      {data.map((el, i) => (
+      {data.map((item, i) => (
         <StatsBarElement
           key={i} // eslint-disable-line
-          icon={el.icon}
-          name={el.name}
-          value={el.value}
-          hasProgressBar={el.hasProgressBar}
-          progressBarColor={el.progressBarColor}
+          icon={item.icon}
+          name={item.name}
+          value={item.value}
+          hasProgressBar={item.hasProgressBar}
+          progressBarColor={item.progressBarColor}
+          progressValue={item.progressValue}
+          formatOptions={item.formatOptions}
         />
       ))}
     </div>
