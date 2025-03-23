@@ -1,34 +1,38 @@
+"use client";
+
+import { useFormat } from "@/hooks/useFormat";
 import { Progress } from "@/components/ui/shadcn/progress";
-import { parsePercentageValue } from "@/utils/formatUtils";
 
 export interface StatsBarElementProps {
   icon?: React.ReactNode;
   name?: string;
-  value: number | string;
-  changeValue?: number;
+  value: number;
   hasProgressBar?: boolean;
   progressBarColor?: string;
+  progressValue?: number;
+  formatOptions?: Record<string, string | number>;
 }
 const StatsBarElement = ({
   icon,
   name,
   value,
-  changeValue,
   hasProgressBar,
   progressBarColor,
+  progressValue,
+  formatOptions,
 }: StatsBarElementProps) => {
-  const progressValue = changeValue ? changeValue : parsePercentageValue(value);
+  const format = useFormat();
 
   return (
     <div className="flex items-center justify-center gap-2">
       <span>{icon}</span>
       <span>{name ? name : null}</span>
-      <span>{value}</span>
+      <span>{format(value, formatOptions)}</span>
       <span>
         {hasProgressBar ? (
           <Progress
             className="w-20"
-            value={progressValue}
+            value={progressValue ?? value * 100}
             indicatorClassName={progressBarColor}
           />
         ) : null}

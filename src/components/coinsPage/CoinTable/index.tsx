@@ -1,5 +1,6 @@
 import ProgressCell from "./ProgressCell";
 import NameCell from "./NameCell";
+import ChartCell from "./ChartCell";
 import {
   Table,
   TableBody,
@@ -62,7 +63,7 @@ const CoinTable = async () => {
               data1={el.progress2.circulatingSupply}
               data2={el.progress2.totalSupply}
             />
-            {/* <ChartCell data={el.chart} /> */}
+            <ChartCell data={el.chart} />
           </TableRow>
         ))}
       </TableBody>

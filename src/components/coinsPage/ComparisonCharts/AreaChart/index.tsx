@@ -25,7 +25,7 @@ const CustomAreaChart = ({
   return (
     <ChartContainer
       config={chartConfig}
-      className="min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)]"
+      className="aspect-video min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)]"
     >
       <AreaChart
         data={chartData}
