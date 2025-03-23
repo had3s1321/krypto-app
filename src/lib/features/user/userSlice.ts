@@ -1,3 +1,4 @@
+import { CarouselItemInterface } from "@/components/coinsPage/CoinSlider/CoinsCarousel";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export type Currencies = "USD" | "EUR" | "GBP";
@@ -5,11 +6,13 @@ export type Currencies = "USD" | "EUR" | "GBP";
 interface InitialUserSettings {
   currency: Currencies;
   locale: string;
+  selectedCoins: CarouselItemInterface[];
 }
 
 export const initialState: InitialUserSettings = {
   currency: "USD",
   locale: "",
+  selectedCoins: [],
 };
 
 const userSlice = createSlice({
@@ -22,9 +25,13 @@ const userSlice = createSlice({
     changeLocale: (state, action: PayloadAction<string>) => {
       state.locale = action.payload;
     },
+    changeSelectedCoins: (state, action) => {
+      state.selectedCoins = action.payload;
+    },
   },
 });
 
-export const { changeCurrency, changeLocale } = userSlice.actions;
+export const { changeCurrency, changeLocale, changeSelectedCoins } =
+  userSlice.actions;
 
 export default userSlice.reducer;
