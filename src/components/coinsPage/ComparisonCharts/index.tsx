@@ -1,6 +1,6 @@
 import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
-import IntervalTabs from "./IntervalTabs";
+import IntervalTabs from "../../ui/IntervalTabs";
 import { getChartData } from "@/actions/getChartData";
 
 export type ParsedChartData = {
