@@ -8,7 +8,7 @@ const CustomBarChart = ({
   chartData,
   coinInfos,
 }: {
-  chartData: ParsedChartData;
+  chartData: ParsedChartData | undefined;
   coinInfos: CoinInfosData;
 }) => {
   const chartConfig = {
@@ -59,7 +59,7 @@ const CustomBarChart = ({
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
             <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
           </linearGradient>
-          {chartData.length > 1 ? (
+          {chartData && chartData.length > 1 ? (
             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
@@ -92,7 +92,7 @@ const CustomBarChart = ({
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-        {chartData.length > 1 ? (
+        {chartData && chartData.length > 1 ? (
           <Bar
             type="monotone"
             dataKey="coin2"

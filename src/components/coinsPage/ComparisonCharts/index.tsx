@@ -1,7 +1,10 @@
+"use client";
+
+// import { useAppSelector } from "@/lib/hooks";
+import { useGetChartDataByCoinQuery } from "@/services/coingeckoApi";
 import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
 import IntervalTabs from "./IntervalTabs";
-import { getChartData } from "@/actions/getChartData";
 
 export type ParsedChartData = {
   time: string;
@@ -17,10 +20,7 @@ export type CoinInfosData = {
   volume: string;
 }[];
 
-const ComparisonCharts = async () => {
-  // TODO will receive max 2 coins either via props or from  redux
-  const { prices, volumes } = await getChartData("bitcoin", "ethereum");
-  // TODO will receive max 2 coins either via props or from  redux
+const ComparisonCharts = () => {
   const coinInfos: CoinInfosData = [
     {
       name: "Bitcoin",
@@ -37,12 +37,21 @@ const ComparisonCharts = async () => {
       volume: "10.39 bln",
     },
   ];
+  // const { selectedCoins } = useAppSelector((state) => state.user);
+  const { data, error, isLoading } = useGetChartDataByCoinQuery([
+    "bitcoin",
+    "ethereum",
+  ]);
+
+  if (isLoading) return <div>loading...</div>;
+
+  if (error) return <div>Something went wrong...</div>;
 
   return (
     <>
       <div className="mb-5 flex justify-between font-grotesk">
-        <CustomAreaChart chartData={prices} coinInfos={coinInfos} />
-        <CustomBarChart chartData={volumes} coinInfos={coinInfos} />
+        <CustomAreaChart chartData={data?.prices} coinInfos={coinInfos} />
+        <CustomBarChart chartData={data?.volumes} coinInfos={coinInfos} />
       </div>
       <IntervalTabs />
     </>
