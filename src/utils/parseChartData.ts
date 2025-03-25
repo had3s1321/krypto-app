@@ -6,8 +6,9 @@ export const parseChartData = (
   key: "prices" | "market_caps" | "total_volumes",
 ) => {
   const result: ParsedChartData = [];
+  if (!data[0]) return result;
   const reducedChartData = reduceChartData(data, key);
-  if (reducedChartData.length === 1 && reducedChartData[1])
+  if (reducedChartData.length === 1 && reducedChartData[0])
     reducedChartData[0].forEach((value, key) =>
       result.push({ time: key, coin1: value }),
     );

@@ -16,6 +16,7 @@ import {
 import SelectedCoins from "./SelectedCoins";
 
 export interface CarouselItemInterface {
+  id: string;
   name: string;
   symbol: string;
   image: string;
@@ -53,7 +54,7 @@ const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
                     />
                     <CardContent className="flex flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">
                       <span className="text-xl font-medium hover:cursor-pointer">
-                        {coin.name} ({coin.symbol.toUpperCase()})
+                        {coin.name} ({coin.symbol})
                       </span>
                       <span className="flex hover:cursor-pointer">
                         <span className="hover:cursor-pointer">

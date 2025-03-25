@@ -1,16 +1,20 @@
 "use client";
 
+import { useFormat } from "@/hooks/useFormat";
 import { Bar, BarChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
-import { CoinInfosData, ParsedChartData } from "..";
+import { getDate } from "@/utils/formatUtils";
+import { CarouselItemInterface } from "../../CoinSlider/CoinsCarousel";
+import { ParsedChartData } from "..";
 
 const CustomBarChart = ({
   chartData,
-  coinInfos,
+  coins,
 }: {
   chartData: ParsedChartData | undefined;
-  coinInfos: CoinInfosData;
+  coins: CarouselItemInterface[];
 }) => {
+  const format = useFormat();
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -43,16 +47,32 @@ const CustomBarChart = ({
           fontWeight={700}
           fill="var(--clr-text)"
         >
-          {coinInfos.map((el, i) => {
-            if (i === 1) return " - " + el.volume;
-            return el.volume;
-          })}
+          {coins &&
+            coins.map((coin, i) => {
+              if (i === 1)
+                return (
+                  " - " +
+                  format(coin.volume, {
+                    style: "currency",
+                    notation: "compact",
+                    compactDisplay: "long",
+                    maximumFractionDigits: 3,
+                  })
+                );
+              return format(coin.volume, {
+                style: "currency",
+                notation: "compact",
+                compactDisplay: "long",
+                maximumFractionDigits: 3,
+              });
+            })}
         </text>
         <text x={30} y={105} fontSize={16} fill="var(--clr-nav-text)">
-          {coinInfos.map((el, i) => {
-            if (i === 1) return null;
-            return el.date;
-          })}
+          {coins &&
+            coins.map((_, i) => {
+              if (i === 1) return null;
+              return getDate();
+            })}
         </text>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

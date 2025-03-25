@@ -6,6 +6,8 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 import { parseChartData } from "@/utils/parseChartData";
+import { CarouselItemInterface } from "@/components/coinsPage/CoinSlider/CoinsCarousel";
+import { ChartData } from "@/utils/types/ChartData";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -24,14 +26,25 @@ export const coingeckoApi = createApi({
   }),
   endpoints: (build) => ({
     getChartDataByCoin: build.query({
-      queryFn: async (coinIds, _queryApi, _extraOptions, fetchWithBQ) => {
+      queryFn: async (
+        coins: CarouselItemInterface[],
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ,
+      ) => {
         try {
           const responses = await Promise.all(
-            coinIds.map((id: string) =>
-              fetchWithBQ(`coins/${id}/market_chart?vs_currency=usd&days=1`),
+            coins.map(async (coin) =>
+              fetchWithBQ(
+                `coins/${coin.id}/market_chart?vs_currency=usd&days=1`,
+              ),
             ),
           );
-          const data = responses.map((res) => res.data);
+          const data = responses.map((res) => {
+            if (res.error) throw res.error;
+            return res.data as ChartData;
+          });
+
           return {
             data: {
               prices: parseChartData(data, "prices"),
