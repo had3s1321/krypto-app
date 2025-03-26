@@ -11,8 +11,8 @@ jobs:
     container:
       image: node:22
     env:
-      COINGECKO_BASE_URL: ${{ secrets.COINGECKO_BASE_URL }}
-      COIN_API_KEY: ${{ secrets.COINGECKO_API_KEY }}
+      NEXT_PUBLIC_COINGECKO_BASE_URL: ${{ secrets.NEXT_PUBLIC_COINGECKO_BASE_URL }}
+      NEXT_PUBLIC_COIN_API_KEY: ${{ secrets.NEXT_PUBLIC_COINGECKO_API_KEY }}
     steps:
       - uses: actions/checkout@v3
       - run: npm ci
