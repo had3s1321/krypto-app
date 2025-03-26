@@ -1,3 +1,5 @@
+"use client";
+
 import ProgressCell from "./ProgressCell";
 import NameCell from "./NameCell";
 import ChartCell from "./ChartCell";
@@ -10,9 +12,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { getCoinTableData } from "@/actions/getCoinTableData";
+import { useGetCoinTableDataInfiniteQuery } from "@/services/coingeckoApi";
 
-const CoinTable = async () => {
+const CoinTable = () => {
   const tableHeaderConfig = [
     { name: "#", styles: "w-[3%] text-center" },
     { name: "Name", styles: "w-[20%]" },
@@ -25,45 +27,55 @@ const CoinTable = async () => {
     { name: "Last 7d", styles: "w-[15%]" },
   ];
 
-  const data = await getCoinTableData();
+  // eslint-disable-next-line
+  const { data, isFetching, fetchNextPage } =
+    useGetCoinTableDataInfiniteQuery("");
+  // eslint-disable-next-line
+  const handleNextPage = async () => await fetchNextPage();
+
+  const allResults = data?.pages.flat() ?? [];
 
   return (
     <Table className="w-full border-separate border-spacing-y-2">
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow className="text-[var(--clr-nav-text)]">
-          {tableHeaderConfig.map((el) => (
-            <TableHead key={el.name} className={el.styles}>
-              {el.name}
+          {tableHeaderConfig.map((header) => (
+            <TableHead key={header.name} className={header.styles}>
+              {header.name}
             </TableHead>
           ))}
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((el) => (
+        {allResults.map((coin) => (
           <TableRow
-            key={el.symbol}
+            key={coin.symbol}
             className="bg mb-8 h-16 bg-[var(--foreground)]"
           >
             <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">
-              {el.rank}
+              {coin.rank}
             </TableCell>
-            <NameCell image={el.image} name={el.name} symbol={el.symbol} />
+            <NameCell
+              image={coin.image}
+              name={coin.name}
+              symbol={coin.symbol}
+            />
             <TableCell className="font-semibold text-[var(--clr-text)]">
-              {el.price}
+              {coin.price}
             </TableCell>
-            <TableCell>{el.change1h.toFixed(2)}</TableCell>
-            <TableCell>{el.change24h.toFixed(2)}</TableCell>
-            <TableCell>{el.change7d.toFixed(2)}</TableCell>
+            <TableCell>{coin.change1h.toFixed(2)}</TableCell>
+            <TableCell>{coin.change24h.toFixed(2)}</TableCell>
+            <TableCell>{coin.change7d.toFixed(2)}</TableCell>
             <ProgressCell
-              data1={el.progress1.volume24h}
-              data2={el.progress1.marketCap}
+              data1={coin.progress1.volume24h}
+              data2={coin.progress1.marketCap}
             />
             <ProgressCell
-              data1={el.progress2.circulatingSupply}
-              data2={el.progress2.totalSupply}
+              data1={coin.progress2.circulatingSupply}
+              data2={coin.progress2.totalSupply}
             />
-            <ChartCell data={el.chart} />
+            <ChartCell data={coin.chart} />
           </TableRow>
         ))}
       </TableBody>
