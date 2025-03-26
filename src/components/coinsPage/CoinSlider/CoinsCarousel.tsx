@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useCarousel } from "@/hooks/useCarousel";
+import { useFormat } from "@/hooks/useFormat";
 import Image from "next/image";
 import CarouselTitle from "./CarouselTitle";
 import { DownIcon, UpIcon } from "@/components/ui/icons";
@@ -15,27 +16,19 @@ import {
 import SelectedCoins from "./SelectedCoins";
 
 export interface CarouselItemInterface {
+  id: string;
   name: string;
   symbol: string;
   image: string;
   price: number;
   priceChange: number;
+  marketCap: number;
+  volume: number;
 }
 
 const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
-  const [selectedItems, setSelectedItems] = useState<CarouselItemInterface[]>(
-    [],
-  );
-
-  const handleClick = (item: CarouselItemInterface) => {
-    if (selectedItems.some((el) => item.name === el.name)) {
-      const newItems = selectedItems.filter((el) => item.name !== el.name);
-      setSelectedItems(newItems);
-      return;
-    }
-    if (selectedItems.length > 1) setSelectedItems([selectedItems[1], item]);
-    else setSelectedItems([...selectedItems, item]);
-  };
+  const [currency, selectedCoins, handleSelectedCoins] = useCarousel(data);
+  const format = useFormat();
 
   return (
     <>
@@ -43,35 +36,38 @@ const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
       <Carousel className="mb-8 w-full">
         <CarouselContent className="-ml-4">
           {data &&
-            data.map((el) => (
+            data.map((coin) => (
               <CarouselItem
-                key={el.name}
-                onClick={() => handleClick(el)}
+                key={coin.name}
+                onClick={() => handleSelectedCoins(coin)}
                 className="basis-1/5 [&:not(:first-child)]:pl-2"
               >
                 <div
-                  className={`rounded-md ${selectedItems.some((item) => item.name === el.name) && "bg-[var(--primary-foreground)] text-[var(--clr-light-perm)]"} bg-[var(--foreground)] hover:cursor-pointer`}
+                  className={`rounded-md ${selectedCoins.some((item) => item.name === coin.name) && "bg-[var(--primary-foreground)] text-[var(--clr-light-perm)]"} bg-[var(--foreground)] hover:cursor-pointer`}
                 >
                   <Card className="flex items-center border-none px-4 shadow-none">
                     <Image
-                      src={el.image}
-                      alt={el.name}
+                      src={coin.image}
+                      alt={coin.name}
                       width={32}
                       height={32}
                     />
                     <CardContent className="flex flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">
                       <span className="text-xl font-medium hover:cursor-pointer">
-                        {el.name} ({el.symbol})
+                        {coin.name} ({coin.symbol})
                       </span>
                       <span className="flex hover:cursor-pointer">
                         <span className="hover:cursor-pointer">
-                          {el.price} USD{" "}
+                          {format(coin.price, {
+                            style: "decimal",
+                          })}{" "}
+                          {currency}
                         </span>
                         <span
-                          className={`ml-2 flex items-center hover:cursor-pointer ${el.priceChange > 0 ? "text-green-500" : "text-red-500"}`}
+                          className={`ml-2 flex items-center hover:cursor-pointer ${coin.priceChange > 0 ? "text-green-500" : "text-red-500"}`}
                         >
-                          {el.priceChange > 0 ? <UpIcon /> : <DownIcon />}
-                          {Math.abs(el.priceChange).toFixed(2)}%
+                          {coin.priceChange > 0 ? <UpIcon /> : <DownIcon />}
+                          {Math.abs(coin.priceChange).toFixed(2)}%
                         </span>
                       </span>
                     </CardContent>
@@ -83,7 +79,7 @@ const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
         <CarouselPrevious className="top-10 ml-6 bg-[var(--primary-foreground)] hover:cursor-pointer" />
         <CarouselNext className="top-10 mr-6 bg-[var(--primary-foreground)] hover:cursor-pointer" />
       </Carousel>
-      <SelectedCoins list={selectedItems} handleClick={handleClick} />
+      <SelectedCoins list={selectedCoins} handleClick={handleSelectedCoins} />
     </>
   );
 };
