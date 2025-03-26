@@ -13,6 +13,7 @@ import {
   TableRow,
 } from "@/components/ui/shadcn/table";
 import { useGetCoinTableDataInfiniteQuery } from "@/services/coingeckoApi";
+import { useEffect } from "react";
 
 const CoinTable = () => {
   const tableHeaderConfig = [
@@ -27,16 +28,29 @@ const CoinTable = () => {
     { name: "Last 7d", styles: "w-[15%]" },
   ];
 
-  // eslint-disable-next-line
   const { data, isFetching, fetchNextPage } =
     useGetCoinTableDataInfiniteQuery("");
-  // eslint-disable-next-line
-  const handleNextPage = async () => await fetchNextPage();
 
   const allResults = data?.pages.flat() ?? [];
+  const handleNextPage = async () => await fetchNextPage();
+  const handleScroll = () => {
+    const bottom =
+      Math.ceil(window.innerHeight + window.scrollY) >=
+      document.documentElement.scrollHeight - 1500;
+    if (bottom) {
+      handleNextPage();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <Table className="w-full border-separate border-spacing-y-2">
+    <Table className="w-full border-separate border-spacing-y-2 overflow-x-hidden">
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
         <TableRow className="text-[var(--clr-nav-text)]">
@@ -50,7 +64,7 @@ const CoinTable = () => {
       <TableBody>
         {allResults.map((coin) => (
           <TableRow
-            key={coin.symbol}
+            key={coin.name}
             className="bg mb-8 h-16 bg-[var(--foreground)]"
           >
             <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">
@@ -64,9 +78,9 @@ const CoinTable = () => {
             <TableCell className="font-semibold text-[var(--clr-text)]">
               {coin.price}
             </TableCell>
-            <TableCell>{coin.change1h.toFixed(2)}</TableCell>
-            <TableCell>{coin.change24h.toFixed(2)}</TableCell>
-            <TableCell>{coin.change7d.toFixed(2)}</TableCell>
+            <TableCell>{coin.change1h && coin.change1h.toFixed(2)}</TableCell>
+            <TableCell>{coin.change24h && coin.change24h.toFixed(2)}</TableCell>
+            <TableCell>{coin.change7d && coin.change7d.toFixed(2)}</TableCell>
             <ProgressCell
               data1={coin.progress1.volume24h}
               data2={coin.progress1.marketCap}
@@ -78,6 +92,11 @@ const CoinTable = () => {
             <ChartCell data={coin.chart} />
           </TableRow>
         ))}
+        {isFetching && (
+          <TableRow>
+            <TableCell className="w-full">Fetching some data</TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </Table>
   );
