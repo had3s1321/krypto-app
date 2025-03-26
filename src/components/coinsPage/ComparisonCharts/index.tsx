@@ -4,7 +4,7 @@ import { useAppSelector } from "@/lib/hooks";
 import { useGetChartDataByCoinQuery } from "@/services/coingeckoApi";
 import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
-import IntervalTabs from "./IntervalTabs";
+import IntervalTabs from "../../ui/IntervalTabs";
 
 export type ParsedChartData = {
   time: string;
