@@ -1,16 +1,20 @@
 "use client";
 
+import { useFormat } from "@/hooks/useFormat";
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
-import { CoinInfosData, ParsedChartData } from "..";
+import { getDate } from "@/utils/formatUtils";
+import { CarouselItemInterface } from "../../CoinSlider/CoinsCarousel";
+import { ParsedChartData } from "..";
 
 const CustomAreaChart = ({
   chartData,
-  coinInfos,
+  coins,
 }: {
-  chartData: ParsedChartData;
-  coinInfos: CoinInfosData;
+  chartData: ParsedChartData | undefined;
+  coins: CarouselItemInterface[];
 }) => {
+  const format = useFormat();
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -34,10 +38,11 @@ const CustomAreaChart = ({
         margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
       >
         <text x={30} y={40} fontSize={20} fill="var(--clr-text)">
-          {coinInfos.map((el, i) => {
-            if (i === 1) return ` - ${el.name} (${el.symbol})`;
-            return `${el.name} (${el.symbol})`;
-          })}
+          {coins &&
+            coins.map((coin, i) => {
+              if (i === 1) return ` - ${coin.name} (${coin.symbol})`;
+              return `${coin.name} (${coin.symbol})`;
+            })}
         </text>
         <text
           x={30}
@@ -46,23 +51,39 @@ const CustomAreaChart = ({
           fontWeight={700}
           fill="var(--clr-text)"
         >
-          {coinInfos.map((el, i) => {
-            if (i === 1) return " - " + el.marketCap;
-            return el.marketCap;
-          })}
+          {coins &&
+            coins.map((coin, i) => {
+              if (i === 1)
+                return (
+                  " - " +
+                  format(coin.marketCap, {
+                    style: "currency",
+                    notation: "compact",
+                    compactDisplay: "long",
+                    maximumFractionDigits: 3,
+                  })
+                );
+              return format(coin.marketCap, {
+                style: "currency",
+                notation: "compact",
+                compactDisplay: "long",
+                maximumFractionDigits: 3,
+              });
+            })}
         </text>
         <text x={30} y={105} fontSize={16} fill="var(--clr-nav-text)">
-          {coinInfos.map((el, i) => {
-            if (i === 1) return null;
-            return el.date;
-          })}
+          {coins &&
+            coins.map((_, i) => {
+              if (i === 1) return null;
+              return getDate();
+            })}
         </text>
         <defs>
           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
             <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
           </linearGradient>
-          {chartData.length > 1 ? (
+          {chartData && chartData.length > 1 ? (
             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
               <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
@@ -94,7 +115,7 @@ const CustomAreaChart = ({
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-        {chartData.length > 1 ? (
+        {chartData && chartData.length > 1 ? (
           <Area
             type="monotone"
             dataKey="coin2"

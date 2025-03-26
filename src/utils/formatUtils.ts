@@ -5,11 +5,23 @@ export const handlePageTabLink = (string: PageOptions) => {
   return "/convertor";
 };
 
-export const getTime = (dateStamp: number) => {
-  const date = new Date(dateStamp);
-  const hours = date.getUTCHours().toLocaleString();
-  const minutes = date.getUTCMinutes().toLocaleString();
-  return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}`;
+export const getTime = (locale?: string, dateStamp?: number) => {
+  const currentDate = dateStamp ? new Date(dateStamp) : new Date();
+  const formattedTime = new Intl.DateTimeFormat(locale || "en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(currentDate);
+  return formattedTime;
+};
+
+export const getDate = (locale?: string, dateStamp?: number) => {
+  const currentDate = dateStamp ? new Date(dateStamp) : new Date();
+  const formattedDate = new Intl.DateTimeFormat(locale || "en-US", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(currentDate);
+  return formattedDate;
 };
 
 export const getSevenDaysPercentage = (firstVal: number, lastVal: number) => {
