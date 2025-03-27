@@ -38,6 +38,7 @@ interface CoinMarketData {
 }
 
 export interface ParsedTableData {
+  id: string;
   rank: number;
   image: string;
   name: string;

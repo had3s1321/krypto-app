@@ -12,42 +12,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
-import { useGetCoinTableDataInfiniteQuery } from "@/services/coingeckoApi";
-import { useEffect } from "react";
+import { tableHeaderConfig } from "./tableHeaderConfig";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 const CoinTable = () => {
-  const tableHeaderConfig = [
-    { name: "#", styles: "w-[3%] text-center" },
-    { name: "Name", styles: "w-[20%]" },
-    { name: "Price", styles: "w-[8%]" },
-    { name: "1h%", styles: "w-[8%]" },
-    { name: "24h%", styles: "w-[8%]" },
-    { name: "7d%", styles: "w-[8%]" },
-    { name: "24h volume / Market Cap", styles: "w-[15%]" },
-    { name: "Circulating / Total supply", styles: "w-[15%]" },
-    { name: "Last 7d", styles: "w-[15%]" },
-  ];
-
-  const { data, isFetching, fetchNextPage } =
-    useGetCoinTableDataInfiniteQuery("");
+  const { data, isFetching, lastCellRef } = useInfiniteScroll();
 
   const allResults = data?.pages.flat() ?? [];
-  const handleNextPage = async () => await fetchNextPage();
-  const handleScroll = () => {
-    const bottom =
-      Math.ceil(window.innerHeight + window.scrollY) >=
-      document.documentElement.scrollHeight - 1500;
-    if (bottom) {
-      handleNextPage();
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
 
   return (
     <Table className="w-full border-separate border-spacing-y-2 overflow-x-hidden">
@@ -62,9 +33,10 @@ const CoinTable = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {allResults.map((coin) => (
+        {allResults.map((coin, index) => (
           <TableRow
-            key={coin.name}
+            key={coin.id}
+            ref={allResults.length === index + 1 ? lastCellRef : null}
             className="bg mb-8 h-16 bg-[var(--foreground)]"
           >
             <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">

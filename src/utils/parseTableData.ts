@@ -2,28 +2,29 @@ import { getSevenDaysPercentage } from "./formatUtils";
 import { CoinsListMarketData } from "./types/CoinsListMarketData";
 
 export const parseTableData = (data: CoinsListMarketData) => {
-  return data.map((el) => {
+  return data.map((coin) => {
     return {
-      rank: el.market_cap_rank,
-      image: el.image,
-      name: el.name,
-      symbol: el.symbol,
-      price: el.current_price,
-      change1h: el.price_change_percentage_1h_in_currency,
-      change24h: el.price_change_percentage_24h,
+      id: coin.id,
+      rank: coin.market_cap_rank,
+      image: coin.image,
+      name: coin.name,
+      symbol: coin.symbol,
+      price: coin.current_price,
+      change1h: coin.price_change_percentage_1h_in_currency,
+      change24h: coin.price_change_percentage_24h,
       change7d: getSevenDaysPercentage(
-        el.sparkline_in_7d.price[0],
-        el.sparkline_in_7d.price[el.sparkline_in_7d.price.length - 1],
+        coin.sparkline_in_7d.price[0],
+        coin.sparkline_in_7d.price[coin.sparkline_in_7d.price.length - 1],
       ),
       progress1: {
-        volume24h: el.total_volume,
-        marketCap: el.market_cap,
+        volume24h: coin.total_volume,
+        marketCap: coin.market_cap,
       },
       progress2: {
-        circulatingSupply: el.circulating_supply,
-        totalSupply: el.total_supply,
+        circulatingSupply: coin.circulating_supply,
+        totalSupply: coin.total_supply,
       },
-      chart: el.sparkline_in_7d.price,
+      chart: coin.sparkline_in_7d.price,
     };
   });
 };
