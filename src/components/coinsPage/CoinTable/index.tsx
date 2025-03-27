@@ -1,8 +1,11 @@
 "use client";
 
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
+import { useFormat } from "@/hooks/useFormat";
+import PercentageCell from "./PercentageCell";
 import ProgressCell from "./ProgressCell";
-import NameCell from "./NameCell";
 import ChartCell from "./ChartCell";
+import NameCell from "./NameCell";
 import {
   Table,
   TableBody,
@@ -13,11 +16,10 @@ import {
   TableRow,
 } from "@/components/ui/shadcn/table";
 import { tableHeaderConfig } from "./tableHeaderConfig";
-import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 const CoinTable = () => {
   const { data, isFetching, lastCellRef } = useInfiniteScroll();
-
+  const format = useFormat();
   const allResults = data?.pages.flat() ?? [];
 
   return (
@@ -48,11 +50,11 @@ const CoinTable = () => {
               symbol={coin.symbol}
             />
             <TableCell className="font-semibold text-[var(--clr-text)]">
-              {coin.price}
+              {format(coin.price, { style: "currency" })}
             </TableCell>
-            <TableCell>{coin.change1h && coin.change1h.toFixed(2)}</TableCell>
-            <TableCell>{coin.change24h && coin.change24h.toFixed(2)}</TableCell>
-            <TableCell>{coin.change7d && coin.change7d.toFixed(2)}</TableCell>
+            <PercentageCell data={coin.change1h} />
+            <PercentageCell data={coin.change24h} />
+            <PercentageCell data={coin.change7d} />
             <ProgressCell
               data1={coin.progress1.volume24h}
               data2={coin.progress1.marketCap}
