@@ -25,5 +25,7 @@ export const getDate = (locale?: string, dateStamp?: number) => {
 };
 
 export const getSevenDaysPercentage = (firstVal: number, lastVal: number) => {
-  return ((lastVal - firstVal) / firstVal) * 100;
+  const result = ((lastVal - firstVal) / firstVal) * 100;
+  if (isNaN(result)) return 0;
+  return result;
 };

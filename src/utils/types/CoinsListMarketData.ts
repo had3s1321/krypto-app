@@ -37,4 +37,25 @@ interface CoinMarketData {
   price_change_percentage_1h_in_currency: number;
 }
 
+export interface ParsedTableData {
+  id: string;
+  rank: number;
+  image: string;
+  name: string;
+  symbol: string;
+  price: number;
+  change1h: number;
+  change24h: number;
+  change7d: number;
+  progress1: {
+    volume24h: number;
+    marketCap: number;
+  };
+  progress2: {
+    circulatingSupply: number;
+    totalSupply: number;
+  };
+  chart: number[];
+}
+
 export type CoinsListMarketData = CoinMarketData[];

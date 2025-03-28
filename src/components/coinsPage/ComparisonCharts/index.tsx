@@ -6,12 +6,6 @@ import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
 import IntervalTabs from "../../ui/IntervalTabs";
 
-export type ParsedChartData = {
-  time: string;
-  coin1: number;
-  coin2?: number;
-}[];
-
 const ComparisonCharts = () => {
   const { selectedCoins } = useAppSelector((state) => state.user);
   const { data, error, isLoading } = useGetChartDataByCoinQuery(selectedCoins);

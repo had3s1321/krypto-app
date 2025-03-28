@@ -5,7 +5,7 @@ import { Bar, BarChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { getDate } from "@/utils/formatUtils";
 import { CarouselItemInterface } from "../../CoinSlider/CoinsCarousel";
-import { ParsedChartData } from "..";
+import { ParsedChartData } from "@/utils/types/ChartData";
 
 const CustomBarChart = ({
   chartData,
