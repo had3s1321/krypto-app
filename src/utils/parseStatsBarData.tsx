@@ -2,17 +2,17 @@ import { StatsBarElementProps } from "@/components/PageHeader/StatsBar/StatusBar
 import {
   BitcoinIcon,
   CoinsIcon,
-  DownIcon,
   EthereumIcon,
   ExchangeIcon,
-  UpIcon,
 } from "@/components/ui/icons";
 import { StatsBarData } from "./types/StatsBarData";
+import { getValueIndicator } from "./getValueIndicator";
 
 export const parseStatsBarData = (
   response: StatsBarData,
 ): StatsBarElementProps[] => {
   const { data } = response;
+  const { icon } = getValueIndicator(data.market_cap_change_percentage_24h_usd);
 
   return [
     {
@@ -33,12 +33,7 @@ export const parseStatsBarData = (
     },
     {
       value: data.total_market_cap.usd,
-      icon:
-        data.market_cap_change_percentage_24h_usd > 0 ? (
-          <UpIcon />
-        ) : (
-          <DownIcon />
-        ),
+      icon: icon,
       formatOptions: {
         style: "decimal",
         notation: "compact",

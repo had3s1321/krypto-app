@@ -2,7 +2,15 @@ import { useFormat } from "@/hooks/useFormat";
 import { Progress } from "@/components/ui/shadcn/progress";
 import { TableCell } from "@/components/ui/shadcn/table";
 
-const ProgressCell = ({ data1, data2 }: { data1: number; data2: number }) => {
+const ProgressCell = ({
+  data1,
+  data2,
+  value,
+}: {
+  data1: number;
+  data2: number;
+  value: number;
+}) => {
   const format = useFormat();
 
   return (
@@ -11,7 +19,7 @@ const ProgressCell = ({ data1, data2 }: { data1: number; data2: number }) => {
         <span>{format(data1, { style: "currency", notation: "compact" })}</span>
         <span>{format(data2, { style: "currency", notation: "compact" })}</span>
       </div>
-      <Progress />
+      <Progress value={value} />
     </TableCell>
   );
 };

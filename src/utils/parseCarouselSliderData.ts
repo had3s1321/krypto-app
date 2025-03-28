@@ -8,7 +8,7 @@ export const parseCarouselSliderData = (data: CoinsListMarketData) => {
       symbol: coin.symbol.toUpperCase(),
       image: coin.image,
       price: coin.current_price,
-      priceChange: coin.price_change_percentage_24h,
+      priceChange: coin.price_change_percentage_24h / 100,
       marketCap: coin.market_cap,
       volume: coin.total_volume,
     };

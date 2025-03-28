@@ -23,7 +23,7 @@ export function useInfiniteScroll() {
       });
       if (node) observer.current.observe(node);
     },
-    [isFetching],
+    [isFetching, handleNextPage],
   );
 
   return { data, isFetching, lastCellRef };
