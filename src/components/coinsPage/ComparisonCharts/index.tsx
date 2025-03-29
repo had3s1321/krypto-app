@@ -2,6 +2,7 @@
 
 import { useAppSelector } from "@/lib/hooks";
 import { useGetChartDataByCoinQuery } from "@/services/coingeckoApi";
+import ChartsSuspenseSkeleton from "./ChartsSuspenseSkeleton";
 import CustomAreaChart from "./AreaChart";
 import CustomBarChart from "./BarChart";
 import IntervalTabs from "../../ui/IntervalTabs";
@@ -10,17 +11,9 @@ const ComparisonCharts = () => {
   const { selectedCoins } = useAppSelector((state) => state.user);
   const { data, error, isLoading } = useGetChartDataByCoinQuery(selectedCoins);
 
-  if (isLoading)
-    return (
-      <div className="mb-5 flex justify-between font-grotesk">loading...</div>
-    );
+  if (isLoading) return <ChartsSuspenseSkeleton type="loading" />;
 
-  if (error)
-    return (
-      <div className="mb-5 flex justify-between font-grotesk">
-        Something went wrong...
-      </div>
-    );
+  if (error) return <ChartsSuspenseSkeleton type="error" />;
 
   return (
     <>

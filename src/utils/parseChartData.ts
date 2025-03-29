@@ -2,21 +2,26 @@ import { ChartData, ParsedChartData } from "./types/ChartData";
 
 export const parseChartData = (
   data: ChartData[],
+  coinNames: string[],
   key: "prices" | "market_caps" | "total_volumes",
 ) => {
   const result: ParsedChartData = [];
   if (!data[0]) return result;
+
   const reducedChartData = reduceChartData(data, key);
+  const coinName1 = coinNames[0];
+  const coinName2 = coinNames[1] ? coinNames[1] : "name error";
+
   if (reducedChartData.length === 1 && reducedChartData[0])
     reducedChartData[0].forEach((value, key) =>
-      result.push({ time: key, coin1: value }),
+      result.push({ time: key, [coinName1]: value }),
     );
   else
     reducedChartData[0].forEach((value, key) =>
       result.push({
         time: key,
-        coin1: value,
-        coin2: reducedChartData[1].get(key),
+        [coinName1]: value,
+        [coinName2]: reducedChartData[1].get(key),
       }),
     );
   return result;

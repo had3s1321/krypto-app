@@ -4,7 +4,7 @@ import {
   CoinsIcon,
   EthereumIcon,
   ExchangeIcon,
-} from "@/components/ui/icons";
+} from "@/components/PageHeader/StatsBar/icons";
 import { StatsBarData } from "./types/StatsBarData";
 import { getValueIndicator } from "./getValueIndicator";
 

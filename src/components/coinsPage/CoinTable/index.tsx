@@ -14,8 +14,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/shadcn/table";
+import { FadeStaggerSquares } from "@/components/ui/icons";
 import { tableHeaderConfig } from "./tableHeaderConfig";
-import Loading from "./Loading";
 
 const CoinTable = () => {
   const { data, isFetching, lastCellRef } = useInfiniteScroll();
@@ -72,7 +72,7 @@ const CoinTable = () => {
       </Table>
       {isFetching && (
         <div className="mx-auto h-8 w-8">
-          <Loading />
+          <FadeStaggerSquares />
         </div>
       )}
     </>

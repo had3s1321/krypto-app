@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Input } from "@/components/ui/shadcn/input";
-import { SearchIcon } from "@/components/ui/icons";
+import { SearchIcon } from "@/components/PageHeader/NavBar/icons";
 import { getSearchBarData } from "@/actions/getSearchBarData";
 import { SearchBarData } from "@/utils/types/SearchBarData";
 
