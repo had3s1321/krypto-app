@@ -52,11 +52,12 @@ export const coingeckoApi = createApi({
             if (res.error) throw res.error;
             return res.data as ChartData;
           });
+          const coinNames = coins.map((coin) => coin.name);
 
           return {
             data: {
-              prices: parseChartData(data, "prices"),
-              volumes: parseChartData(data, "total_volumes"),
+              prices: parseChartData(data, coinNames, "prices"),
+              volumes: parseChartData(data, coinNames, "total_volumes"),
             },
           };
         } catch (error) {

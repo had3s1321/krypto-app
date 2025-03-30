@@ -5,7 +5,5 @@ export interface ChartData {
 }
 
 export type ParsedChartData = {
-  time: string;
-  coin1: number;
-  coin2?: number;
+  [key: string]: string | number | undefined;
 }[];

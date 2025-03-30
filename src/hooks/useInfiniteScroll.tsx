@@ -7,10 +7,10 @@ export function useInfiniteScroll() {
 
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const handleNextPage = async () => {
+  const handleNextPage = useCallback(async () => {
     await fetchNextPage();
     requestAnimationFrame(() => window.scrollY);
-  };
+  }, [fetchNextPage]);
 
   const lastCellRef = useCallback(
     (node: HTMLTableRowElement | null) => {
@@ -23,7 +23,7 @@ export function useInfiniteScroll() {
       });
       if (node) observer.current.observe(node);
     },
-    [isFetching],
+    [isFetching, handleNextPage],
   );
 
   return { data, isFetching, lastCellRef };

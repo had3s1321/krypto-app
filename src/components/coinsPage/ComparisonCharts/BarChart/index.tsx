@@ -35,7 +35,7 @@ const CustomBarChart = ({
         data={chartData}
         width={730}
         height={250}
-        margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
+        margin={{ top: 120, right: 30, left: 30, bottom: 0 }}
       >
         <text x={30} y={40} fontSize={20} fill="var(--clr-text)">
           Volume 24h
@@ -99,23 +99,26 @@ const CustomBarChart = ({
               {payload.value}
             </text>
           )}
-          minTickGap={100}
           axisLine={false}
           tickLine={false}
         />
-        <YAxis domain={["dataMin - 500", "dataMax + 500"]} hide />
+        <YAxis domain={["dataMin", "dataMax"]} hide />
         <Tooltip cursor={false} />
         <Bar
           type="monotone"
-          dataKey="coin1"
+          dataKey={coins[0].name}
           stroke="#8884d8"
+          barSize={15}
+          stackId="a"
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-        {chartData && chartData.length > 1 ? (
+        {chartData && chartData[1] && coins[1] ? (
           <Bar
             type="monotone"
-            dataKey="coin2"
+            dataKey={coins[1].name}
+            barSize={15}
+            stackId="a"
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"

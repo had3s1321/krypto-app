@@ -12,6 +12,7 @@ export function useCarousel(data: CarouselItemInterface[]): [
   const dispatch = useAppDispatch();
 
   const handleSelectedCoins = (item: CarouselItemInterface) => {
+    if (selectedCoins.length === 1 && item.id === selectedCoins[0].id) return;
     if (selectedCoins.some((el) => item.name === el.name)) {
       const newItems = selectedCoins.filter((el) => item.name !== el.name);
       dispatch(changeSelectedCoins(newItems));

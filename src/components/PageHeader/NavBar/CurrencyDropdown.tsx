@@ -14,7 +14,7 @@ import {
   DropdownDownIcon,
   EuroIcon,
   PoundSterlingIcon,
-} from "@/components/ui/icons";
+} from "@/components/PageHeader/NavBar/icons";
 
 interface CurrenciesConfig {
   name: Currencies;

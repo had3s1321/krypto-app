@@ -37,7 +37,7 @@ const ChartCell = ({ data }: { data: any }) => {
             </clipPath>
           </defs>
           <XAxis dataKey="time" hide />
-          <YAxis domain={["dataMin - 100", "dataMax + 100"]} hide />
+          <YAxis domain={["dataMin", "dataMax"]} hide />
           <Tooltip />
           <Area
             type="monotone"
