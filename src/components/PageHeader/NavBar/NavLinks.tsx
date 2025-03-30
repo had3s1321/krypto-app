@@ -1,4 +1,4 @@
-import { HomeIcon, PortfolioIcon } from "@/components/ui/icons";
+import { HomeIcon, PortfolioIcon } from "@/components/PageHeader/NavBar/icons";
 import Link from "next/link";
 
 // TODO: dynamically change font weight to 500 and opacity-50 for !current page

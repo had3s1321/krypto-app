@@ -35,7 +35,7 @@ const CustomAreaChart = ({
         data={chartData}
         width={730}
         height={250}
-        margin={{ top: 30, right: 30, left: 30, bottom: 0 }}
+        margin={{ top: 120, right: 30, left: 30, bottom: 0 }}
       >
         <text x={30} y={40} fontSize={20} fill="var(--clr-text)">
           {coins &&
@@ -106,19 +106,19 @@ const CustomAreaChart = ({
           axisLine={false}
           tickLine={false}
         />
-        <YAxis domain={["dataMin - 5000", "dataMax + 5000"]} hide />
+        <YAxis domain={["dataMin", "dataMax"]} hide />
         <Tooltip />
         <Area
           type="monotone"
-          dataKey="coin1"
+          dataKey={coins[0].name}
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-        {chartData && chartData.length > 1 ? (
+        {chartData && chartData[1] && coins[1] ? (
           <Area
             type="monotone"
-            dataKey="coin2"
+            dataKey={coins[1].name}
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"
