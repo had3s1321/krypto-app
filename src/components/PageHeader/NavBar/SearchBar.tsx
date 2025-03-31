@@ -8,22 +8,17 @@ import { getSearchBarData } from "@/actions/getSearchBarData";
 import { SearchBarData } from "@/utils/types/SearchBarData";
 
 const SearchBar = () => {
-  const [value, setValue] = useState("");
   const [data, setData] = useState<SearchBarData>(null);
-  const debounceValue = useDebounce(value, 250);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-  };
+  const { value, debouncedValue, handleChange } = useDebounce(250);
 
   useEffect(() => {
-    if (!debounceValue) {
+    if (!debouncedValue) {
       setData(null);
       return;
     }
 
-    getSearchBarData(debounceValue).then((response) => setData(response));
-  }, [debounceValue]);
+    getSearchBarData(debouncedValue).then((response) => setData(response));
+  }, [debouncedValue]);
 
   return (
     <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-2.5 [&>svg]:ml-3">

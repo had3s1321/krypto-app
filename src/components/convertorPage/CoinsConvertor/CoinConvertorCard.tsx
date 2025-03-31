@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
+import { useDebounce } from "@/hooks/useDebounce";
 import { useFormat } from "@/hooks/useFormat";
 import Image from "next/image";
 import { useState } from "react";
@@ -22,13 +23,11 @@ const CoinConvertorCard = ({
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(1);
-  const [value, setValue] = useState<string>("");
+  const { value, debouncedValue, handleChange } = useDebounce(250); // eslint-disable-line
   const format = useFormat();
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
-  const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setValue(e.target.value);
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setQuantity(Number(e.target.value));
 
@@ -46,7 +45,7 @@ const CoinConvertorCard = ({
             value={value}
             onFocus={handleFocus}
             onBlur={handleBlur}
-            onChange={handleTextChange}
+            onChange={handleChange}
             placeholder={`${coin ? "" : "Please select a coin"}`}
             className="w-1/2 !text-xl placeholder:text-xl"
           />

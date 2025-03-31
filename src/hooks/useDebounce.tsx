@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
 
-export function useDebounce(value: string, delay: number) {
+export function useDebounce(delay: number) {
+  const [value, setValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(value);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -10,5 +15,5 @@ export function useDebounce(value: string, delay: number) {
 
     return () => clearTimeout(timeout);
   }, [value, delay]);
-  return debouncedValue;
+  return { value, debouncedValue, handleChange };
 }
