@@ -97,3 +97,16 @@ button > *:hover {
 li {
   list-style: none;
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: var(--clr-hover);
+  border-radius: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-foreground);
+}

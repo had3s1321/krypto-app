@@ -22,8 +22,8 @@ const SearchBar = () => {
       return;
     }
 
-    getSearchBarData(value).then((response) => setData(response));
-  }, [debounceValue]); // eslint-disable-line
+    getSearchBarData(debounceValue).then((response) => setData(response));
+  }, [debounceValue]);
 
   return (
     <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-2.5 [&>svg]:ml-3">
@@ -31,9 +31,10 @@ const SearchBar = () => {
         value={value}
         placeholder="Search..."
         onChange={handleChange}
+        onBlur={() => setData(null)}
         className="w-full border-none bg-[var(--clr-nav-foreground)] pl-10 pr-4 placeholder:text-inherit hover:bg-[var(--clr-hover)] focus-visible:ring-0"
       />
-      <ul className="absolute top-9 z-50 -mt-1 w-full bg-[var(--clr-nav-foreground)]">
+      <ul className="scrollbar absolute top-9 z-50 -mt-1 max-h-96 w-full overflow-y-auto bg-[var(--clr-nav-foreground)]">
         {data &&
           data.coins.map((el) => (
             <li
