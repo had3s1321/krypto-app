@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { useFormat } from "@/hooks/useFormat";
+import { useDebouncedInput } from "@/hooks/useDebouncedInput ";
 import { CarouselItemInterface } from "@/components/coinsPage/CoinSlider/CoinsCarousel";
 import {
   Card,
@@ -9,10 +12,7 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
-import { useDebounce } from "@/hooks/useDebounce";
-import { useFormat } from "@/hooks/useFormat";
 import Image from "next/image";
-import { useState } from "react";
 
 const CoinConvertorCard = ({
   title,
@@ -21,15 +21,15 @@ const CoinConvertorCard = ({
   title: string;
   coin?: CarouselItemInterface;
 }) => {
-  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(1);
-  const { value, debouncedValue, handleChange } = useDebounce(250); // eslint-disable-line
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const { data, value, handleChange } = useDebouncedInput(250); // eslint-disable-line
   const format = useFormat();
 
   const handleFocus = () => setIsFocused(true);
   const handleBlur = () => setIsFocused(false);
   const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setQuantity(Number(e.target.value));
+    setQuantity(Number(e.target.value) || 0);
 
   return (
     <Card className="w-full border-none bg-[var(--foreground)] text-[var(--clr-nav-text)] shadow-none">
