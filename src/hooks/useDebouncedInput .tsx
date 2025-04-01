@@ -11,7 +11,10 @@ export function useDebouncedInput(delay: number) {
     setValue(e.target.value);
   };
 
-  const clearSearchResults = () => setData(null);
+  const clearSearchResults = () => {
+    setData(null);
+    setValue("");
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
