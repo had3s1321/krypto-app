@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { CircleX } from "lucide-react";
-import { CarouselItemInterface } from "./CoinsCarousel";
+import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
 
 const SelectedCoins = ({
   list,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { changeSelectedCoins, Currencies } from "@/lib/features/user/userSlice";
-import { CarouselItemInterface } from "@/components/coinsPage/CoinSlider/CoinsCarousel";
+import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
 
 export function useCarousel(data: CarouselItemInterface[]): [
   Currencies,

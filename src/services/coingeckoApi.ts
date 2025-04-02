@@ -7,12 +7,12 @@ import {
 } from "@reduxjs/toolkit/query/react";
 import { parseChartData } from "@/utils/parseChartData";
 import { parseTableData } from "@/utils/parseTableData";
-import { CarouselItemInterface } from "@/components/coinsPage/CoinSlider/CoinsCarousel";
 import { ChartData, ParsedChartData } from "@/utils/types/ChartData";
 import {
   CoinsListMarketData,
   ParsedTableData,
 } from "@/utils/types/CoinsListMarketData";
+import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
