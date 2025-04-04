@@ -3,6 +3,8 @@
 import { useContext, useState } from "react";
 import { useFormat } from "@/hooks/useFormat";
 import { useDebouncedInput } from "@/hooks/useDebouncedInput ";
+import { ConvertorContext } from "@/contexts/convertorProvider";
+import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -10,23 +12,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import Image from "next/image";
 import { Input } from "@/components/ui/shadcn/input";
-import { ConvertorContext } from "@/contexts/convertorProvider";
 
 const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [quantity, setQuantity] = useState<number>(0);
-  const { conversionCoins, handleNewCoin } = useContext(ConvertorContext);
+
+  const {
+    conversionCoins,
+    sellQuantity,
+    buyQuantity,
+    handleSellQuantity,
+    handleBuyQuantity,
+    handleNewCoin,
+  } = useContext(ConvertorContext);
   const { data, value, handleChange, clearSearchResults } =
     useDebouncedInput(250);
   const format = useFormat();
 
   const conversionCoin = isSelling ? conversionCoins[0] : conversionCoins[1];
-  // const conversionRatio =
-  //   isSelling && conversionCoins[0] && conversionCoins[1]
-  //     ? conversionCoins[0] / conversionCoins[1]
-  //     : conversionCoins[1] / conversionCoins[0];
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -35,6 +38,11 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const handleBlur = () => {
     setIsFocused(false);
     clearSearchResults();
+  };
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isSelling) return handleSellQuantity(e);
+    return handleBuyQuantity(e);
   };
 
   return (
@@ -57,8 +65,8 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
           />
           <Input
             type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
+            value={isSelling ? sellQuantity : buyQuantity}
+            onChange={handleQuantityChange}
             className="w-1/3 border-none text-right !text-xl shadow-none [appearance:textfield] placeholder:text-xl focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           />
           {conversionCoin && !isFocused && (
