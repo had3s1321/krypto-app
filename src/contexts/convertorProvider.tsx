@@ -1,12 +1,15 @@
 "use client";
 
-import { useAppSelector } from "@/lib/hooks";
 import { createContext, useState } from "react";
+import { useAppSelector } from "@/lib/hooks";
+import { useLazyGetConversionCoinDataQuery } from "@/services/coingeckoApi";
+import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
+import { Coin } from "@/utils/types/SearchBarData";
 
-/* eslint-disable */
 interface ConvertorContextType {
-  conversionCoins: any[];
-  handleNewCoin: any;
+  conversionCoins: ConversionCoinData[];
+  // eslint-disable-next-line no-unused-vars
+  handleNewCoin: (payload: Coin, cb: () => void, isSelling?: boolean) => void;
 }
 
 export const ConvertorContext = createContext<ConvertorContextType>(
@@ -19,10 +22,31 @@ export const ConvertorProvider = ({
   children: React.ReactNode;
 }) => {
   const { selectedCoins } = useAppSelector((state) => state.user);
-  const [conversionCoins, setConversionCoins] = useState(selectedCoins);
-  const handleNewCoin = (payload: any, cb: any, isSelling?: boolean) => {
-    if (isSelling) setConversionCoins([payload, conversionCoins[1]]);
-    else setConversionCoins([conversionCoins[0], payload]);
+  const [conversionCoins, setConversionCoins] = useState(
+    selectedCoins.map((coin) => {
+      return {
+        id: coin.id,
+        symbol: coin.symbol,
+        name: coin.name,
+        image: coin.image,
+        price: coin.price,
+      };
+    }),
+  );
+  const [trigger] = useLazyGetConversionCoinDataQuery();
+
+  const handleNewCoin = (
+    payload: Coin,
+    cb: () => void,
+    isSelling?: boolean,
+  ) => {
+    trigger(payload.id).then((result) => {
+      if (result.data) {
+        const { data } = result;
+        if (isSelling) setConversionCoins([data, conversionCoins[1]]);
+        else setConversionCoins([conversionCoins[0], data]);
+      }
+    });
     cb();
   };
 

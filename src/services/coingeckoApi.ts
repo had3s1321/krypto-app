@@ -13,6 +13,11 @@ import {
   ParsedTableData,
 } from "@/utils/types/CoinsListMarketData";
 import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
+import {
+  ConversionCoinData,
+  IndividualCoinDataResponse,
+} from "@/utils/types/IndividualCoinData";
+import { parseConversionCoin } from "@/utils/parseConversionCoin";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -84,8 +89,29 @@ export const coingeckoApi = createApi({
         }
       },
     }),
+    getConversionCoinData: build.query<ConversionCoinData, string>({
+      queryFn: async (coin: string, _queryApi, _extraOptions, fetchWithBQ) => {
+        try {
+          const response = await fetchWithBQ(
+            `coins/${coin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
+          );
+          if (response.error) return { error: response.error };
+
+          return {
+            data: parseConversionCoin(
+              response.data as IndividualCoinDataResponse,
+            ),
+          };
+        } catch (error) {
+          return { error: error as FetchBaseQueryError };
+        }
+      },
+    }),
   }),
 });
 
-export const { useGetChartDataByCoinQuery, useGetCoinTableDataInfiniteQuery } =
-  coingeckoApi;
+export const {
+  useGetChartDataByCoinQuery,
+  useGetCoinTableDataInfiniteQuery,
+  useLazyGetConversionCoinDataQuery,
+} = coingeckoApi;
