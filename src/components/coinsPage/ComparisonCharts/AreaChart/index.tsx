@@ -4,8 +4,8 @@ import { useFormat } from "@/hooks/useFormat";
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { getDate } from "@/utils/formatUtils";
-import { CarouselItemInterface } from "../../CoinSlider/CoinsCarousel";
 import { ParsedChartData } from "@/utils/types/ChartData";
+import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
 
 const CustomAreaChart = ({
   chartData,

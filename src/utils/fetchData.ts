@@ -2,8 +2,13 @@
 
 export const fetchData = async <T>(
   url: string,
-  localData?: T | undefined,
-  cache: RequestCache = "force-cache",
+  {
+    localData,
+    cache = "force-cache",
+  }: {
+    localData?: T;
+    cache?: RequestCache;
+  } = {},
 ): Promise<T> => {
   const options: RequestInit = {
     method: "GET",
@@ -13,7 +18,7 @@ export const fetchData = async <T>(
     } as HeadersInit,
     cache,
   };
-  if (process.env.NODE_ENV === "development" && localData) return localData;
+  if (localData && process.env.NODE_ENV === "development") return localData;
 
   const fetchURL = process.env.NEXT_PUBLIC_COINGECKO_BASE_URL + url;
   const response = await fetch(fetchURL, options);

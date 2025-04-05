@@ -3,6 +3,7 @@ import ConvertorChart from "@/components/convertorPage/ConvertorChart";
 import ConvertorTitle from "@/components/convertorPage/ConvertorTitle";
 import IntervalTabs from "@/components/ui/IntervalTabs";
 import PageTabs from "@/components/ui/PageTabs";
+import { ConvertorProvider } from "@/contexts/convertorProvider";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,9 +18,11 @@ export default function Convertor() {
     <main className="mx-auto w-full max-w-[1296]">
       <PageTabs route="Convertor" />
       <ConvertorTitle />
-      <CoinsConvertor />
-      <ConvertorChart />
-      <IntervalTabs />
+      <ConvertorProvider>
+        <CoinsConvertor />
+        <ConvertorChart />
+        <IntervalTabs />
+      </ConvertorProvider>
     </main>
   );
 }

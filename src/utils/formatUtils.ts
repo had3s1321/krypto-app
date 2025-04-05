@@ -14,11 +14,15 @@ export const getTime = (locale?: string, dateStamp?: number) => {
   return formattedTime;
 };
 
-export const getDate = (locale?: string, dateStamp?: number) => {
+export const getDate = (
+  isShort?: "short",
+  locale?: string,
+  dateStamp?: number,
+) => {
   const currentDate = dateStamp ? new Date(dateStamp) : new Date();
   const formattedDate = new Intl.DateTimeFormat(locale || "en-US", {
     day: "numeric",
-    month: "long",
+    month: isShort ? "numeric" : "long",
     year: "numeric",
   }).format(currentDate);
   return formattedDate;

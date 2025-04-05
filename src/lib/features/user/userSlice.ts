@@ -1,5 +1,5 @@
-import { CarouselItemInterface } from "@/components/coinsPage/CoinSlider/CoinsCarousel";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
 
 export type Currencies = "USD" | "EUR" | "GBP";
 
