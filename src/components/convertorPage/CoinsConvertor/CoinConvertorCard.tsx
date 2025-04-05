@@ -4,7 +4,6 @@ import { useContext, useState } from "react";
 import { useFormat } from "@/hooks/useFormat";
 import { useDebouncedInput } from "@/hooks/useDebouncedInput ";
 import { ConvertorContext } from "@/contexts/convertorProvider";
-import Image from "next/image";
 import {
   Card,
   CardContent,
@@ -13,6 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
+import CoinsDropdown from "./CoinsDropdown";
+import SelectedCoin from "./SelectedCoin";
 
 const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -63,49 +64,24 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
             placeholder={`${conversionCoin ? "" : "Please select a coin"}`}
             className="w-2/3 border-none !text-xl shadow-none placeholder:text-xl focus-visible:ring-0"
           />
-          <Input
-            type="number"
-            value={isSelling ? sellQuantity : buyQuantity}
-            onChange={handleQuantityChange}
-            className="w-1/3 border-none text-right !text-xl shadow-none [appearance:textfield] placeholder:text-xl focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-          />
+          {conversionCoin && (
+            <Input
+              type="number"
+              value={isSelling ? sellQuantity : buyQuantity}
+              onChange={handleQuantityChange}
+              className="w-1/3 border-none text-right !text-xl shadow-none [appearance:textfield] placeholder:text-xl focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            />
+          )}
           {conversionCoin && !isFocused && (
-            <>
-              <div className="absolute left-0 top-0 mt-1 flex gap-2">
-                <Image
-                  src={conversionCoin.image}
-                  alt={conversionCoin.name}
-                  width={28}
-                  height={24}
-                />
-                <span>
-                  {conversionCoin.name} ({conversionCoin.symbol})
-                </span>
-              </div>
-            </>
+            <SelectedCoin conversionCoin={conversionCoin} />
           )}
           {data && (
-            <ul className="scrollbar absolute top-9 z-50 mt-1 max-h-96 w-full overflow-y-auto bg-[var(--foreground)]">
-              {data &&
-                data.coins.map((coin) => (
-                  <li
-                    key={coin.id}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleNewCoin(coin, handleBlur, isSelling);
-                    }}
-                    className="flex gap-2 px-4 py-3 hover:cursor-pointer hover:bg-[var(--clr-hover)]"
-                  >
-                    <Image
-                      src={coin.large || ""}
-                      alt={coin.name}
-                      width={28}
-                      height={24}
-                    />
-                    {coin.name} ({coin.symbol})
-                  </li>
-                ))}
-            </ul>
+            <CoinsDropdown
+              data={data}
+              handleNewCoin={handleNewCoin}
+              handleBlur={handleBlur}
+              isSelling={isSelling}
+            />
           )}
         </div>
         <div className="h-[1px] w-full bg-[var(--clr-text)]"></div>

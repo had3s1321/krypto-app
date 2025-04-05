@@ -8,13 +8,13 @@ import { Coin } from "@/utils/types/SearchBarData";
 
 interface ConvertorContextType {
   conversionCoins: ConversionCoinData[];
-  /* eslint-disable no-unused-vars */
   sellQuantity: number;
   buyQuantity: number;
+  /* eslint-disable no-unused-vars */
   handleSellQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBuyQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleNewCoin: (payload: Coin, cb: () => void, isSelling?: boolean) => void;
-  /* eslint-disable no-unused-vars */
+  /* eslint-enable no-unused-vars */
 }
 
 export const ConvertorContext = createContext<ConvertorContextType>(
