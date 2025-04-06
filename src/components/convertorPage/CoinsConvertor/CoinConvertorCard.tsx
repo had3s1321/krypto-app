@@ -67,6 +67,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
           {conversionCoin && (
             <Input
               type="number"
+              min={0}
               value={isSelling ? sellQuantity : buyQuantity}
               onChange={handleQuantityChange}
               className="w-1/3 border-none text-right !text-xl shadow-none [appearance:textfield] placeholder:text-xl focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
