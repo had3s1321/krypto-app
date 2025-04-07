@@ -15,7 +15,7 @@ const SelectedCoin = ({
         height={24}
       />
       <span>
-        {conversionCoin.name} ({conversionCoin.symbol})
+        {conversionCoin.name} ({conversionCoin.symbol.toUpperCase()})
       </span>
     </div>
   );

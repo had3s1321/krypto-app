@@ -11,6 +11,7 @@ interface ConvertorContextType {
   conversionCoins: ConversionCoinData[];
   sellQuantity: string;
   buyQuantity: string;
+  handleSwitch: () => void;
   /* eslint-disable no-unused-vars */
   handleSellQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBuyQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -77,6 +78,11 @@ export const ConvertorProvider = ({
     }
   };
 
+  const handleSwitch = () => {
+    if (conversionCoins[0] && conversionCoins[1])
+      setConversionCoins([conversionCoins[1], conversionCoins[0]]);
+  };
+
   useEffect(() => {
     if (!conversionCoins[0] || !conversionCoins[1]) return;
 
@@ -92,6 +98,7 @@ export const ConvertorProvider = ({
         conversionCoins,
         sellQuantity,
         buyQuantity,
+        handleSwitch,
         handleSellQuantity,
         handleBuyQuantity,
         handleNewCoin,

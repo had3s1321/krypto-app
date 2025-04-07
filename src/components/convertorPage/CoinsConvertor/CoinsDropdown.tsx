@@ -20,13 +20,15 @@ const CoinsDropdown = ({
   handleBlur,
   isSelling,
 }: CoinsDropdownProps) => {
+  if (!data) return null;
+
   return (
     <ul className="scrollbar absolute top-9 z-50 mt-1 max-h-96 w-full overflow-y-auto bg-[var(--foreground)]">
       {data &&
         data.coins.map((coin) => (
           <li
             key={coin.id}
-            onClick={(e) => {
+            onMouseDown={(e) => {
               e.stopPropagation();
               handleNewCoin(coin, handleBlur, isSelling);
             }}

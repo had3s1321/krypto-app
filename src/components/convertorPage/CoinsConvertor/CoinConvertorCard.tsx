@@ -1,7 +1,6 @@
 "use client";
 
 import { useContext, useState } from "react";
-import { useFormat } from "@/hooks/useFormat";
 import { useDebouncedInput } from "@/hooks/useDebouncedInput ";
 import { ConvertorContext } from "@/contexts/convertorProvider";
 import {
@@ -14,6 +13,7 @@ import {
 import { Input } from "@/components/ui/shadcn/input";
 import CoinsDropdown from "./CoinsDropdown";
 import SelectedCoin from "./SelectedCoin";
+import CoinFiatValue from "./CoinFiatValue";
 
 const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -28,7 +28,6 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   } = useContext(ConvertorContext);
   const { data, value, handleChange, clearSearchResults } =
     useDebouncedInput(250);
-  const format = useFormat();
 
   const conversionCoin = isSelling ? conversionCoins[0] : conversionCoins[1];
 
@@ -59,15 +58,16 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
             type="text"
             value={value}
             onFocus={handleFocus}
-            // onBlur={handleBlur}
+            onBlur={handleBlur}
             onChange={handleChange}
             placeholder={`${conversionCoin ? "" : "Please select a coin"}`}
-            className="w-2/3 border-none !text-xl shadow-none placeholder:text-xl focus-visible:ring-0"
+            className="w-2/3 border-none px-0 !text-xl shadow-none placeholder:text-xl focus-visible:ring-0"
           />
           {conversionCoin && (
             <Input
               type="number"
               min={0}
+              step="any"
               value={isSelling ? sellQuantity : buyQuantity}
               onChange={handleQuantityChange}
               className="w-1/3 border-none text-right !text-xl shadow-none [appearance:textfield] placeholder:text-xl focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
@@ -76,27 +76,17 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
           {conversionCoin && !isFocused && (
             <SelectedCoin conversionCoin={conversionCoin} />
           )}
-          {data && (
-            <CoinsDropdown
-              data={data}
-              handleNewCoin={handleNewCoin}
-              handleBlur={handleBlur}
-              isSelling={isSelling}
-            />
-          )}
+          <CoinsDropdown
+            data={data}
+            handleNewCoin={handleNewCoin}
+            handleBlur={handleBlur}
+            isSelling={isSelling}
+          />
         </div>
         <div className="h-[1px] w-full bg-[var(--clr-text)]"></div>
       </CardContent>
-      <CardFooter className="-mt-4 cursor-default">
-        {conversionCoin && (
-          <>
-            1 {conversionCoin.symbol} ={" "}
-            {format(conversionCoin.price, {
-              style: "currency",
-              maximumFractionDigits: 2,
-            })}
-          </>
-        )}
+      <CardFooter className="-mt-4 h-11 w-full cursor-default">
+        <CoinFiatValue conversionCoin={conversionCoin} />
       </CardFooter>
     </Card>
   );
