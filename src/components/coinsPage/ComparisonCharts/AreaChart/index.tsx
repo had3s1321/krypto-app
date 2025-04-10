@@ -110,7 +110,7 @@ const CustomAreaChart = ({
         <Tooltip />
         <Area
           type="monotone"
-          dataKey={coins[0].name}
+          dataKey={coins[0].id}
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
@@ -118,7 +118,7 @@ const CustomAreaChart = ({
         {chartData && chartData[1] && coins[1] ? (
           <Area
             type="monotone"
-            dataKey={coins[1].name}
+            dataKey={coins[1].id}
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"

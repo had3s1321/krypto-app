@@ -5,19 +5,21 @@ import {
   fetchBaseQuery,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
-import { parseChartData } from "@/utils/parseChartData";
+import {
+  parseChartData,
+  parseConversionCoinsChartData,
+} from "@/utils/parseChartData";
+import { parseConversionCoin } from "@/utils/parseConversionCoin";
 import { parseTableData } from "@/utils/parseTableData";
 import { ChartData, ParsedChartData } from "@/utils/types/ChartData";
 import {
   CoinsListMarketData,
   ParsedTableData,
 } from "@/utils/types/CoinsListMarketData";
-import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
 import {
   ConversionCoinData,
   IndividualCoinDataResponse,
 } from "@/utils/types/IndividualCoinData";
-import { parseConversionCoin } from "@/utils/parseConversionCoin";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -36,11 +38,11 @@ export const coingeckoApi = createApi({
   }),
   endpoints: (build) => ({
     getChartDataByCoin: build.query<
-      { prices: ParsedChartData; volumes: ParsedChartData },
-      CarouselItemInterface[]
+      { prices: ParsedChartData; volumes?: ParsedChartData },
+      { coins: string[]; isConversion?: boolean }
     >({
       queryFn: async (
-        coins: CarouselItemInterface[],
+        { coins, isConversion },
         _queryApi,
         _extraOptions,
         fetchWithBQ,
@@ -48,21 +50,23 @@ export const coingeckoApi = createApi({
         try {
           const responses = await Promise.all(
             coins.map(async (coin) =>
-              fetchWithBQ(
-                `coins/${coin.id}/market_chart?vs_currency=usd&days=1`,
-              ),
+              fetchWithBQ(`coins/${coin}/market_chart?vs_currency=usd&days=1`),
             ),
           );
           const data = responses.map((res) => {
             if (res.error) throw res.error;
             return res.data as ChartData;
           });
-          const coinNames = coins.map((coin) => coin.name);
+
+          if (isConversion)
+            return {
+              data: { prices: parseConversionCoinsChartData(data) },
+            };
 
           return {
             data: {
-              prices: parseChartData(data, coinNames, "prices"),
-              volumes: parseChartData(data, coinNames, "total_volumes"),
+              prices: parseChartData(data, coins, "prices"),
+              volumes: parseChartData(data, coins, "total_volumes"),
             },
           };
         } catch (error) {
@@ -113,5 +117,6 @@ export const coingeckoApi = createApi({
 export const {
   useGetChartDataByCoinQuery,
   useGetCoinTableDataInfiniteQuery,
+  useLazyGetChartDataByCoinQuery,
   useLazyGetConversionCoinDataQuery,
 } = coingeckoApi;
