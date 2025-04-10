@@ -1,3 +1,4 @@
+import PortfolioCoinList from "@/components/portfolioPage/PortfolioCoinList";
 import PortfolioHeader from "@/components/portfolioPage/PortfolioHeader";
 import { Metadata } from "next";
 
@@ -16,6 +17,7 @@ export default function Portfolio() {
   return (
     <main className="mx-auto w-full max-w-[1296]">
       <PortfolioHeader />
+      <PortfolioCoinList />
     </main>
   );
 }
