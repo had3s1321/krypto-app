@@ -36,10 +36,10 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioCoinData }) => {
           <span>Purchased 01.04.2025</span>
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex w-3/4 flex-wrap justify-between gap-4 border-t-4 border-[var(--clr-nav-bg)] pt-3 dark:border-[var(--secondary-foreground)]">
+      <CardContent className="-mb-1 flex w-3/4 flex-wrap justify-between gap-4 rounded-r-xl border-t-4 border-[var(--clr-nav-bg)] pt-3 dark:border-[var(--secondary-foreground)]">
         {Object.entries(dataEntries).map((entry, index) => (
           <DataPoint
-            key={index}
+            key={index} // eslint-disable-line react/no-array-index-key
             value={entry[1]}
             description={entry[0]}
             valueType={index === 0 ? "currency" : "percent"}

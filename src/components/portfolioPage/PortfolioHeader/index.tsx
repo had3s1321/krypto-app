@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/shadcn/button";
+import AddAssetDialog from "./AddAssetDialog";
 
 const PortfolioHeader = () => {
   return (
@@ -6,9 +6,7 @@ const PortfolioHeader = () => {
       <h2 className="text-2xl font-medium text-[var(--clr-nav-text)]">
         Portfolio
       </h2>
-      <Button className="w-1/6 bg-[var(--primary-foreground)] text-[var(--clr-light-perm)]">
-        Add Asset
-      </Button>
+      <AddAssetDialog />
     </div>
   );
 };

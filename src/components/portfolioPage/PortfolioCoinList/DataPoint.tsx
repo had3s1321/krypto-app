@@ -18,7 +18,7 @@ const DataPoint = ({
       : format(value, { style: "percent" });
 
   return (
-    <div className="flex w-[calc(50%-0.75rem)] flex-col justify-center rounded-md border-2 border-[var(--secondary-foreground)]">
+    <div className="flex w-[calc(50%-0.75rem)] flex-col justify-center rounded-md border-2 border-[var(--clr-nav-foreground)] dark:border-[var(--secondary-foreground)]">
       <span className="ml-2 text-xl font-medium">{formattedValue}</span>
       <span className="ml-2">{description}</span>
     </div>
