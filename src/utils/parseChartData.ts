@@ -24,6 +24,26 @@ export const parseChartData = (
         [coinName2]: reducedChartData[1].get(key),
       }),
     );
+
+  return result;
+};
+
+export const parseConversionCoinsChartData = (data: ChartData[]) => {
+  const result: ParsedChartData = [];
+  const reducedChartData = reduceChartData(data, "prices");
+  const coinToSell = reducedChartData[0];
+  const coinToBuy = reducedChartData[1];
+
+  if (reducedChartData.length > 1 && coinToBuy)
+    coinToSell.forEach((value, key) => {
+      const buyValue = coinToBuy.get(key);
+      if (buyValue !== undefined)
+        result.push({
+          time: key,
+          value: value / buyValue,
+        });
+    });
+
   return result;
 };
 

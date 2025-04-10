@@ -106,7 +106,7 @@ const CustomBarChart = ({
         <Tooltip cursor={false} />
         <Bar
           type="monotone"
-          dataKey={coins[0].name}
+          dataKey={coins[0].id}
           stroke="#8884d8"
           barSize={15}
           stackId="a"
@@ -116,7 +116,7 @@ const CustomBarChart = ({
         {chartData && chartData[1] && coins[1] ? (
           <Bar
             type="monotone"
-            dataKey={coins[1].name}
+            dataKey={coins[1].id}
             barSize={15}
             stackId="a"
             stroke="#82ca9d"
