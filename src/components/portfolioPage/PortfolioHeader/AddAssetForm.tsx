@@ -1,8 +1,9 @@
 "use client";
 
-import { z } from "zod";
-import { format } from "date-fns";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { format } from "date-fns";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/shadcn/input";
 import { Button } from "@/components/ui/shadcn/button";
@@ -21,9 +22,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/shadcn/popover";
-import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/shadcn/calendar";
 import { cn } from "@/utils/shadcn_utils";
+import { CalendarIcon } from "lucide-react";
 
 const formSchema = z.object({
   coin: z.string().min(1, {
@@ -34,6 +35,7 @@ const formSchema = z.object({
 });
 
 const AddAssetForm = () => {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -87,23 +89,23 @@ const AddAssetForm = () => {
           name="purchaseDate"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
-              <Popover>
+              <FormLabel>Purchase Date</FormLabel>
+              <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
+                        "w-[240px] justify-start text-left font-normal",
                         !field.value && "text-muted-foreground",
                       )}
                     >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
                       {field.value ? (
                         format(field.value, "PPP")
                       ) : (
                         <span>Pick a date</span>
                       )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
@@ -111,17 +113,16 @@ const AddAssetForm = () => {
                   <Calendar
                     mode="single"
                     selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                    initialFocus
+                    onSelect={(date) => {
+                      field.onChange(date);
+                      setIsPopoverOpen(false);
+                    }}
+                    disabled={(date) => date > new Date()}
+                    className="bg-[var(--primary-foreground)]"
                   />
                 </PopoverContent>
               </Popover>
-              <FormDescription>
-                Your date of birth is used to calculate your age.
-              </FormDescription>
+              <FormDescription>Pick when you bought the asset.</FormDescription>
               <FormMessage />
             </FormItem>
           )}
