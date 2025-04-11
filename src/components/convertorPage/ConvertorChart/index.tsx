@@ -28,7 +28,7 @@ const ConvertorChart = () => {
 
     const coins = conversionCoins.map((coin) => coin.id);
     trigger({ coins, isConversion: true });
-  }, [conversionCoins]);
+  }, [conversionCoins, trigger]);
 
   if (!conversionCoins[0] || !conversionCoins[1])
     return <ChartSuspenseSkeleton type="no-data" />;
