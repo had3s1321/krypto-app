@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext, useState } from "react";
-import { useDebouncedInput } from "@/hooks/useDebouncedInput ";
+import { useDebouncedSearch } from "@/hooks/useDebouncedSearch ";
 import { ConvertorContext } from "@/contexts/convertorProvider";
 import {
   Card,
@@ -17,7 +17,6 @@ import CoinFiatValue from "./CoinFiatValue";
 
 const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
-
   const {
     conversionCoins,
     sellQuantity,
@@ -27,7 +26,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
     handleNewCoin,
   } = useContext(ConvertorContext);
   const { data, value, handleChange, clearSearchResults } =
-    useDebouncedInput(250);
+    useDebouncedSearch(250);
 
   const conversionCoin = isSelling ? conversionCoins[0] : conversionCoins[1];
 

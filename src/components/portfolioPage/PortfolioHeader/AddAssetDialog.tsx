@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/shadcn/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -19,12 +18,9 @@ const AddAssetDialog = () => {
           Add Asset
         </Button>
       </DialogTrigger>
-      <DialogContent className="text-[var(--clr-nav-text)] sm:max-w-[425px]">
+      <DialogContent className="w-1/2 p-10 text-[var(--clr-nav-text)]">
         <DialogHeader>
           <DialogTitle>Select coin</DialogTitle>
-          <DialogDescription>
-            Please select a coin, the amount and the purchase date
-          </DialogDescription>
         </DialogHeader>
         <AddAssetForm />
       </DialogContent>

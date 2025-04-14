@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getSearchBarData } from "@/actions/getSearchBarData";
 import { SearchBarData } from "@/utils/types/SearchBarData";
 
-export function useDebouncedInput(delay: number) {
+export function useDebouncedSearch(delay: number) {
   const [data, setData] = useState<SearchBarData>(null);
   const [value, setValue] = useState("");
   const [debouncedValue, setDebouncedValue] = useState(value);
