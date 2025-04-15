@@ -19,7 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/shadcn/form";
-import { DialogFooter } from "@/components/ui/shadcn/dialog";
+import { DialogClose, DialogFooter } from "@/components/ui/shadcn/dialog";
 import {
   Popover,
   PopoverContent,
@@ -28,12 +28,14 @@ import {
 import { Calendar } from "@/components/ui/shadcn/calendar";
 import { CalendarIcon } from "lucide-react";
 import { Coin } from "@/utils/types/SearchBarData";
+import DialogImage from "./DialogImage";
 
 const formSchema = z.object({
   coin: z.string().min(1, {
     message: "Please select a coin.",
   }),
   coinId: z.string(),
+  coinImage: z.string(),
   amount: z.string(),
   purchaseDate: z.date(),
 });
@@ -46,6 +48,7 @@ const AddAssetForm = () => {
     defaultValues: {
       coin: "",
       coinId: "",
+      coinImage: "",
       amount: "0",
       purchaseDate: new Date(),
     },
@@ -58,6 +61,7 @@ const AddAssetForm = () => {
       shouldTouch: true,
       shouldValidate: true,
     });
+    form.setValue("coinImage", coin.large || "N/A");
     clearSearchResults();
   };
 
@@ -73,8 +77,11 @@ const AddAssetForm = () => {
 
   return (
     <Form {...form}>
-      <div className="flex">
-        <div className="w-1/3">Image</div>
+      <div className="flex gap-8">
+        <DialogImage
+          src={form.getValues("coinImage")}
+          alt={form.getValues("coin")}
+        />
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-2/3 space-y-4 font-grotesk"
@@ -94,8 +101,10 @@ const AddAssetForm = () => {
                       onChange={(e) => {
                         field.onChange(e);
                         handleChange(e);
+                        form.setValue("coinImage", "");
                       }}
                       onBlur={clearSearchResults}
+                      className="border-none bg-[var(--clr-nav-foreground)] focus-visible:ring-0"
                     />
                     <SearchDropdown
                       data={data}
@@ -124,7 +133,7 @@ const AddAssetForm = () => {
                     step="any"
                     type="number"
                     onChange={handleNumberChange}
-                    className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                    className="border-none bg-[var(--clr-nav-foreground)] [appearance:textfield] focus-visible:ring-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                   />
                 </FormControl>
                 <FormDescription hidden>This is the amount.</FormDescription>
@@ -142,9 +151,8 @@ const AddAssetForm = () => {
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
-                        variant={"outline"}
                         className={cn(
-                          "w-full justify-start text-left font-normal",
+                          "w-full justify-start bg-[var(--clr-nav-foreground)] text-left font-normal text-inherit shadow-none",
                           !field.value && "text-muted-foreground",
                         )}
                       >
@@ -178,8 +186,15 @@ const AddAssetForm = () => {
             )}
           />
           <DialogFooter className="w-full gap-2 pt-4">
-            <Button className="w-1/2 text-[var(--clr-nav-text)]">Cancel</Button>
-            <Button type="submit" className="w-1/2 text-[var(--clr-nav-text)]">
+            <DialogClose asChild>
+              <Button className="w-1/2 bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-none">
+                Cancel
+              </Button>
+            </DialogClose>
+            <Button
+              type="submit"
+              className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
+            >
               Save and Continue
             </Button>
           </DialogFooter>
