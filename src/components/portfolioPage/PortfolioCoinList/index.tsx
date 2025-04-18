@@ -1,10 +1,14 @@
-import { portfolio_list } from "@/utils/mockData/portfolio_list";
+"use client";
+
 import PortfolioCoin from "./PortfolioCoin";
+import { useAppSelector } from "@/lib/hooks";
 
 const PortfolioCoinList = () => {
+  const portfolio = useAppSelector((state) => state.portfolio);
+
   return (
     <div className="flex flex-col gap-5">
-      {portfolio_list.map((coin) => (
+      {portfolio.map((coin) => (
         <PortfolioCoin key={coin.id} coin={coin} />
       ))}
     </div>

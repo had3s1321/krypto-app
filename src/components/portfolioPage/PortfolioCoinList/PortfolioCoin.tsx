@@ -5,11 +5,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import { PortfolioCoinData } from "@/utils/types/PortfolioCoinData";
 import Image from "next/image";
 import DataPoint from "./DataPoint";
+import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 
-const PortfolioCoin = ({ coin }: { coin: PortfolioCoinData }) => {
+const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
   const dataEntries = {
     "Current price": coin.price,
     "24h%": coin.priceChangePercentage24h,
@@ -21,7 +21,7 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioCoinData }) => {
 
   return (
     <Card className="flex border-none bg-[var(--clr-nav-bg)] font-grotesk text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]">
-      <CardHeader className="mb-2 w-1/4 pb-2 dark:bg-[var(--secondary-foreground)]">
+      <CardHeader className="mb-2 w-1/4 rounded-l-xl rounded-bl-lg pb-2 dark:bg-[var(--secondary-foreground)]">
         <CardTitle className="mb-4 flex items-center gap-2 text-2xl font-bold">
           <Image src={coin.image} alt={coin.name} width={32} height={32} />
           <span>{coin.name}</span>

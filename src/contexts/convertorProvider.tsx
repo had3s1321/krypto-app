@@ -2,7 +2,7 @@
 
 import { createContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
-import { useLazyGetConversionCoinDataQuery } from "@/services/coingeckoApi";
+import { useLazyGetIndividualCoinDataQuery } from "@/services/coingeckoApi";
 import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
 import { Coin } from "@/utils/types/SearchBarData";
 import { trimDecimals } from "@/utils/trimDecimals";
@@ -43,14 +43,14 @@ export const ConvertorProvider = ({
   const [sellQuantity, setSellQuantity] = useState<string>("1");
   const [buyQuantity, setBuyQuantity] = useState<string>("");
   const [conversionRatio, setConversionRatio] = useState<number>(1);
-  const [trigger] = useLazyGetConversionCoinDataQuery();
+  const [trigger] = useLazyGetIndividualCoinDataQuery();
 
   const handleNewCoin = (
     payload: Coin,
     cb: () => void,
     isSelling?: boolean,
   ) => {
-    trigger(payload.id).then((result) => {
+    trigger({ coin: payload.id, path: "convertor" }).then((result) => {
       if (result.data) {
         const { data } = result;
         if (isSelling) setConversionCoins([data, conversionCoins[1]]);

@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { coingeckoApi } from "../services/coingeckoApi";
-import portfolioSlice from "./features/portfolio/coinsSlice";
+import portfolioReducer from "./features/portfolio/coinsSlice";
 import userReducer, {
   initialState as userInitialState,
 } from "./features/user/userSlice";
@@ -10,7 +10,7 @@ export const makeStore = (preloadedLocale: string) => {
     reducer: {
       [coingeckoApi.reducerPath]: coingeckoApi.reducer,
       user: userReducer,
-      coins: portfolioSlice,
+      portfolio: portfolioReducer,
     },
     preloadedState: {
       user: {

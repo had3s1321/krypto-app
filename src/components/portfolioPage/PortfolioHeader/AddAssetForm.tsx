@@ -29,6 +29,10 @@ import { Calendar } from "@/components/ui/shadcn/calendar";
 import { CalendarIcon } from "lucide-react";
 import { Coin } from "@/utils/types/SearchBarData";
 import DialogImage from "./DialogImage";
+import { useLazyGetIndividualCoinDataQuery } from "@/services/coingeckoApi";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { addAsset, updateAsset } from "@/lib/features/portfolio/coinsSlice";
+import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 
 const formSchema = z.object({
   coin: z.string().min(1, {
@@ -43,6 +47,9 @@ const formSchema = z.object({
 const AddAssetForm = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data, handleChange, clearSearchResults } = useDebouncedSearch(250);
+  const [trigger] = useLazyGetIndividualCoinDataQuery();
+  const dispatch = useAppDispatch();
+  const portfolio = useAppSelector((state) => state.portfolio);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,7 +79,19 @@ const AddAssetForm = () => {
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values); //eslint-disable-line no-console
+    const foundAsset = portfolio.find((asset) => asset.id === values.coinId);
+    if (foundAsset)
+      dispatch(updateAsset({ ...foundAsset, amount: Number(values.amount) }));
+    else
+      trigger({ coin: values.coinId, path: "portfolio" }).then((response) =>
+        dispatch(
+          addAsset({
+            ...response.data,
+            amount: Number(values.amount),
+            lastPurchased: values.purchaseDate,
+          } as PortfolioAsset),
+        ),
+      );
   };
 
   return (
