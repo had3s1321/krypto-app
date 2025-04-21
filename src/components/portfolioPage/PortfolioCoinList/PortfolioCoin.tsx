@@ -30,10 +30,10 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
         <CardDescription className="flex flex-col gap-1">
           <span>Total Value</span>
           <span className="flex items-center text-2xl font-bold">
-            {coin.price} USD
+            Amount: {coin.amount}
             <span className="ml-2 text-base font-bold"> 6%</span>
           </span>
-          <span>Purchased 01.04.2025</span>
+          <span>{coin.lastPurchased}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="-mb-1 flex w-3/4 flex-wrap justify-between gap-4 rounded-r-xl border-t-4 border-[var(--clr-nav-bg)] pt-3 dark:border-[var(--secondary-foreground)]">

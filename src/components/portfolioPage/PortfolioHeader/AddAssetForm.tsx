@@ -88,7 +88,7 @@ const AddAssetForm = () => {
           addAsset({
             ...response.data,
             amount: Number(values.amount),
-            lastPurchased: values.purchaseDate,
+            lastPurchased: values.purchaseDate.toLocaleString(),
           } as PortfolioAsset),
         ),
       );
@@ -210,12 +210,14 @@ const AddAssetForm = () => {
                 Cancel
               </Button>
             </DialogClose>
-            <Button
-              type="submit"
-              className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
-            >
-              Save and Continue
-            </Button>
+            <DialogClose asChild>
+              <Button
+                type="submit"
+                className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
+              >
+                Save and Continue
+              </Button>
+            </DialogClose>
           </DialogFooter>
         </form>
       </div>
