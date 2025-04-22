@@ -12,8 +12,8 @@ import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
   const dataEntries = {
     "Current price": coin.price,
-    "24h%": coin.priceChangePercentage24h,
-    "Market cap vs volume": coin.marketCap / coin.circulatingSupply,
+    "24h%": coin.priceChangePercentage24h / 10000,
+    "Market cap vs volume": coin.totalVolume / coin.marketCap,
     "Circ supply vs max supply": coin.maxSupply
       ? coin.circulatingSupply / coin.maxSupply
       : 0,
@@ -28,10 +28,14 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
           <span>({coin.symbol.toUpperCase()})</span>
         </CardTitle>
         <CardDescription className="flex flex-col gap-1">
-          <span>Total Value</span>
           <span className="flex items-center text-2xl font-bold">
-            Amount: {coin.amount}
-            <span className="ml-2 text-base font-bold"> 6%</span>
+            {coin.amount}
+            {coin.symbol.toUpperCase()}
+            {/* <span className="ml-2 text-base font-bold"> 6%</span> */}
+          </span>
+          <span>
+            {coin.equity}
+            {coin.price - coin.equity}
           </span>
           <span>{coin.lastPurchased}</span>
         </CardDescription>

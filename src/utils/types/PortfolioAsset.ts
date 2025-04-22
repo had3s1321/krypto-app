@@ -5,6 +5,7 @@ export interface PortfolioAsset {
   image: string;
   price: number;
   amount: number;
+  equity: number;
   lastPurchased: string;
   priceChangePercentage24h: number;
   marketCap: number;

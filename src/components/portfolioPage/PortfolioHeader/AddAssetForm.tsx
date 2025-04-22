@@ -29,7 +29,10 @@ import { Calendar } from "@/components/ui/shadcn/calendar";
 import { CalendarIcon } from "lucide-react";
 import { Coin } from "@/utils/types/SearchBarData";
 import DialogImage from "./DialogImage";
-import { useLazyGetIndividualCoinDataQuery } from "@/services/coingeckoApi";
+import {
+  useLazyGetHistoricalCoinDataQuery,
+  useLazyGetIndividualCoinDataQuery,
+} from "@/services/coingeckoApi";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { addAsset, updateAsset } from "@/lib/features/portfolio/coinsSlice";
 import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
@@ -47,7 +50,8 @@ const formSchema = z.object({
 const AddAssetForm = () => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data, handleChange, clearSearchResults } = useDebouncedSearch(250);
-  const [trigger] = useLazyGetIndividualCoinDataQuery();
+  const [individualCoinTrigger] = useLazyGetIndividualCoinDataQuery();
+  const [historicalCoinTrigger] = useLazyGetHistoricalCoinDataQuery();
   const dispatch = useAppDispatch();
   const portfolio = useAppSelector((state) => state.portfolio);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -78,20 +82,38 @@ const AddAssetForm = () => {
     form.setValue("amount", formattedAmount);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const foundAsset = portfolio.find((asset) => asset.id === values.coinId);
+    const { data: historicalCoinData } = await historicalCoinTrigger({
+      coin: values.coinId,
+      date: values.purchaseDate
+        .toLocaleString("en-GB")
+        .split(",")[0]
+        .replace(/\//g, "-"),
+    });
+
     if (foundAsset)
-      dispatch(updateAsset({ ...foundAsset, amount: Number(values.amount) }));
-    else
-      trigger({ coin: values.coinId, path: "portfolio" }).then((response) =>
-        dispatch(
-          addAsset({
-            ...response.data,
-            amount: Number(values.amount),
-            lastPurchased: values.purchaseDate.toLocaleString(),
-          } as PortfolioAsset),
-        ),
+      dispatch(
+        updateAsset({
+          ...foundAsset,
+          equity: Number(values.amount) * (historicalCoinData?.price || 1),
+          amount: Number(values.amount),
+        }),
       );
+    else {
+      const { data: individualCoinData } = await individualCoinTrigger({
+        coin: values.coinId,
+        path: "portfolio",
+      });
+      dispatch(
+        addAsset({
+          ...individualCoinData,
+          amount: Number(values.amount),
+          equity: Number(values.amount) * (historicalCoinData?.price || 1),
+          lastPurchased: values.purchaseDate.toLocaleString(),
+        } as PortfolioAsset),
+      );
+    }
   };
 
   return (
