@@ -34,7 +34,7 @@ import {
   useLazyGetIndividualCoinDataQuery,
 } from "@/services/coingeckoApi";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { addAsset, updateAsset } from "@/lib/features/portfolio/coinsSlice";
+import { addAsset, updateAsset } from "@/lib/features/portfolio/portfolioSlice";
 import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 
 const formSchema = z.object({
@@ -53,7 +53,7 @@ const AddAssetForm = () => {
   const [individualCoinTrigger] = useLazyGetIndividualCoinDataQuery();
   const [historicalCoinTrigger] = useLazyGetHistoricalCoinDataQuery();
   const dispatch = useAppDispatch();
-  const portfolio = useAppSelector((state) => state.portfolio);
+  const { assets } = useAppSelector((state) => state.portfolio);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -83,7 +83,7 @@ const AddAssetForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const foundAsset = portfolio.find((asset) => asset.id === values.coinId);
+    const foundAsset = assets.find((asset) => asset.id === values.coinId);
     const { data: historicalCoinData } = await historicalCoinTrigger({
       coin: values.coinId,
       date: values.purchaseDate

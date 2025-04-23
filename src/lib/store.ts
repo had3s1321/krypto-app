@@ -1,17 +1,34 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { coingeckoApi } from "../services/coingeckoApi";
-import portfolioReducer from "./features/portfolio/coinsSlice";
+import {
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+import storage from "./storage";
+import portfolioReducer from "./features/portfolio/portfolioSlice";
 import userReducer, {
   initialState as userInitialState,
 } from "./features/user/userSlice";
 
+const persistConfig = {
+  key: "krypto-land",
+  storage,
+};
+
+const combinedReducer = combineReducers({
+  portfolio: persistReducer(persistConfig, portfolioReducer),
+  user: userReducer,
+  [coingeckoApi.reducerPath]: coingeckoApi.reducer,
+});
+
 export const makeStore = (preloadedLocale: string) => {
   return configureStore({
-    reducer: {
-      [coingeckoApi.reducerPath]: coingeckoApi.reducer,
-      user: userReducer,
-      portfolio: portfolioReducer,
-    },
+    reducer: combinedReducer,
     preloadedState: {
       user: {
         ...userInitialState,
@@ -19,7 +36,11 @@ export const makeStore = (preloadedLocale: string) => {
       },
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(coingeckoApi.middleware),
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }).concat(coingeckoApi.middleware),
   });
 };
 

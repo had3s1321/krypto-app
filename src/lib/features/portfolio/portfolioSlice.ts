@@ -1,20 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 
-const initialState: PortfolioAsset[] = [];
+const initialState = {
+  assets: [] as PortfolioAsset[],
+};
 
 const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
-    addAsset: (state, action: PayloadAction<PortfolioAsset>) => [
-      ...state,
-      action.payload,
-    ],
-    removeAsset: (state, action: PayloadAction<PortfolioAsset>) =>
-      state.filter((asset) => asset.id !== action.payload.id),
+    addAsset: (state, action: PayloadAction<PortfolioAsset>) => {
+      state.assets.push(action.payload);
+    },
+    removeAsset: (state, action: PayloadAction<PortfolioAsset>) => {
+      state.assets = state.assets.filter(
+        (asset) => asset.id !== action.payload.id,
+      );
+    },
     updateAsset: (state, action: PayloadAction<PortfolioAsset>) => {
-      const asset = state.find((a) => a.id === action.payload.id);
+      const asset = state.assets.find((a) => a.id === action.payload.id);
       if (!asset) return;
 
       asset.amount += action.payload.amount;
