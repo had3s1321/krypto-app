@@ -12,6 +12,7 @@ import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 import { getPercentageChange } from "@/utils/getPercentageChange";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 import { getDate } from "@/utils/formatUtils";
+import CardButtonGroup from "./CardButtonGroup";
 
 const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
   const format = useFormat();
@@ -63,7 +64,7 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
           <span>{formattedDate}</span>
         </CardDescription>
       </CardHeader>
-      <CardContent className="-mb-1 flex w-3/4 flex-wrap justify-between gap-4 rounded-r-xl border-t-4 border-[var(--clr-nav-bg)] pt-3 dark:border-[var(--secondary-foreground)]">
+      <CardContent className="relative -mb-1 flex w-3/4 flex-wrap justify-between gap-4 rounded-r-xl border-t-4 border-[var(--clr-nav-bg)] pt-3 dark:border-[var(--secondary-foreground)]">
         {Object.entries(dataEntries).map((entry, index) => (
           <DataPoint
             key={index} // eslint-disable-line react/no-array-index-key
@@ -72,6 +73,7 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
             valueType={index === 0 ? "currency" : "percent"}
           />
         ))}
+        <CardButtonGroup coinId={coin.id} />
       </CardContent>
     </Card>
   );

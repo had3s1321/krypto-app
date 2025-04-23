@@ -12,9 +12,9 @@ const portfolioSlice = createSlice({
     addAsset: (state, action: PayloadAction<PortfolioAsset>) => {
       state.assets.push(action.payload);
     },
-    removeAsset: (state, action: PayloadAction<PortfolioAsset>) => {
+    removeAsset: (state, action: PayloadAction<string>) => {
       state.assets = state.assets.filter(
-        (asset) => asset.id !== action.payload.id,
+        (asset) => asset.id !== action.payload,
       );
     },
     updateAsset: (state, action: PayloadAction<PortfolioAsset>) => {
