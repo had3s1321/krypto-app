@@ -15,9 +15,14 @@ const portfolioSlice = createSlice({
       state.filter((asset) => asset.id !== action.payload.id),
     updateAsset: (state, action: PayloadAction<PortfolioAsset>) => {
       const asset = state.find((a) => a.id === action.payload.id);
-      if (asset) {
-        asset.amount += action.payload.amount;
-      }
+      if (!asset) return;
+
+      asset.amount += action.payload.amount;
+      asset.equity += action.payload.equity;
+      if (
+        new Date(asset.lastPurchased) < new Date(action.payload.lastPurchased)
+      )
+        asset.lastPurchased = action.payload.lastPurchased;
     },
   },
 });

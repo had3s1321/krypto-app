@@ -5,7 +5,7 @@ import { getDate, getTime } from "@/utils/formatUtils";
 
 const ConvertorTitle = () => {
   const { locale } = useAppSelector((state) => state.user);
-  const date = getDate("short", locale);
+  const date = getDate(undefined, { isShort: "short", locale: locale });
   const time = getTime(locale);
 
   return (

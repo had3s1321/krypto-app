@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { useFormat } from "@/hooks/useFormat";
 import {
   Card,
   CardContent,
@@ -5,19 +7,39 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/shadcn/card";
-import Image from "next/image";
 import DataPoint from "./DataPoint";
 import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
+import { getPercentageChange } from "@/utils/getPercentageChange";
+import { getValueIndicator } from "@/utils/getValueIndicator";
+import { getDate } from "@/utils/formatUtils";
 
 const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
+  const format = useFormat();
   const dataEntries = {
     "Current price": coin.price,
-    "24h%": coin.priceChangePercentage24h / 10000,
+    "24h%": coin.priceChangePercentage24h / 100,
     "Market cap vs volume": coin.totalVolume / coin.marketCap,
     "Circ supply vs max supply": coin.maxSupply
       ? coin.circulatingSupply / coin.maxSupply
       : 0,
   };
+  const percentageChange = getPercentageChange(
+    coin.equity,
+    coin.amount,
+    coin.price,
+  );
+  const { icon, classTW } = getValueIndicator(percentageChange);
+  const formattedBalance = format(coin.price * coin.amount, {
+    style: "currency",
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  });
+  const formattedPercentChange = format(Math.abs(percentageChange) / 100, {
+    style: "percent",
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+  });
+  const formattedDate = getDate(coin.lastPurchased);
 
   return (
     <Card className="flex border-none bg-[var(--clr-nav-bg)] font-grotesk text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]">
@@ -29,15 +51,16 @@ const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
         </CardTitle>
         <CardDescription className="flex flex-col gap-1">
           <span className="flex items-center text-2xl font-bold">
-            {coin.amount}
-            {coin.symbol.toUpperCase()}
-            {/* <span className="ml-2 text-base font-bold"> 6%</span> */}
+            {coin.amount} {coin.symbol.toUpperCase()}
           </span>
-          <span>
-            {coin.equity}
-            {coin.price - coin.equity}
+          <span className="flex gap-4">
+            <span>{formattedBalance}</span>
+            <span className={`${classTW} flex items-center`}>
+              {icon}
+              {formattedPercentChange}
+            </span>
           </span>
-          <span>{coin.lastPurchased}</span>
+          <span>{formattedDate}</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="-mb-1 flex w-3/4 flex-wrap justify-between gap-4 rounded-r-xl border-t-4 border-[var(--clr-nav-bg)] pt-3 dark:border-[var(--secondary-foreground)]">

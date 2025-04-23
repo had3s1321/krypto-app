@@ -96,8 +96,9 @@ const AddAssetForm = () => {
       dispatch(
         updateAsset({
           ...foundAsset,
-          equity: Number(values.amount) * (historicalCoinData?.price || 1),
+          equity: Number(values.amount) * (historicalCoinData?.price || 0),
           amount: Number(values.amount),
+          lastPurchased: values.purchaseDate.toLocaleString(),
         }),
       );
     else {
