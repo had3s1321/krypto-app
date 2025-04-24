@@ -9,7 +9,7 @@ import {
   parseChartData,
   parseConversionCoinsChartData,
 } from "@/utils/parseChartData";
-import { parseConversionCoin } from "@/utils/parseConversionCoin";
+import { parseIndividualCoin } from "@/utils/parseConversionCoin";
 import { parseTableData } from "@/utils/parseTableData";
 import { ChartData, ParsedChartData } from "@/utils/types/ChartData";
 import {
@@ -20,6 +20,11 @@ import {
   ConversionCoinData,
   IndividualCoinDataResponse,
 } from "@/utils/types/IndividualCoinData";
+import { parseHistoricalCoinData } from "@/utils/parseHistoricalCoinData";
+import {
+  HistoricalCoinPrice,
+  HistoricalCoinResponse,
+} from "@/utils/types/HistoricalCoinData";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -93,8 +98,16 @@ export const coingeckoApi = createApi({
         }
       },
     }),
-    getConversionCoinData: build.query<ConversionCoinData, string>({
-      queryFn: async (coin: string, _queryApi, _extraOptions, fetchWithBQ) => {
+    getIndividualCoinData: build.query<
+      ConversionCoinData,
+      { coin: string; path: "convertor" | "portfolio" }
+    >({
+      queryFn: async (
+        { coin, path },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ,
+      ) => {
         try {
           const response = await fetchWithBQ(
             `coins/${coin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
@@ -102,8 +115,35 @@ export const coingeckoApi = createApi({
           if (response.error) return { error: response.error };
 
           return {
-            data: parseConversionCoin(
+            data: parseIndividualCoin(
               response.data as IndividualCoinDataResponse,
+              path,
+            ),
+          };
+        } catch (error) {
+          return { error: error as FetchBaseQueryError };
+        }
+      },
+    }),
+    getHistoricalCoinData: build.query<
+      HistoricalCoinPrice,
+      { coin: string; date: string }
+    >({
+      queryFn: async (
+        { coin, date },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ,
+      ) => {
+        try {
+          const response = await fetchWithBQ(
+            `coins/${coin}/history?date=${date}`,
+          );
+          if (response.error) return { error: response.error };
+
+          return {
+            data: parseHistoricalCoinData(
+              response.data as HistoricalCoinResponse,
             ),
           };
         } catch (error) {
@@ -118,5 +158,6 @@ export const {
   useGetChartDataByCoinQuery,
   useGetCoinTableDataInfiniteQuery,
   useLazyGetChartDataByCoinQuery,
-  useLazyGetConversionCoinDataQuery,
+  useLazyGetIndividualCoinDataQuery,
+  useLazyGetHistoricalCoinDataQuery,
 } = coingeckoApi;
