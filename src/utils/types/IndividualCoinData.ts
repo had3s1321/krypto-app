@@ -63,6 +63,7 @@ export interface IndividualCoinDataResponse {
     ath: Record<string, number>;
     ath_change_percentage: Record<string, number>;
     ath_date: Record<string, string>;
+    atl: Record<string, number>;
     atl_change_percentage: Record<string, number>;
     atl_date: Record<string, string>;
     market_cap: Record<string, number>;

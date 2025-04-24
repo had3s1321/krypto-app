@@ -9,7 +9,7 @@ import {
   parseChartData,
   parseConversionCoinsChartData,
 } from "@/utils/parseChartData";
-import { parseIndividualCoin } from "@/utils/parseConversionCoin";
+import { parseIndividualCoin } from "@/utils/parseIndividualCoin";
 import { parseTableData } from "@/utils/parseTableData";
 import { ChartData, ParsedChartData } from "@/utils/types/ChartData";
 import {
@@ -110,7 +110,7 @@ export const coingeckoApi = createApi({
       ) => {
         try {
           const response = await fetchWithBQ(
-            `coins/${coin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
+            `coins/${coin}?&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
           );
           if (response.error) return { error: response.error };
 
