@@ -11,8 +11,8 @@ export default {
     "bg-[#FFFFFF]",
     "bg-[#F7931A]",
     "bg-[#849DFF]",
-    "text-red-500",
-    "text-green-500",
+    "text-[#01F1E3]",
+    "text-[#FE2264]",
     "text-[var(--clr-text)]",
   ],
   theme: {

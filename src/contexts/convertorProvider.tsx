@@ -53,8 +53,10 @@ export const ConvertorProvider = ({
     trigger({ coin: payload.id, path: "convertor" }).then((result) => {
       if (result.data) {
         const { data } = result;
-        if (isSelling) setConversionCoins([data, conversionCoins[1]]);
-        else setConversionCoins([conversionCoins[0], data]);
+        if (isSelling)
+          setConversionCoins([data as ConversionCoinData, conversionCoins[1]]);
+        else
+          setConversionCoins([conversionCoins[0], data as ConversionCoinData]);
       }
     });
     cb();

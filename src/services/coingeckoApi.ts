@@ -19,6 +19,8 @@ import {
 import {
   ConversionCoinData,
   IndividualCoinDataResponse,
+  IndividualCoinStructuredData,
+  PortfolioCoinData,
 } from "@/utils/types/IndividualCoinData";
 import { parseHistoricalCoinData } from "@/utils/parseHistoricalCoinData";
 import {
@@ -99,8 +101,8 @@ export const coingeckoApi = createApi({
       },
     }),
     getIndividualCoinData: build.query<
-      ConversionCoinData,
-      { coin: string; path: "convertor" | "portfolio" }
+      ConversionCoinData | PortfolioCoinData | IndividualCoinStructuredData,
+      { coin: string; path: "convertor" | "portfolio" | "individual" }
     >({
       queryFn: async (
         { coin, path },

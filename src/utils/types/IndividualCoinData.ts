@@ -6,6 +6,60 @@ export interface ConversionCoinData {
   price: number;
 }
 
+export interface PortfolioCoinData extends ConversionCoinData {
+  priceChangePercentage24h: number;
+  totalVolume: number;
+  marketCap: number;
+  circulatingSupply: number;
+  maxSupply: number;
+}
+
+export interface ValueCardData {
+  id: string;
+  symbol: string;
+  name: string;
+  price: number;
+  priceChange24h: number;
+  image: string;
+  homepage: string;
+  ath: {
+    value: number;
+    date: string;
+  };
+  atl: {
+    value: number;
+    date: string;
+  };
+}
+
+export interface DescriptionCardData {
+  description: string;
+  links: string[];
+}
+
+export interface VolumeCardData {
+  totalVolume: number;
+  volume24h: number;
+}
+
+export interface SupplyCardData {
+  circulatingSupply: number;
+  maxSupply: number;
+}
+
+export interface MarketCardData {
+  marketCap: number;
+  fullyDilutedValuation: number;
+}
+
+export interface IndividualCoinStructuredData {
+  valueCardData: ValueCardData;
+  descriptionCardData: DescriptionCardData;
+  volumeCardData: VolumeCardData;
+  supplyCardData: SupplyCardData;
+  marketCardData: MarketCardData;
+}
+
 export interface IndividualCoinDataResponse {
   id: string;
   symbol: string;

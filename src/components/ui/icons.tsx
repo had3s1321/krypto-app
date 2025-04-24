@@ -1,7 +1,8 @@
-export const DownIcon = () => {
+export const DownIcon = ({ customStyles }: { customStyles?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      className={customStyles}
       width="16"
       height="16"
       fill="none"
@@ -15,10 +16,11 @@ export const DownIcon = () => {
   );
 };
 
-export const UpIcon = () => {
+export const UpIcon = ({ customStyles }: { customStyles?: string }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      className={customStyles}
       width="16"
       height="16"
       fill="none"
