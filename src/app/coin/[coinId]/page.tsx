@@ -3,6 +3,7 @@
 
 import { getIndividualCoinData } from "@/actions/getIndividualCoinData";
 import CoinDescriptionCard from "@/components/individualCoinPage/CoinDescriptionCard";
+import CoinGenericDataCard from "@/components/individualCoinPage/CoinGenericDataCard";
 
 import CoinValueCard from "@/components/individualCoinPage/CoinValueCard";
 import { IndividualCoinStructuredData } from "@/utils/types/IndividualCoinData";
@@ -15,10 +16,10 @@ export default async function TaskDetail({
   const { coinId } = await params;
   const {
     valueCardData,
-    descriptionCardData, //eslint-disable-line
-    volumeCardData, //eslint-disable-line
-    supplyCardData, //eslint-disable-line
-    marketCardData, //eslint-disable-line
+    descriptionCardData,
+    volumeCardData,
+    supplyCardData,
+    marketCardData,
   } = (await getIndividualCoinData(coinId)) as IndividualCoinStructuredData;
 
   return (
@@ -28,7 +29,11 @@ export default async function TaskDetail({
         <CoinDescriptionCard data={descriptionCardData} />
       </div>
       <div className="h-[0.5px] w-full bg-[var(--clr-text)]"></div>
-      <div></div>
+      <div className="flex w-full flex-wrap gap-4">
+        <CoinGenericDataCard data={volumeCardData} />
+        <CoinGenericDataCard data={supplyCardData} />
+        <CoinGenericDataCard data={marketCardData} />
+      </div>
     </main>
   );
 }

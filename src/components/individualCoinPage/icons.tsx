@@ -18,3 +18,18 @@ export const CopyIcon = () => (
     </g>
   </svg>
 );
+
+export const PlusIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 32 32"
+  >
+    <circle cx="16" cy="16" r="16" fill="#7878FA" />
+    <path
+      d="M21 15h-5v-5a1 1 0 0 0-2 0v5H9a1 1 0 0 0 0 2h5v5a1 1 0 0 0 2 0v-5h5a1 1 0 0 0 0-2z"
+      fill="#FFFFFF"
+    />
+  </svg>
+);

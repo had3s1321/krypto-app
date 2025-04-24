@@ -37,19 +37,26 @@ export interface DescriptionCardData {
   links: string[];
 }
 
+export interface GenericDataPoint {
+  displayName: string;
+  value: number;
+  type: string;
+}
+
 export interface VolumeCardData {
-  totalVolume: number;
-  volume24h: number;
+  totalVolume: GenericDataPoint;
+  volume24h: GenericDataPoint;
+  volumeMarketFraction: GenericDataPoint;
 }
 
 export interface SupplyCardData {
-  circulatingSupply: number;
-  maxSupply: number;
+  maxSupply: GenericDataPoint;
+  circulatingSupply: GenericDataPoint;
 }
 
 export interface MarketCardData {
-  marketCap: number;
-  fullyDilutedValuation: number;
+  marketCap: GenericDataPoint;
+  fullyDilutedValuation: GenericDataPoint;
 }
 
 export interface IndividualCoinStructuredData {

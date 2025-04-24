@@ -52,16 +52,46 @@ export const parseIndividualCoin = (
       links: data.links.blockchain_site,
     },
     volumeCardData: {
-      totalVolume: data.market_data.total_volume.usd,
-      volume24h: data.market_data.total_volume.usd,
+      totalVolume: {
+        displayName: "Total Volume",
+        value: data.market_data.total_volume.btc,
+        type: "coin",
+      },
+      volume24h: {
+        displayName: "Volume 24h",
+        value: data.market_data.total_volume.usd,
+        type: "currency",
+      },
+      volumeMarketFraction: {
+        displayName: "Volume/Market",
+        value:
+          data.market_data.total_volume.usd / data.market_data.market_cap.usd,
+        type: "number",
+      },
     },
     supplyCardData: {
-      circulatingSupply: data.market_data.circulating_supply,
-      maxSupply: data.market_data.max_supply,
+      maxSupply: {
+        displayName: "Max Supply",
+        value: data.market_data.max_supply,
+        type: "coin",
+      },
+      circulatingSupply: {
+        displayName: "Circulating Supply",
+        value: data.market_data.circulating_supply,
+        type: "coin",
+      },
     },
     marketCardData: {
-      marketCap: data.market_data.market_cap.usd,
-      fullyDilutedValuation: data.market_data.fully_diluted_valuation.usd,
+      marketCap: {
+        displayName: "Market Cap",
+        value: data.market_data.market_cap.usd,
+        type: "currency",
+      },
+      fullyDilutedValuation: {
+        displayName: "Fully Diluted Valuation",
+        value: data.market_data.fully_diluted_valuation.usd,
+        type: "currency",
+      },
     },
   };
 
