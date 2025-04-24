@@ -38,7 +38,7 @@ const CoinValueCard = ({ data }: { data: ValueCardData }) => {
   const { icon, classTW } = getValueIndicator(data.priceChange24h);
 
   return (
-    <Card className="w-[45%] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]">
+    <Card className="w-[45%] flex-1 border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]">
       <CardHeader className="flex flex-row gap-6">
         <Image src={data.image} alt={data.name} width={52} height={48} />
         <div className="!m-0 flex flex-col">
@@ -67,7 +67,7 @@ const CoinValueCard = ({ data }: { data: ValueCardData }) => {
             Profit:<span className={`${classTW}`}>{formattedProfit}</span>
           </span>
         </div>
-        <div className="h-[1px] w-full bg-[var(--clr-text)]"></div>
+        <div className="h-[0.5px] w-full bg-[var(--clr-text)]"></div>
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
             <div className="flex">
