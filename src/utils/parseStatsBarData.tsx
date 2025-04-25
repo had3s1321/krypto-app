@@ -37,6 +37,8 @@ export const parseStatsBarData = (
       formatOptions: {
         style: "decimal",
         notation: "compact",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
       },
     },
     {
@@ -47,6 +49,8 @@ export const parseStatsBarData = (
       formatOptions: {
         style: "currency",
         notation: "compact",
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2,
       },
     },
     {
@@ -57,7 +61,6 @@ export const parseStatsBarData = (
       formatOptions: {
         style: "percent",
         maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
       },
     },
     {
@@ -68,7 +71,6 @@ export const parseStatsBarData = (
       formatOptions: {
         style: "percent",
         maximumFractionDigits: 0,
-        minimumFractionDigits: 0,
       },
     },
   ];

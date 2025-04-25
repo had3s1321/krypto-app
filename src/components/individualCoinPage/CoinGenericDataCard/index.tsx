@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { useFormat } from "@/hooks/useFormat";
-import { trimDecimals } from "@/utils/trimDecimals";
+import { trimDecimals } from "@/utils/formatUtils";
 import {
   GenericDataPoint,
   MarketCardData,
