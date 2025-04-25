@@ -1,5 +1,6 @@
 "use client";
-import { useRef } from "react";
+
+import { useEffect, useRef, useState } from "react";
 import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
@@ -13,16 +14,25 @@ export default function StoreProvider({
   locale: string;
 }) {
   const storeRef = useRef<AppStore>(undefined);
+  const [persistor, setPersistor] = useState<any>(null); //eslint-disable-line
+
   if (!storeRef.current) {
     storeRef.current = makeStore(locale);
   }
-  const persistedStore = persistStore(storeRef.current);
 
+  useEffect(() => {
+    const persistedStore = persistStore(storeRef.current!);
+    setPersistor(persistedStore);
+  }, []);
+
+  if (!persistor) {
+    return <div className="text-[var(--clr-text)]">loading...</div>;
+  }
   return (
     <Provider store={storeRef.current}>
       <PersistGate
         loading={<div className="text-[var(--clr-text)]">loading...</div>}
-        persistor={persistedStore}
+        persistor={persistor}
       >
         {children}
       </PersistGate>
