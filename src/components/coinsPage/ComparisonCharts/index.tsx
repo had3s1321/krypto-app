@@ -11,6 +11,7 @@ const ComparisonCharts = () => {
   const { selectedCoins } = useAppSelector((state) => state.user);
   const { data, error, isLoading } = useGetChartDataByCoinQuery({
     coins: selectedCoins.map((coin) => coin.id),
+    path: "home",
   });
 
   if (isLoading) return <ChartsSuspenseSkeleton type="loading" />;

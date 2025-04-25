@@ -14,9 +14,9 @@ import {
 } from "@/components/ui/shadcn/carousel";
 import SelectedCoins from "./SelectedCoins";
 import { getValueIndicator } from "@/utils/getValueIndicator";
-import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
+import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 
-const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
+const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
   const [currency, selectedCoins, handleSelectedCoins] = useCarousel(data);
   const format = useFormat();
 

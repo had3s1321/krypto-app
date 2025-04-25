@@ -1,3 +1,14 @@
+export interface CarouselItemData {
+  id: string;
+  name: string;
+  symbol: string;
+  image: string;
+  price: number;
+  priceChange: number;
+  marketCap: number;
+  volume: number;
+}
+
 interface ROI {
   times: number;
   currency: string;

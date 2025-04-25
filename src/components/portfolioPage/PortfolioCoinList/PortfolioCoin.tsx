@@ -8,13 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import DataPoint from "./DataPoint";
-import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
 import { getPercentageChange } from "@/utils/getPercentageChange";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 import { getDate } from "@/utils/formatUtils";
 import CardButtonGroup from "./CardButtonGroup";
+import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
-const PortfolioCoin = ({ coin }: { coin: PortfolioAsset }) => {
+const PortfolioCoin = ({ coin }: { coin: PortfolioCoinData }) => {
   const format = useFormat();
   const dataEntries = {
     "Current price": coin.price,

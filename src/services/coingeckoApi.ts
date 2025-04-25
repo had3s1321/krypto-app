@@ -9,24 +9,24 @@ import {
   parseChartData,
   parseConversionCoinsChartData,
 } from "@/utils/parseChartData";
+import { parseHistoricalCoinData } from "@/utils/parseHistoricalCoinData";
 import { parseIndividualCoin } from "@/utils/parseIndividualCoin";
 import { parseTableData } from "@/utils/parseTableData";
-import { ChartData, ParsedChartData } from "@/utils/types/ChartData";
+import { ChartData } from "@/utils/types/ChartData";
 import {
   CoinsListMarketData,
   ParsedTableData,
 } from "@/utils/types/CoinsListMarketData";
+import { IndividualCoinDataResponse } from "@/utils/types/IndividualCoinData";
+import { HistoricalCoinResponse } from "@/utils/types/HistoricalCoinData";
 import {
-  ConversionCoinData,
-  IndividualCoinDataResponse,
-  IndividualCoinStructuredData,
-  PortfolioCoinData,
-} from "@/utils/types/IndividualCoinData";
-import { parseHistoricalCoinData } from "@/utils/parseHistoricalCoinData";
-import {
-  HistoricalCoinPrice,
-  HistoricalCoinResponse,
-} from "@/utils/types/HistoricalCoinData";
+  ChartDataByCoin,
+  ChartDataByCoinArg,
+  HistoricalCoinData,
+  HistoricalCoinDataArg,
+  IndividualCoinData,
+  IndividualCoinDataArg,
+} from "./types";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -44,12 +44,9 @@ export const coingeckoApi = createApi({
     method: "GET",
   }),
   endpoints: (build) => ({
-    getChartDataByCoin: build.query<
-      { prices: ParsedChartData; volumes?: ParsedChartData },
-      { coins: string[]; isConversion?: boolean }
-    >({
+    getChartDataByCoin: build.query<ChartDataByCoin, ChartDataByCoinArg>({
       queryFn: async (
-        { coins, isConversion },
+        { coins, path },
         _queryApi,
         _extraOptions,
         fetchWithBQ,
@@ -65,7 +62,7 @@ export const coingeckoApi = createApi({
             return res.data as ChartData;
           });
 
-          if (isConversion)
+          if (path === "convertor")
             return {
               data: { prices: parseConversionCoinsChartData(data) },
             };
@@ -101,8 +98,8 @@ export const coingeckoApi = createApi({
       },
     }),
     getIndividualCoinData: build.query<
-      ConversionCoinData | PortfolioCoinData | IndividualCoinStructuredData,
-      { coin: string; path: "convertor" | "portfolio" | "individual" }
+      IndividualCoinData,
+      IndividualCoinDataArg
     >({
       queryFn: async (
         { coin, path },
@@ -128,8 +125,8 @@ export const coingeckoApi = createApi({
       },
     }),
     getHistoricalCoinData: build.query<
-      HistoricalCoinPrice,
-      { coin: string; date: string }
+      HistoricalCoinData,
+      HistoricalCoinDataArg
     >({
       queryFn: async (
         { coin, date },

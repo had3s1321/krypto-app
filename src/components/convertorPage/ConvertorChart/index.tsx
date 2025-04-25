@@ -27,7 +27,7 @@ const ConvertorChart = () => {
     if (!conversionCoins[0] || !conversionCoins[1]) return;
 
     const coins = conversionCoins.map((coin) => coin.id);
-    trigger({ coins, isConversion: true });
+    trigger({ coins, path: "convertor" });
   }, [conversionCoins, trigger]);
 
   if (!conversionCoins[0] || !conversionCoins[1])
