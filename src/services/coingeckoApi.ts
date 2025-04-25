@@ -9,7 +9,7 @@ import {
   parseChartData,
   parseConversionCoinsChartData,
 } from "@/utils/parseChartData";
-import { parseIndividualCoin } from "@/utils/parseConversionCoin";
+import { parseIndividualCoin } from "@/utils/parseIndividualCoin";
 import { parseTableData } from "@/utils/parseTableData";
 import { ChartData, ParsedChartData } from "@/utils/types/ChartData";
 import {
@@ -19,6 +19,8 @@ import {
 import {
   ConversionCoinData,
   IndividualCoinDataResponse,
+  IndividualCoinStructuredData,
+  PortfolioCoinData,
 } from "@/utils/types/IndividualCoinData";
 import { parseHistoricalCoinData } from "@/utils/parseHistoricalCoinData";
 import {
@@ -99,8 +101,8 @@ export const coingeckoApi = createApi({
       },
     }),
     getIndividualCoinData: build.query<
-      ConversionCoinData,
-      { coin: string; path: "convertor" | "portfolio" }
+      ConversionCoinData | PortfolioCoinData | IndividualCoinStructuredData,
+      { coin: string; path: "convertor" | "portfolio" | "individual" }
     >({
       queryFn: async (
         { coin, path },
@@ -110,7 +112,7 @@ export const coingeckoApi = createApi({
       ) => {
         try {
           const response = await fetchWithBQ(
-            `coins/${coin}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
+            `coins/${coin}?&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`,
           );
           if (response.error) return { error: response.error };
 

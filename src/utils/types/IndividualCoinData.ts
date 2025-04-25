@@ -6,6 +6,67 @@ export interface ConversionCoinData {
   price: number;
 }
 
+export interface PortfolioCoinData extends ConversionCoinData {
+  priceChangePercentage24h: number;
+  totalVolume: number;
+  marketCap: number;
+  circulatingSupply: number;
+  maxSupply: number;
+}
+
+export interface ValueCardData {
+  id: string;
+  symbol: string;
+  name: string;
+  price: number;
+  priceChange24h: number;
+  image: string;
+  homepage: string;
+  ath: {
+    value: number;
+    date: string;
+  };
+  atl: {
+    value: number;
+    date: string;
+  };
+}
+
+export interface DescriptionCardData {
+  description: string;
+  links: string[];
+}
+
+export interface GenericDataPoint {
+  displayName: string;
+  value: number;
+  type: string;
+}
+
+export interface VolumeCardData {
+  totalVolume: GenericDataPoint;
+  volume24h: GenericDataPoint;
+  volumeMarketFraction: GenericDataPoint;
+}
+
+export interface SupplyCardData {
+  maxSupply: GenericDataPoint;
+  circulatingSupply: GenericDataPoint;
+}
+
+export interface MarketCardData {
+  marketCap: GenericDataPoint;
+  fullyDilutedValuation: GenericDataPoint;
+}
+
+export interface IndividualCoinStructuredData {
+  valueCardData: ValueCardData;
+  descriptionCardData: DescriptionCardData;
+  volumeCardData: VolumeCardData;
+  supplyCardData: SupplyCardData;
+  marketCardData: MarketCardData;
+}
+
 export interface IndividualCoinDataResponse {
   id: string;
   symbol: string;
@@ -63,6 +124,7 @@ export interface IndividualCoinDataResponse {
     ath: Record<string, number>;
     ath_change_percentage: Record<string, number>;
     ath_date: Record<string, string>;
+    atl: Record<string, number>;
     atl_change_percentage: Record<string, number>;
     atl_date: Record<string, string>;
     market_cap: Record<string, number>;
