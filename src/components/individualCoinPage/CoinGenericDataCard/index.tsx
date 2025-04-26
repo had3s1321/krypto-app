@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { useFormat } from "@/hooks/useFormat";
-import { trimDecimals } from "@/utils/trimDecimals";
+import { trimDecimals } from "@/utils/formatUtils";
 import {
   GenericDataPoint,
   MarketCardData,
@@ -40,7 +40,7 @@ const CoinGenericDataCard = ({
   };
 
   return (
-    <Card className="w-[calc(50%-1.5rem)] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]">
+    <Card className="w-[calc(50%-1.5rem)] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
       <CardContent className="flex flex-col gap-4 p-4">
         {Object.values(data).map((value: GenericDataPoint) => (
           <div

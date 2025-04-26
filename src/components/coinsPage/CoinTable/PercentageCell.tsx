@@ -11,7 +11,7 @@ const PercentageCell = ({ data }: { data?: number }) => {
   return (
     <TableCell className={`${classTW}`}>
       <div className={`flex items-center ${classTW}`}>
-        {icon}{" "}
+        {icon}
         {format(Math.abs(data), { style: "percent", maximumFractionDigits: 2 })}
       </div>
     </TableCell>

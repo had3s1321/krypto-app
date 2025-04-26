@@ -3,9 +3,9 @@
 import { createContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { useLazyGetIndividualCoinDataQuery } from "@/services/coingeckoApi";
+import { trimDecimals } from "@/utils/formatUtils";
 import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
 import { Coin } from "@/utils/types/SearchBarData";
-import { trimDecimals } from "@/utils/trimDecimals";
 
 interface ConvertorContextType {
   conversionCoins: ConversionCoinData[];

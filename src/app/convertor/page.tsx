@@ -1,6 +1,6 @@
 import CoinsConvertor from "@/components/convertorPage/CoinsConvertor";
 import ConvertorChart from "@/components/convertorPage/ConvertorChart";
-import ConvertorTitle from "@/components/convertorPage/ConvertorTitle";
+import ConvertorHeader from "@/components/convertorPage/ConvertorHeader";
 import IntervalTabs from "@/components/ui/IntervalTabs";
 import PageTabs from "@/components/ui/PageTabs";
 import { ConvertorProvider } from "@/contexts/convertorProvider";
@@ -17,7 +17,7 @@ export default function Convertor() {
   return (
     <main className="mx-auto w-full max-w-[1296]">
       <PageTabs route="Convertor" />
-      <ConvertorTitle />
+      <ConvertorHeader />
       <ConvertorProvider>
         <CoinsConvertor />
         <ConvertorChart />

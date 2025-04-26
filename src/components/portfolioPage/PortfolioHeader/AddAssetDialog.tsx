@@ -14,7 +14,7 @@ const AddAssetDialog = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-1/6 bg-[var(--primary-foreground)] text-[var(--clr-light-perm)]">
+        <Button className="w-1/6 bg-[var(--primary-foreground)] text-[var(--clr-light-perm)] shadow-lg">
           Add Asset
         </Button>
       </DialogTrigger>

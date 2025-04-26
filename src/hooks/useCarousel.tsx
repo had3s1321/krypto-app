@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { changeSelectedCoins, Currencies } from "@/lib/features/user/userSlice";
-import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
+import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 
-export function useCarousel(data: CarouselItemInterface[]): [
+export function useCarousel(data: CarouselItemData[]): [
   Currencies,
-  CarouselItemInterface[],
-  (item: CarouselItemInterface) => void, //eslint-disable-line
+  CarouselItemData[],
+  (item: CarouselItemData) => void, //eslint-disable-line
 ] {
   const { selectedCoins, currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const handleSelectedCoins = (item: CarouselItemInterface) => {
+  const handleSelectedCoins = (item: CarouselItemData) => {
     if (selectedCoins.length === 1 && item.id === selectedCoins[0].id) return;
     if (selectedCoins.some((el) => item.name === el.name)) {
       const newItems = selectedCoins.filter((el) => item.name !== el.name);

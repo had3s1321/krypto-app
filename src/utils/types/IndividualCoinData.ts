@@ -11,7 +11,10 @@ export interface PortfolioCoinData extends ConversionCoinData {
   totalVolume: number;
   marketCap: number;
   circulatingSupply: number;
-  maxSupply: number;
+  maxSupply: number | null;
+  amount: number;
+  equity: number;
+  lastPurchased: string;
 }
 
 export interface ValueCardData {

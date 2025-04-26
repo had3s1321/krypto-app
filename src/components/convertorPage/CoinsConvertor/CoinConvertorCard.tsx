@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/shadcn/card";
 import { Input } from "@/components/ui/shadcn/input";
+import Separator from "@/components/ui/Separator";
 import CoinsDropdown from "./CoinsDropdown";
 import SelectedCoin from "./SelectedCoin";
 import CoinFiatValue from "./CoinFiatValue";
@@ -45,7 +46,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   };
 
   return (
-    <Card className="w-full border-none bg-[var(--foreground)] text-[var(--clr-nav-text)] shadow-none">
+    <Card className="w-full border-none bg-[var(--foreground)] text-[var(--clr-nav-text)] shadow-lg">
       <CardHeader>
         <CardTitle className="cursor-default text-sm font-normal">
           {isSelling ? "You sell" : "You buy"}
@@ -82,7 +83,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
             isSelling={isSelling}
           />
         </div>
-        <div className="h-[1px] w-full bg-[var(--clr-text)]"></div>
+        <Separator />
       </CardContent>
       <CardFooter className="-mt-4 h-11 w-full cursor-default">
         <CoinFiatValue conversionCoin={conversionCoin} />

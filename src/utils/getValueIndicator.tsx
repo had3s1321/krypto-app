@@ -9,7 +9,7 @@ export const getValueIndicator = (num: number): ValueIndicator => {
   const valueIndicator: ValueIndicator = { icon: null, classTW: "" };
   if (num > 0) {
     valueIndicator.icon = <UpIcon />;
-    valueIndicator.classTW = "text-[#01F1E3]";
+    valueIndicator.classTW = "text-[#00B1A6]";
   } else if (num < 0) {
     valueIndicator.icon = <DownIcon />;
     valueIndicator.classTW = "text-[#FE2264]";

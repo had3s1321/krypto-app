@@ -1,10 +1,9 @@
 "use client";
 
 import { useCarousel } from "@/hooks/useCarousel";
-import { useFormat } from "@/hooks/useFormat";
 import Image from "next/image";
 import CarouselTitle from "./CarouselTitle";
-import { Card, CardContent } from "@/components/ui/shadcn/card";
+import { Card } from "@/components/ui/shadcn/card";
 import {
   Carousel,
   CarouselContent,
@@ -12,13 +11,13 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/shadcn/carousel";
+import CoinInfo from "./CoinInfo";
 import SelectedCoins from "./SelectedCoins";
 import { getValueIndicator } from "@/utils/getValueIndicator";
-import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
+import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 
-const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
+const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
   const [currency, selectedCoins, handleSelectedCoins] = useCarousel(data);
-  const format = useFormat();
 
   return (
     <>
@@ -28,46 +27,36 @@ const CoinsCarousel = ({ data }: { data: CarouselItemInterface[] }) => {
           {data &&
             data.map((coin) => {
               const { icon, classTW } = getValueIndicator(coin.priceChange);
+              const isSelected = selectedCoins.some(
+                (item) => item.name === coin.name,
+              )
+                ? "bg-[var(--primary-foreground)] text-[var(--clr-light-perm)]"
+                : "bg-[var(--foreground)]";
+
               return (
                 <CarouselItem
                   key={coin.name}
                   onClick={() => handleSelectedCoins(coin)}
                   className="basis-1/5 [&:not(:first-child)]:pl-2"
                 >
-                  <div
-                    className={`rounded-md ${selectedCoins.some((item) => item.name === coin.name) && "bg-[var(--primary-foreground)] text-[var(--clr-light-perm)]"} bg-[var(--foreground)] hover:cursor-pointer`}
+                  <Card
+                    className={`flex items-center rounded-md border-none px-4 shadow-lg transition-transform duration-300 hover:scale-105 hover:cursor-pointer ${
+                      isSelected
+                    }`}
                   >
-                    <Card className="flex items-center border-none px-4 shadow-none">
-                      <Image
-                        src={coin.image}
-                        alt={coin.name}
-                        width={32}
-                        height={32}
-                      />
-                      <CardContent className="flex flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">
-                        <span className="text-xl font-medium hover:cursor-pointer">
-                          {coin.name} ({coin.symbol})
-                        </span>
-                        <span className="flex hover:cursor-pointer">
-                          <span className="hover:cursor-pointer">
-                            {format(coin.price, {
-                              style: "decimal",
-                            })}{" "}
-                            {currency}
-                          </span>
-                          <span
-                            className={`ml-2 flex items-center hover:cursor-pointer ${classTW}`}
-                          >
-                            {icon}
-                            {format(Math.abs(coin.priceChange), {
-                              style: "percent",
-                              maximumFractionDigits: 2,
-                            })}
-                          </span>
-                        </span>
-                      </CardContent>
-                    </Card>
-                  </div>
+                    <Image
+                      src={coin.image}
+                      alt={coin.name}
+                      width={32}
+                      height={32}
+                    />
+                    <CoinInfo
+                      coin={coin}
+                      currency={currency}
+                      icon={icon}
+                      classTW={classTW}
+                    />
+                  </Card>
                 </CarouselItem>
               );
             })}

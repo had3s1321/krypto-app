@@ -35,7 +35,7 @@ import {
 } from "@/services/coingeckoApi";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import { addAsset, updateAsset } from "@/lib/features/portfolio/portfolioSlice";
-import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
+import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const formSchema = z.object({
   coin: z.string().min(1, {
@@ -112,7 +112,7 @@ const AddAssetForm = () => {
           amount: Number(values.amount),
           equity: Number(values.amount) * (historicalCoinData?.price || 1),
           lastPurchased: values.purchaseDate.toLocaleString(),
-        } as PortfolioAsset),
+        } as PortfolioCoinData),
       );
     }
   };

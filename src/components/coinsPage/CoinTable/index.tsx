@@ -39,7 +39,7 @@ const CoinTable = () => {
             <TableRow
               key={coin.id}
               ref={allResults.length - 15 === index + 1 ? lastCellRef : null}
-              className="bg mb-8 h-16 bg-[var(--foreground)]"
+              className="bg mb-8 h-16 bg-[var(--foreground)] shadow-sm transition-transform hover:scale-105 hover:cursor-pointer"
             >
               <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">
                 {coin.rank}
@@ -58,12 +58,12 @@ const CoinTable = () => {
               <ProgressCell
                 data1={coin.progress1.volume24h}
                 data2={coin.progress1.marketCap}
-                value={coin.progress1.value}
+                sign={coin.progress1.sign}
               />
               <ProgressCell
                 data1={coin.progress2.circulatingSupply}
                 data2={coin.progress2.totalSupply}
-                value={coin.progress2.value}
+                sign={coin.progress2.sign}
               />
               <ChartCell data={coin.chart} />
             </TableRow>

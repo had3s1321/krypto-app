@@ -3,23 +3,25 @@
 import { TableCell } from "@/components/ui/shadcn/table";
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
+import { useId } from "react";
 
-// TODO replace the implementation with parse chart util func
-// eslint-disable-next-line
-const ChartCell = ({ data }: { data: any }) => {
+const ChartCell = ({ data }: { data: number[] }) => {
+  const id = useId();
+
+  const isPositive =
+    data[0] - data[data.length - 1] < 0 ? "#00B1A6" : "#FE2264";
   const chartConfig = {
     desktop: {
       label: "Desktop",
-      color: "#2563eb",
+      color: isPositive,
     },
     mobile: {
       label: "Mobile",
-      color: "#60a5fa",
+      color: isPositive,
     },
   } satisfies ChartConfig;
 
-  // eslint-disable-next-line
-  const chartData = data.map((el: any) => {
+  const chartData = data.map((el) => {
     return { value: el };
   });
 
@@ -28,9 +30,9 @@ const ChartCell = ({ data }: { data: any }) => {
       <ChartContainer config={chartConfig} className="h-[50px] w-[160px]">
         <AreaChart data={chartData}>
           <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            <linearGradient id={`colorUv-${id}`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor={isPositive} stopOpacity={0.8} />
+              <stop offset="95%" stopColor={isPositive} stopOpacity={0} />
             </linearGradient>
             <clipPath id="clip">
               <rect x="0" y="0" width="100%" height="70%" />
@@ -42,9 +44,9 @@ const ChartCell = ({ data }: { data: any }) => {
           <Area
             type="monotone"
             dataKey="value"
-            stroke="#8884d8"
+            stroke={isPositive}
             fillOpacity={1}
-            fill="url(#colorUv)"
+            fill={`url(#colorUv-${id})`}
           />
         </AreaChart>
       </ChartContainer>

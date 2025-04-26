@@ -1,15 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PortfolioAsset } from "@/utils/types/PortfolioAsset";
+import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const initialState = {
-  assets: [] as PortfolioAsset[],
+  assets: [] as PortfolioCoinData[],
 };
 
 const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
-    addAsset: (state, action: PayloadAction<PortfolioAsset>) => {
+    addAsset: (state, action: PayloadAction<PortfolioCoinData>) => {
       state.assets.push(action.payload);
     },
     removeAsset: (state, action: PayloadAction<string>) => {
@@ -17,7 +17,7 @@ const portfolioSlice = createSlice({
         (asset) => asset.id !== action.payload,
       );
     },
-    updateAsset: (state, action: PayloadAction<PortfolioAsset>) => {
+    updateAsset: (state, action: PayloadAction<PortfolioCoinData>) => {
       const asset = state.assets.find((a) => a.id === action.payload.id);
       if (!asset) return;
 

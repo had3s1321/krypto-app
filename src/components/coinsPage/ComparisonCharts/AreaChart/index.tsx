@@ -5,14 +5,14 @@ import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { getDate } from "@/utils/formatUtils";
 import { ParsedChartData } from "@/utils/types/ChartData";
-import { CarouselItemInterface } from "@/utils/types/CarouselItemInterface";
+import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 
 const CustomAreaChart = ({
   chartData,
   coins,
 }: {
   chartData: ParsedChartData | undefined;
-  coins: CarouselItemInterface[];
+  coins: CarouselItemData[];
 }) => {
   const format = useFormat();
   const chartConfig = {
@@ -29,7 +29,7 @@ const CustomAreaChart = ({
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-video min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)]"
+      className="aspect-video min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)] shadow-lg"
     >
       <AreaChart
         data={chartData}

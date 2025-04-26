@@ -9,12 +9,8 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/ui/shadcn/dropdown-menu";
-import {
-  DollarIcon,
-  DropdownDownIcon,
-  EuroIcon,
-  PoundSterlingIcon,
-} from "@/components/PageHeader/NavBar/icons";
+import { DropdownDownIcon } from "@/components/PageHeader/NavBar/icons";
+import { BadgeDollarSign, BadgeEuro, BadgePoundSterling } from "lucide-react";
 
 interface CurrenciesConfig {
   name: Currencies;
@@ -22,9 +18,9 @@ interface CurrenciesConfig {
 }
 
 const currencies: CurrenciesConfig[] = [
-  { name: "USD", icon: <DollarIcon /> },
-  { name: "EUR", icon: <EuroIcon /> },
-  { name: "GBP", icon: <PoundSterlingIcon /> },
+  { name: "USD", icon: <BadgeDollarSign size={16} /> },
+  { name: "EUR", icon: <BadgeEuro size={16} /> },
+  { name: "GBP", icon: <BadgePoundSterling size={16} /> },
 ];
 
 const CurrencyDropdown = () => {
@@ -41,14 +37,14 @@ const CurrencyDropdown = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex h-9 items-center justify-center gap-2 rounded-md bg-[var(--clr-nav-foreground)] p-3 hover:bg-[var(--clr-hover)] focus-visible:outline-none">
-        <span className="flex">
+      <DropdownMenuTrigger className="flex h-full items-center justify-center gap-2 rounded-md bg-[var(--clr-nav-foreground)] px-3 shadow-lg hover:bg-[var(--clr-hover)] focus-visible:outline-none">
+        <span className="flex items-center gap-1">
           {selectedCurrency.icon}
           {selectedCurrency.name}
         </span>
         <DropdownDownIcon />
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="border-none bg-[var(--clr-nav-foreground)]">
+      <DropdownMenuContent className="rounded-b-md border-none bg-[var(--clr-nav-foreground)]">
         <DropdownMenuRadioGroup
           value={currency}
           onValueChange={handleSelectedCurrency}
@@ -58,9 +54,9 @@ const CurrencyDropdown = () => {
             <DropdownMenuRadioItem
               key={el.name}
               value={el.name}
-              className="flex"
+              className="mx-3 flex"
             >
-              <span className="-ml-1 flex items-center justify-center gap-0.5 bg-[var(--clr-nav-foreground)] py-2 pl-5 pr-7 text-[var(--clr-nav-text)] hover:bg-[var(--clr-hover)]">
+              <span className="-mx-5 flex items-center justify-center gap-1 bg-[var(--clr-nav-foreground)] py-2 pl-5 pr-11 text-[var(--clr-nav-text)] hover:cursor-pointer hover:bg-[var(--clr-hover)]">
                 {el.icon}
                 {el.name}
               </span>
