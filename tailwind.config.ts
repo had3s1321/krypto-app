@@ -14,6 +14,9 @@ export default {
     "text-[#01F1E3]",
     "text-[#FE2264]",
     "text-[var(--clr-text)]",
+    "text-[#ffffff]",
+    "text-[#808080]",
+    "text-[#353570]",
   ],
   theme: {
     extend: {

@@ -8,12 +8,15 @@ interface PageTabProps {
 }
 
 const PageTab = ({ name, route }: PageTabProps) => {
-  const isOnRoute = name === route;
+  const isOnRoute =
+    name === route
+      ? "text-[var(--clr-light-perm)] bg-[var(--primary-foreground)]"
+      : "text-[var(--clr-nav-text)]";
 
   return (
     <Link
       href={handlePageTabLink(name)}
-      className={`inline-block w-1/2 ${isOnRoute ? "text-[var(--clr-light-perm)]" : "text-[var(--clr-nav-text)]"} ${isOnRoute && "bg-[var(--primary-foreground)]"} rounded-sm py-3 text-center`}
+      className={`inline-block w-1/2 ${isOnRoute} rounded-sm py-2 text-center`}
     >
       {name}
     </Link>

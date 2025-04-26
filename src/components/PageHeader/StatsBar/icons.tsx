@@ -36,76 +36,72 @@ export const ExchangeIcon = () => {
   );
 };
 
-export const BitcoinIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <g clipPath="url(#clip0_587_10851)">
-        <path
-          fill="color(display-p3 0.9686 0.5765 0.1020)"
-          d="M24 12A12 12 0 1 1 .001 12 12 12 0 0 1 24 12"
-        ></path>
-        <path
-          fill="#fff"
-          fillRule="evenodd"
-          d="m8.529 5.48 2.758.738.616-2.297 1.379.374-.592 2.203 1.124.302.594-2.227 1.402.376-.604 2.238s2.291.507 2.83 2.37c.539 1.864-1.185 2.842-1.717 2.88 0 0 2.007 1.1 1.318 3.266s-2.806 2.552-5.033 2.056L12 20.081l-1.403-.376.617-2.285-1.113-.304-.617 2.302-1.392-.374.618-2.29-2.831-.764.713-1.584s.799.218 1.101.29.496-.242.582-.557c.085-.314 1.366-5.52 1.488-5.95.12-.428.072-.763-.437-.895-.508-.132-1.2-.338-1.2-.338zm2.781 6.895-.763 3.036s3.787 1.367 4.27-.556c.485-1.923-3.507-2.48-3.507-2.48m.352-1.44.75-2.781s3.241.58 2.842 2.128c-.4 1.548-2.31.954-3.592.653"
-          clipRule="evenodd"
-        ></path>
-      </g>
-      <defs>
-        <clipPath id="clip0_587_10851">
-          <path fill="#fff" d="M0 0h24v24H0z"></path>
-        </clipPath>
-      </defs>
-    </svg>
-  );
-};
+export const BitcoinIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <g clipPath="url(#clip0_587_10851)">
+      <path
+        fill="color(display-p3 0.9686 0.5765 0.1020)"
+        d="M24 12A12 12 0 1 1 .001 12 12 12 0 0 1 24 12"
+      ></path>
+      <path
+        fill="#fff"
+        fillRule="evenodd"
+        d="m8.529 5.48 2.758.738.616-2.297 1.379.374-.592 2.203 1.124.302.594-2.227 1.402.376-.604 2.238s2.291.507 2.83 2.37c.539 1.864-1.185 2.842-1.717 2.88 0 0 2.007 1.1 1.318 3.266s-2.806 2.552-5.033 2.056L12 20.081l-1.403-.376.617-2.285-1.113-.304-.617 2.302-1.392-.374.618-2.29-2.831-.764.713-1.584s.799.218 1.101.29.496-.242.582-.557c.085-.314 1.366-5.52 1.488-5.95.12-.428.072-.763-.437-.895-.508-.132-1.2-.338-1.2-.338zm2.781 6.895-.763 3.036s3.787 1.367 4.27-.556c.485-1.923-3.507-2.48-3.507-2.48m.352-1.44.75-2.781s3.241.58 2.842 2.128c-.4 1.548-2.31.954-3.592.653"
+        clipRule="evenodd"
+      ></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_587_10851">
+        <path fill="#fff" d="M0 0h24v24H0z"></path>
+      </clipPath>
+    </defs>
+  </svg>
+);
 
-export const EthereumIcon = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="16"
-      height="16"
-      fill="none"
-      viewBox="0 0 16 16"
-    >
-      <g clipPath="url(#clip0_587_10854)">
-        <circle
-          cx="8"
-          cy="8"
-          r="8"
-          fill="color(display-p3 0.3843 0.4941 0.9176)"
-        ></circle>
-        <path
-          fill="color(display-p3 0.7529 0.7961 0.9647)"
-          d="m7.956 2.08-.08.269v7.83l.08.079 3.635-2.148z"
-        ></path>
-        <path fill="#fff" d="M7.955 2.08 4.32 8.11l3.635 2.148V2.079"></path>
-        <path
-          fill="color(display-p3 0.7529 0.7961 0.9647)"
-          d="m7.957 10.944-.045.055v2.789l.045.13 3.636-5.121z"
-        ></path>
-        <path fill="#fff" d="M7.955 13.918v-2.974L4.32 8.797z"></path>
-        <path
-          fill="color(display-p3 0.5059 0.5922 0.9333)"
-          d="M7.955 10.26 11.59 8.11 7.955 6.459z"
-        ></path>
-        <path
-          fill="color(display-p3 0.7529 0.7961 0.9647)"
-          d="m4.32 8.111 3.635 2.148v-3.8z"
-        ></path>
-      </g>
-      <defs>
-        <clipPath id="clip0_587_10854">
-          <path fill="#fff" d="M0 0h16v16H0z"></path>
-        </clipPath>
-      </defs>
-    </svg>
-  );
-};
+export const EthereumIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    fill="none"
+    viewBox="0 0 16 16"
+  >
+    <g clipPath="url(#clip0_587_10854)">
+      <circle
+        cx="8"
+        cy="8"
+        r="8"
+        fill="color(display-p3 0.3843 0.4941 0.9176)"
+      ></circle>
+      <path
+        fill="color(display-p3 0.7529 0.7961 0.9647)"
+        d="m7.956 2.08-.08.269v7.83l.08.079 3.635-2.148z"
+      ></path>
+      <path fill="#fff" d="M7.955 2.08 4.32 8.11l3.635 2.148V2.079"></path>
+      <path
+        fill="color(display-p3 0.7529 0.7961 0.9647)"
+        d="m7.957 10.944-.045.055v2.789l.045.13 3.636-5.121z"
+      ></path>
+      <path fill="#fff" d="M7.955 13.918v-2.974L4.32 8.797z"></path>
+      <path
+        fill="color(display-p3 0.5059 0.5922 0.9333)"
+        d="M7.955 10.26 11.59 8.11 7.955 6.459z"
+      ></path>
+      <path
+        fill="color(display-p3 0.7529 0.7961 0.9647)"
+        d="m4.32 8.111 3.635 2.148v-3.8z"
+      ></path>
+    </g>
+    <defs>
+      <clipPath id="clip0_587_10854">
+        <path fill="#fff" d="M0 0h16v16H0z"></path>
+      </clipPath>
+    </defs>
+  </svg>
+);

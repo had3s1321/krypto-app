@@ -24,7 +24,7 @@ const StatsBarElement = ({
   const format = useFormat();
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex items-center justify-center gap-1">
       <span>{icon}</span>
       <span>{name ? name : null}</span>
       <span>{format(value, formatOptions)}</span>

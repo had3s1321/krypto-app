@@ -10,13 +10,13 @@ const SearchBar = () => {
     useDebouncedSearch(250);
 
   return (
-    <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-2.5 [&>svg]:ml-3">
+    <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-3 [&>svg]:ml-3">
       <Input
         value={value}
         placeholder="Search..."
         onChange={handleChange}
         onBlur={clearSearchResults}
-        className="w-full border-none bg-[var(--clr-nav-foreground)] pl-10 pr-4 placeholder:text-inherit hover:bg-[var(--clr-hover)] focus-visible:ring-0"
+        className="h-full w-full border-none bg-[var(--clr-nav-foreground)] !py-0 pl-10 pr-4 placeholder:text-inherit hover:bg-[var(--clr-hover)] focus-visible:ring-0"
       />
       <SearchDropdown data={data} />
       <SearchIcon />
