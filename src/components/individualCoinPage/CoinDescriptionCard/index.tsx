@@ -13,7 +13,7 @@ const CoinDescriptionCard = ({ data }: { data: DescriptionCardData }) => {
           {data.links.slice(0, 4).map((link) => (
             <Card
               key={link}
-              className="flex h-1/2 w-fit items-center border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]"
+              className="flex h-1/2 w-fit items-center border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]"
             >
               <CardContent className="flex items-center gap-2 p-4">
                 {link} <CopyIcon />

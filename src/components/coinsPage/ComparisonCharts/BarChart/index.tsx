@@ -29,7 +29,7 @@ const CustomBarChart = ({
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-video min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)]"
+      className="aspect-video min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)] shadow-lg"
     >
       <BarChart
         data={chartData}

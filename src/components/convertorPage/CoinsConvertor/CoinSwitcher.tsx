@@ -12,7 +12,7 @@ const CoinSwitcher = () => {
   return (
     <div
       onClick={handleSwitch}
-      className="absolute left-0 right-0 top-1/3 z-20 mx-auto w-fit hover:cursor-pointer"
+      className="absolute left-0 right-0 top-1/3 z-20 mx-auto w-fit transition-transform duration-300 hover:scale-110 hover:cursor-pointer"
     >
       <SwitchCoinsIcon theme={theme} />
     </div>

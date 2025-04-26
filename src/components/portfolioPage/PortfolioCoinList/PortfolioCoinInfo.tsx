@@ -1,4 +1,4 @@
-import { getDate } from "date-fns";
+import { getDate } from "@/utils/formatUtils";
 import { useFormat } from "@/hooks/useFormat";
 import { CardDescription } from "@/components/ui/shadcn/card";
 import { getValueIndicator } from "@/utils/getValueIndicator";

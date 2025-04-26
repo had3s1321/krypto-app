@@ -39,7 +39,7 @@ const CoinTable = () => {
             <TableRow
               key={coin.id}
               ref={allResults.length - 15 === index + 1 ? lastCellRef : null}
-              className="bg mb-8 h-16 bg-[var(--foreground)]"
+              className="bg mb-8 h-16 bg-[var(--foreground)] shadow-sm transition-transform hover:scale-105 hover:cursor-pointer"
             >
               <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">
                 {coin.rank}

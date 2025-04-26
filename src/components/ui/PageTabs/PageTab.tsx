@@ -16,7 +16,7 @@ const PageTab = ({ name, route }: PageTabProps) => {
   return (
     <Link
       href={handlePageTabLink(name)}
-      className={`inline-block w-1/2 ${isOnRoute} rounded-sm py-2 text-center`}
+      className={`inline-block w-1/2 ${isOnRoute} rounded-sm py-2 text-center shadow-sm`}
     >
       {name}
     </Link>

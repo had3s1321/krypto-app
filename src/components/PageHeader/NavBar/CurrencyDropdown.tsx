@@ -37,7 +37,7 @@ const CurrencyDropdown = () => {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex h-full items-center justify-center gap-2 rounded-md bg-[var(--clr-nav-foreground)] px-3 hover:bg-[var(--clr-hover)] focus-visible:outline-none">
+      <DropdownMenuTrigger className="flex h-full items-center justify-center gap-2 rounded-md bg-[var(--clr-nav-foreground)] px-3 shadow-lg hover:bg-[var(--clr-hover)] focus-visible:outline-none">
         <span className="flex items-center gap-1">
           {selectedCurrency.icon}
           {selectedCurrency.name}

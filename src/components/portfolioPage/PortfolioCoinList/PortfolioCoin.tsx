@@ -12,7 +12,7 @@ import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const PortfolioCoin = ({ coin }: { coin: PortfolioCoinData }) => {
   return (
-    <Card className="flex border-none bg-[var(--clr-nav-bg)] font-grotesk text-[var(--clr-nav-text)] shadow-none dark:bg-[var(--clr-nav-foreground)]">
+    <Card className="flex border-none bg-[var(--clr-nav-bg)] font-grotesk text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
       <CardHeader className="mb-2 w-1/4 rounded-l-xl rounded-bl-lg pb-2 dark:bg-[var(--secondary-foreground)]">
         <CardTitle className="mb-4 flex items-center gap-2 text-2xl font-bold">
           <Image src={coin.image} alt={coin.name} width={32} height={32} />

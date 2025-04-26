@@ -6,7 +6,7 @@ const IntervalTabs = () => {
   return (
     <Tabs
       defaultValue="1D"
-      className="flex w-max rounded-sm bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)]"
+      className="flex w-max rounded-sm bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-lg"
     >
       <TabsList>
         {intervalValues.map((el) => (

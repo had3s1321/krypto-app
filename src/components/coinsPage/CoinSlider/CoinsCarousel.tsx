@@ -40,7 +40,7 @@ const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
                   className="basis-1/5 [&:not(:first-child)]:pl-2"
                 >
                   <Card
-                    className={`flex items-center rounded-md border-none px-4 shadow-none hover:cursor-pointer ${
+                    className={`flex items-center rounded-md border-none px-4 shadow-lg transition-transform duration-300 hover:scale-105 hover:cursor-pointer ${
                       isSelected
                     }`}
                   >

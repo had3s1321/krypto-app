@@ -1,4 +1,5 @@
 import { FadeStaggerSquares } from "@/components/ui/icons";
+import ChartSuspenseContainer from "./ChartSuspenseContainer";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
@@ -15,33 +16,27 @@ const ChartSuspenseSkeleton = ({
         "error" in error ? error.error : JSON.stringify(error.data);
 
       return (
-        <div className="mb-8 flex h-64 min-h-[200px] w-full items-center justify-center rounded-md bg-[var(--foreground)] text-[var(--clr-text)]">
+        <ChartSuspenseContainer>
           <div>An error has occurred:</div>
           <div>{errMsg}</div>
-        </div>
+        </ChartSuspenseContainer>
       );
     }
-    return (
-      <div className="mb-8 flex h-64 min-h-[200px] w-full items-center justify-center rounded-md bg-[var(--foreground)] text-[var(--clr-text)]">
-        {error.message}
-      </div>
-    );
+    return <ChartSuspenseContainer>{error.message}</ChartSuspenseContainer>;
   }
 
   if (type === "no-data")
     return (
-      <div className="mb-8 flex h-64 min-h-[200px] w-full items-center justify-center rounded-md bg-[var(--foreground)] text-[var(--clr-text)]">
-        Please select 2 coins
-      </div>
+      <ChartSuspenseContainer>Please select 2 coins</ChartSuspenseContainer>
     );
 
   if (type === "loading")
     return (
-      <div className="mb-8 flex h-64 min-h-[200px] w-full items-center justify-center rounded-md bg-[var(--foreground)]">
+      <ChartSuspenseContainer>
         <div className="h-10 w-10">
           <FadeStaggerSquares />
         </div>
-      </div>
+      </ChartSuspenseContainer>
     );
 };
 

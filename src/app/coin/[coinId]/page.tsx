@@ -4,8 +4,8 @@
 import { getIndividualCoinData } from "@/actions/getIndividualCoinData";
 import CoinDescriptionCard from "@/components/individualCoinPage/CoinDescriptionCard";
 import CoinGenericDataCard from "@/components/individualCoinPage/CoinGenericDataCard";
-
 import CoinValueCard from "@/components/individualCoinPage/CoinValueCard";
+import Separator from "@/components/ui/Separator";
 import { IndividualCoinStructuredData } from "@/utils/types/IndividualCoinData";
 
 export default async function TaskDetail({
@@ -28,7 +28,7 @@ export default async function TaskDetail({
         <CoinValueCard data={valueCardData} />
         <CoinDescriptionCard data={descriptionCardData} />
       </div>
-      <div className="h-[0.5px] w-full bg-[var(--clr-text)]"></div>
+      <Separator />
       <div className="flex w-full flex-wrap gap-4">
         <CoinGenericDataCard data={volumeCardData} />
         <CoinGenericDataCard data={supplyCardData} />
