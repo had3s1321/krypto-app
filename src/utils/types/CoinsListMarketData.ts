@@ -61,12 +61,12 @@ export interface ParsedTableData {
   progress1: {
     volume24h: number;
     marketCap: number;
-    value: number;
+    sign: number;
   };
   progress2: {
     circulatingSupply: number;
     totalSupply: number;
-    value: number;
+    sign: number;
   };
   chart: number[];
 }

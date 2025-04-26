@@ -19,12 +19,18 @@ export const parseTableData = (data: CoinsListMarketData) => {
       progress1: {
         volume24h: coin.total_volume,
         marketCap: coin.market_cap,
-        value: (100 * coin.total_volume) / coin.market_cap,
+        sign: getSevenDaysPercentage(
+          coin.sparkline_in_7d.price[0],
+          coin.sparkline_in_7d.price[coin.sparkline_in_7d.price.length - 1],
+        ),
       },
       progress2: {
         circulatingSupply: coin.circulating_supply,
         totalSupply: coin.total_supply,
-        value: (100 * coin.circulating_supply) / coin.total_supply,
+        sign: getSevenDaysPercentage(
+          coin.sparkline_in_7d.price[0],
+          coin.sparkline_in_7d.price[coin.sparkline_in_7d.price.length - 1],
+        ),
       },
       chart: coin.sparkline_in_7d.price,
     };

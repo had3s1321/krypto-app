@@ -24,7 +24,11 @@ const ThemeToggler = () => {
       onClick={handleTheme}
       className="h-full bg-[var(--clr-nav-foreground)] hover:bg-[var(--clr-hover)]"
     >
-      {mounted && resolvedTheme === "light" ? <Sun /> : <Moon />}
+      {mounted && resolvedTheme === "dark" ? (
+        <Sun className="fill-[var(--clr-nav-text)] stroke-[var(--clr-nav-text)]" />
+      ) : (
+        <Moon className="stroke-[var(--clr-nav-text)]" />
+      )}
     </Button>
   );
 };

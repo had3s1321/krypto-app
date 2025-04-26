@@ -16,7 +16,7 @@ const SelectedCoins = ({
         <span
           key={el.name}
           onClick={() => handleClick(el)}
-          className="flex items-center gap-1 rounded-sm bg-[var(--primary-foreground)] px-2 py-1 hover:cursor-pointer"
+          className="flex items-center gap-1 rounded-sm bg-[var(--primary-foreground)] px-2 py-1 text-[var(--clr-nav-text)] hover:cursor-pointer"
         >
           <Image src={el.image} alt={el.name} width={20} height={20} />
           {el.name}

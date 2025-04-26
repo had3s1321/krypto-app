@@ -58,12 +58,12 @@ const CoinTable = () => {
               <ProgressCell
                 data1={coin.progress1.volume24h}
                 data2={coin.progress1.marketCap}
-                value={coin.progress1.value}
+                sign={coin.progress1.sign}
               />
               <ProgressCell
                 data1={coin.progress2.circulatingSupply}
                 data2={coin.progress2.totalSupply}
-                value={coin.progress2.value}
+                sign={coin.progress2.sign}
               />
               <ChartCell data={coin.chart} />
             </TableRow>

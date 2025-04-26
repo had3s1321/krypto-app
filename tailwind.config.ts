@@ -11,8 +11,8 @@ export default {
     "bg-[#FFFFFF]",
     "bg-[#F7931A]",
     "bg-[#849DFF]",
-    "text-[#01F1E3]",
-    "text-[#FE2264]",
+    "text-[#00B1A6]", // positive
+    "text-[#FE2264]", // negative
     "text-[var(--clr-text)]",
     "text-[#ffffff]",
     "text-[#808080]",

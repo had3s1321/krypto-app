@@ -14,8 +14,10 @@ interface NavLinkProps {
 const NavLink = ({ name, path }: NavLinkProps) => {
   const { theme } = useTheme();
   const pathname = usePathname();
+  const onPath =
+    pathname === path || (path !== "/portfolio" && pathname === "/convertor");
 
-  const color = setColor(pathname === path, theme);
+  const color = setColor(onPath, theme);
   const twColor = `text-[${color}]`;
 
   return (
