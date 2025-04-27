@@ -17,11 +17,12 @@ import { getValueIndicator } from "@/utils/getValueIndicator";
 import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 
 const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
-  const [currency, selectedCoins, handleSelectedCoins] = useCarousel(data);
+  const { currency, selectedCoins, compare, handleSelectedCoins } =
+    useCarousel(data);
 
   return (
     <>
-      <CarouselTitle title="Select the currency to view statistics" />
+      <CarouselTitle compare={compare} />
       <Carousel className="mb-8 w-full">
         <CarouselContent className="-ml-4">
           {data &&
