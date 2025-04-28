@@ -61,7 +61,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
             onBlur={handleBlur}
             onChange={handleChange}
             placeholder={`${conversionCoin ? "" : "Please select a coin"}`}
-            className="w-2/3 border-none px-0 !text-xl shadow-none placeholder:text-xl focus-visible:ring-0"
+            className="w-2/3 border-none px-0 !text-xl shadow-none placeholder:text-xl focus:placeholder:text-transparent focus-visible:ring-0"
           />
           {conversionCoin && (
             <Input

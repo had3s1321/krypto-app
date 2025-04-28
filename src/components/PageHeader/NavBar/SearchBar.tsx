@@ -16,7 +16,7 @@ const SearchBar = () => {
         placeholder="Search..."
         onChange={handleChange}
         onBlur={clearSearchResults}
-        className="h-full w-full border-none bg-[var(--clr-nav-foreground)] !py-0 pl-10 pr-4 shadow-lg placeholder:text-inherit hover:bg-[var(--clr-hover)] focus-visible:ring-0"
+        className="h-full w-full border-none bg-[var(--clr-nav-foreground)] !py-0 pl-10 pr-4 shadow-lg placeholder:text-inherit hover:bg-[var(--clr-hover)] focus:placeholder:text-transparent focus-visible:ring-0"
       />
       <SearchDropdown data={data} />
       <SearchIcon />

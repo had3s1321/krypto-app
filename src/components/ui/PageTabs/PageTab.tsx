@@ -10,8 +10,8 @@ interface PageTabProps {
 const PageTab = ({ name, route }: PageTabProps) => {
   const isOnRoute =
     name === route
-      ? "text-[var(--clr-light-perm)] bg-[var(--primary-foreground)]"
-      : "text-[var(--clr-nav-text)]";
+      ? "text-[var(--clr-light-perm)] bg-[var(--primary-foreground)] "
+      : "text-[var(--clr-nav-text)] ";
 
   return (
     <Link

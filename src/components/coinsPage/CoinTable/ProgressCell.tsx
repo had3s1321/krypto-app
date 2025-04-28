@@ -19,10 +19,10 @@ const ProgressCell = ({ data1, data2, sign }: ProgressCellProps) => {
   return (
     <TableCell>
       <div className="flex justify-between">
-        <span className={`${isPositive[0]}`}>
+        <span className={`${isPositive[0]} hover:cursor-pointer`}>
           {format(data1, { style: "currency", notation: "compact" })}
         </span>
-        <span className="text-[var(--clr-text)]">
+        <span className="text-[var(--clr-text)] hover:cursor-pointer">
           {format(data2, { style: "currency", notation: "compact" })}
         </span>
       </div>

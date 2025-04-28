@@ -62,8 +62,8 @@ const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
               );
             })}
         </CarouselContent>
-        <CarouselPrevious className="top-10 ml-6 bg-[var(--primary-foreground)] hover:cursor-pointer" />
-        <CarouselNext className="top-10 mr-6 bg-[var(--primary-foreground)] hover:cursor-pointer" />
+        <CarouselPrevious className="top-10 ml-6 bg-[var(--primary-foreground)] hover:cursor-pointer hover:bg-[var(--secondary-foreground)]" />
+        <CarouselNext className="top-10 mr-6 bg-[var(--primary-foreground)] hover:cursor-pointer hover:bg-[var(--secondary-foreground)]" />
       </Carousel>
       <SelectedCoins list={selectedCoins} handleClick={handleSelectedCoins} />
     </>
