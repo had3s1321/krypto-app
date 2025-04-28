@@ -102,9 +102,26 @@ const CustomBarChart = ({
           axisLine={false}
           tickLine={false}
         />
-        <YAxis domain={["dataMin", "dataMax"]} hide />
+        <YAxis
+          dataKey={coins[0].id}
+          yAxisId="left"
+          scale={coins.length > 1 ? "log" : "linear"}
+          domain={["dataMin", "dataMax"]}
+          hide
+        />
+        {coins.length > 1 && chartData && chartData[1] ? (
+          <YAxis
+            dataKey={coins[1].id}
+            yAxisId="left"
+            scale="log"
+            domain={["dataMin", "dataMax"]}
+            orientation="right"
+            hide
+          />
+        ) : null}
         <Tooltip cursor={false} />
         <Bar
+          yAxisId="left"
           type="monotone"
           dataKey={coins[0].id}
           stroke="#8884d8"
@@ -115,6 +132,7 @@ const CustomBarChart = ({
         />
         {chartData && chartData[1] && coins[1] ? (
           <Bar
+            yAxisId="left"
             type="monotone"
             dataKey={coins[1].id}
             barSize={15}
