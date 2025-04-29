@@ -1,11 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import { Card, CardContent, CardHeader } from "@/components/ui/shadcn/card";
 import CoinPrice from "./CoinPrice";
 import AllTimePrice from "./AllTimePrice";
+import LinkContainer from "../LinkContainer";
 import Separator from "@/components/ui/Separator";
-import { CopyIcon } from "../icons";
 import { ValueCardData } from "@/utils/types/IndividualCoinData";
 
 const CoinValueCard = ({ data }: { data: ValueCardData }) => {
@@ -17,12 +15,7 @@ const CoinValueCard = ({ data }: { data: ValueCardData }) => {
           <span className="text-2xl font-bold">
             {data.name} ({data.symbol.toUpperCase()})
           </span>
-          <span className="flex items-center gap-2">
-            {data.homepage}
-            <span className="hover:cursor-pointer">
-              <CopyIcon />
-            </span>
-          </span>
+          <LinkContainer url={data.homepage} />
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">

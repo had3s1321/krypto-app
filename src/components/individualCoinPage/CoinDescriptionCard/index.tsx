@@ -1,6 +1,6 @@
+import LinkContainer from "../LinkContainer";
 import { Card, CardContent } from "@/components/ui/shadcn/card";
 import { DescriptionCardData } from "@/utils/types/IndividualCoinData";
-import { CopyIcon } from "../icons";
 
 const CoinDescriptionCard = ({ data }: { data: DescriptionCardData }) => {
   return (
@@ -15,8 +15,8 @@ const CoinDescriptionCard = ({ data }: { data: DescriptionCardData }) => {
               key={link}
               className="flex h-1/2 w-fit items-center border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]"
             >
-              <CardContent className="flex items-center gap-2 p-4">
-                {link} <CopyIcon />
+              <CardContent className="p-4">
+                <LinkContainer url={link} />
               </CardContent>
             </Card>
           ))}

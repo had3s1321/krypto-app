@@ -1,3 +1,5 @@
+"use client";
+
 import { useFormat } from "@/hooks/useFormat";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 

@@ -1,3 +1,5 @@
+"use client";
+
 import { DownIcon, UpIcon } from "@/components/ui/icons";
 import { useFormat } from "@/hooks/useFormat";
 import { getDate } from "@/utils/formatUtils";
