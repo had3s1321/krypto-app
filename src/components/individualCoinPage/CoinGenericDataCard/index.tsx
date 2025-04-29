@@ -10,12 +10,17 @@ import {
   VolumeCardData,
 } from "@/utils/types/IndividualCoinData";
 import { PlusIcon } from "../icons";
+import SupplyProgressBar from "./SupplyProgressBar";
+
+interface CoinGenericDataCardProps {
+  data: VolumeCardData | SupplyCardData | MarketCardData;
+  hasProgressBar?: boolean;
+}
 
 const CoinGenericDataCard = ({
   data,
-}: {
-  data: VolumeCardData | SupplyCardData | MarketCardData;
-}) => {
+  hasProgressBar,
+}: CoinGenericDataCardProps) => {
   const format = useFormat();
 
   const formatValue = (value: number, type: string) => {
@@ -38,11 +43,12 @@ const CoinGenericDataCard = ({
         return value;
     }
   };
+  const dataValues = Object.values(data);
 
   return (
     <Card className="w-[calc(50%-1.5rem)] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
       <CardContent className="flex flex-col gap-4 p-4">
-        {Object.values(data).map((value: GenericDataPoint) => (
+        {dataValues.map((value: GenericDataPoint) => (
           <div
             key={value.displayName}
             className="flex w-full items-center gap-2"
@@ -54,6 +60,7 @@ const CoinGenericDataCard = ({
             </div>
           </div>
         ))}
+        {hasProgressBar && <SupplyProgressBar data={dataValues} />}
       </CardContent>
     </Card>
   );

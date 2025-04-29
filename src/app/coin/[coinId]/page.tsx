@@ -31,7 +31,7 @@ export default async function TaskDetail({
       <Separator />
       <div className="flex w-full flex-wrap gap-4">
         <CoinGenericDataCard data={volumeCardData} />
-        <CoinGenericDataCard data={supplyCardData} />
+        <CoinGenericDataCard data={supplyCardData} hasProgressBar />
         <CoinGenericDataCard data={marketCardData} />
       </div>
     </main>
