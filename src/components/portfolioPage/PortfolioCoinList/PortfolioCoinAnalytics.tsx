@@ -8,7 +8,7 @@ const PortfolioCoinAnalytics = ({ coin }: { coin: PortfolioCoinData }) => {
     "Market cap vs volume": coin.totalVolume / coin.marketCap,
     "Circ supply vs max supply": coin.maxSupply
       ? coin.circulatingSupply / coin.maxSupply
-      : 0,
+      : Infinity,
   };
 
   return (

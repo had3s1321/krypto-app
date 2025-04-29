@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useFormat } from "@/hooks/useFormat";
 import { useAppSelector } from "@/lib/hooks";
 import { getValueIndicator } from "@/utils/getValueIndicator";
@@ -54,7 +55,12 @@ const CoinPrice = ({ id, price, priceChange24h }: CoinPriceProps) => {
           <span className={`${profitClassTW}`}>{formattedProfit}</span>
         </span>
       ) : (
-        <span>Rank: 1</span>
+        <Link
+          href="/portfolio"
+          className="text-base underline hover:text-[--clr-hover]"
+        >
+          Add to portfolio
+        </Link>
       )}
     </div>
   );
