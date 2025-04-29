@@ -1,31 +1,42 @@
 "use client";
 
 import { useFormat } from "@/hooks/useFormat";
+import { useAppSelector } from "@/lib/hooks";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 
 interface CoinPriceProps {
+  id: string;
   price: number;
   priceChange24h: number;
 }
 
-const CoinPrice = ({ price, priceChange24h }: CoinPriceProps) => {
+const CoinPrice = ({ id, price, priceChange24h }: CoinPriceProps) => {
   const format = useFormat();
+  const { assets } = useAppSelector((state) => state.portfolio);
+
+  const isInPortfolio = assets.find((asset) => asset.id === id);
+  const profit = isInPortfolio
+    ? price * isInPortfolio.amount - isInPortfolio.equity
+    : null;
+  const formattedProfit =
+    profit &&
+    format(profit, {
+      style: "currency",
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+    });
   const formattedPrice = format(price, {
     style: "currency",
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
   });
-  const formattedPriceChange = format(priceChange24h / 100, {
+  const formattedPriceChange = format(Math.abs(priceChange24h) / 100, {
     style: "percent",
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
   });
-  const formattedProfit = format(1504, {
-    style: "currency",
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 0,
-  });
   const { icon, classTW } = getValueIndicator(priceChange24h);
+  const profitClassTW = profit && getValueIndicator(profit).classTW;
 
   return (
     <div>
@@ -37,9 +48,14 @@ const CoinPrice = ({ price, priceChange24h }: CoinPriceProps) => {
           {icon} {formattedPriceChange}
         </span>
       </span>
-      <span className="flex gap-4 text-base">
-        Profit:<span className={`${classTW}`}>{formattedProfit}</span>
-      </span>
+      {isInPortfolio ? (
+        <span className="flex gap-4 text-base">
+          <span>Profit:</span>
+          <span className={`${profitClassTW}`}>{formattedProfit}</span>
+        </span>
+      ) : (
+        <span>Rank: 1</span>
+      )}
     </div>
   );
 };

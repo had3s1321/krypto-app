@@ -19,7 +19,11 @@ const CoinValueCard = ({ data }: { data: ValueCardData }) => {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-6">
-        <CoinPrice price={data.price} priceChange24h={data.priceChange24h} />
+        <CoinPrice
+          id={data.id}
+          price={data.price}
+          priceChange24h={data.priceChange24h}
+        />
         <Separator />
         <div className="flex flex-col gap-3">
           <AllTimePrice data={data.ath} type="High" />

@@ -13,9 +13,15 @@ const SupplyProgressBar = ({ data }: { data: GenericDataPoint[] }) => {
 
   return (
     <div className="w-full">
-      <span className="flex w-full justify-between">
-        <span>{formattedLeftValue}</span>
-        <span>{formattedRightValue}</span>
+      <span className="mb-1 flex w-full justify-between">
+        <span className="flex items-center gap-1 text-xs text-[#D4770C]">
+          <div className="h-2 w-2 rounded-full bg-[#D4770C]"></div>
+          {formattedLeftValue}
+        </span>
+        <span className="flex items-center gap-1 text-xs text-[#F8D2A6]">
+          <div className="h-2 w-2 rounded-full bg-[#F8D2A6]"></div>
+          {formattedRightValue}
+        </span>
       </span>
       <Progress
         className="bg-[#F8D2A6]"
