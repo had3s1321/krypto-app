@@ -1,13 +1,13 @@
 import { Coin, SearchBarData } from "@/utils/types/SearchBarData";
 
-const SearchDropdown = ({
-  data,
-  handleCoinSelect,
-}: {
+interface SearchDropdownProps {
   data?: SearchBarData;
   // eslint-disable-next-line no-unused-vars
   handleCoinSelect?: (coin: Coin) => void;
-}) => {
+  onBlur?: () => void;
+}
+
+const SearchDropdown = ({ data, handleCoinSelect }: SearchDropdownProps) => {
   if (!data) return null;
 
   return (

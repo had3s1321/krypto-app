@@ -150,6 +150,7 @@ const AddAssetForm = () => {
                     />
                     <SearchDropdown
                       data={data}
+                      onBlur={() => form.setValue("coin", "")}
                       handleCoinSelect={handleCoinSelect}
                     />
                   </div>
