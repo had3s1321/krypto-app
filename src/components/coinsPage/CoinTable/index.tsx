@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { useFormat } from "@/hooks/useFormat";
 import PercentageCell from "./PercentageCell";
@@ -19,6 +20,7 @@ import { tableHeaderConfig } from "./tableHeaderConfig";
 
 const CoinTable = () => {
   const { data, isFetching, lastCellRef } = useInfiniteScroll();
+  const router = useRouter();
   const format = useFormat();
   const allResults = data?.pages.flat() ?? [];
 
@@ -39,6 +41,7 @@ const CoinTable = () => {
             <TableRow
               key={coin.id}
               ref={allResults.length - 15 === index + 1 ? lastCellRef : null}
+              onClick={() => router.push(`/coin/${coin.id}`)}
               className="bg mb-8 h-16 bg-[var(--foreground)] shadow-sm transition-transform hover:scale-105 hover:cursor-pointer"
             >
               <TableCell className="rounded-l-md text-center font-semibold text-[var(--clr-text)]">
