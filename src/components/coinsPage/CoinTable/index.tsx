@@ -21,7 +21,7 @@ import { tableHeaderConfig } from "./tableHeaderConfig";
 const CoinTable = () => {
   const { data, isFetching, lastCellRef } = useInfiniteScroll();
   const router = useRouter();
-  const format = useFormat();
+  const [format] = useFormat();
   const allResults = data?.pages.flat() ?? [];
 
   return (

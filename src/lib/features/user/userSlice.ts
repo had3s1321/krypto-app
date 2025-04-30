@@ -1,7 +1,7 @@
 import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type Currencies = "USD" | "EUR" | "GBP";
+export type Currencies = "usd" | "eur" | "gbp";
 
 interface InitialUserSettings {
   currency: Currencies;
@@ -10,7 +10,7 @@ interface InitialUserSettings {
 }
 
 export const initialState: InitialUserSettings = {
-  currency: "USD",
+  currency: "usd",
   locale: "",
   selectedCoins: [],
 };

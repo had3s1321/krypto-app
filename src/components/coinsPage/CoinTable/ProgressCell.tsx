@@ -9,7 +9,7 @@ interface ProgressCellProps {
 }
 
 const ProgressCell = ({ data1, data2, sign }: ProgressCellProps) => {
-  const format = useFormat();
+  const [format] = useFormat();
   const value = (100 * data1) / data2;
   const isPositive =
     sign > 0

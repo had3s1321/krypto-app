@@ -6,7 +6,7 @@ import { getPercentageChange } from "@/utils/getPercentageChange";
 import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const PortfolioCoinInfo = ({ coin }: { coin: PortfolioCoinData }) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   const percentageChange = getPercentageChange(
     coin.equity,

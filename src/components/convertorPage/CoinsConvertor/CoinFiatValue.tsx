@@ -6,7 +6,7 @@ const CoinFiatValue = ({
 }: {
   conversionCoin?: ConversionCoinData;
 }) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   if (!conversionCoin) return;
 

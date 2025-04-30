@@ -3,7 +3,7 @@ import { Progress } from "@/components/ui/shadcn/progress";
 import { GenericDataPoint } from "@/utils/types/IndividualCoinData";
 
 const SupplyProgressBar = ({ data }: { data: GenericDataPoint[] }) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   const [maxSupply, circulatingSupply] = data;
   const leftValue = circulatingSupply.value / maxSupply.value;

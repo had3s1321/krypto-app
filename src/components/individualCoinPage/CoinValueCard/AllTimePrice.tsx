@@ -10,7 +10,7 @@ interface AllTimePriceProps {
 }
 
 const AllTimePrice = ({ data, type }: AllTimePriceProps) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   const { value, date } = data;
   const formattedValue = format(value, {

@@ -21,7 +21,7 @@ const CoinGenericDataCard = ({
   data,
   hasProgressBar,
 }: CoinGenericDataCardProps) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   const formatValue = (value: number, type: string) => {
     switch (type) {

@@ -11,7 +11,7 @@ const DataPoint = ({
   valueType: "currency" | "percent";
   description: string;
 }) => {
-  const format = useFormat();
+  const [format] = useFormat();
   const formattedValue =
     valueType === "currency"
       ? format(value, {

@@ -14,7 +14,7 @@ const CustomAreaChart = ({
   chartData: ParsedChartData | undefined;
   coins: CarouselItemData[];
 }) => {
-  const format = useFormat();
+  const [format] = useFormat();
   const chartConfig = {
     desktop: {
       label: "Desktop",

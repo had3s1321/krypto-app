@@ -2,6 +2,9 @@
 
 import { changeCurrency, Currencies } from "@/lib/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useSearchParams } from "next/navigation";
+import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,21 +21,28 @@ interface CurrenciesConfig {
 }
 
 const currencies: CurrenciesConfig[] = [
-  { name: "USD", icon: <BadgeDollarSign size={16} /> },
-  { name: "EUR", icon: <BadgeEuro size={16} /> },
-  { name: "GBP", icon: <BadgePoundSterling size={16} /> },
+  { name: "usd", icon: <BadgeDollarSign size={16} /> },
+  { name: "eur", icon: <BadgeEuro size={16} /> },
+  { name: "gbp", icon: <BadgePoundSterling size={16} /> },
 ];
 
 const CurrencyDropdown = () => {
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const selectedCurrency =
     currencies.find((el) => el.name === currency) || currencies[0];
   const handleSelectedCurrency = (value: string) => {
     const currenciesList = currencies.map((curr) => curr.name);
-    if (currenciesList.includes(value as Currencies))
+    if (currenciesList.includes(value as Currencies)) {
       dispatch(changeCurrency(value as Currencies));
+      setCookie("currency", value);
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("currency", value);
+      router.push(`/?${params.toString()}`);
+    }
   };
 
   return (
@@ -40,7 +50,7 @@ const CurrencyDropdown = () => {
       <DropdownMenuTrigger className="flex h-full items-center justify-center gap-2 rounded-md bg-[var(--clr-nav-foreground)] px-3 shadow-lg hover:bg-[var(--clr-hover)] focus-visible:outline-none">
         <span className="flex items-center gap-1">
           {selectedCurrency.icon}
-          {selectedCurrency.name}
+          {selectedCurrency.name.toUpperCase()}
         </span>
         <DropdownDownIcon />
       </DropdownMenuTrigger>
@@ -58,7 +68,7 @@ const CurrencyDropdown = () => {
             >
               <span className="-mx-5 flex items-center justify-center gap-1 bg-[var(--clr-nav-foreground)] py-2 pl-5 pr-11 text-[var(--clr-nav-text)] hover:cursor-pointer hover:bg-[var(--clr-hover)]">
                 {el.icon}
-                {el.name}
+                {el.name.toUpperCase()}
               </span>
             </DropdownMenuRadioItem>
           ))}

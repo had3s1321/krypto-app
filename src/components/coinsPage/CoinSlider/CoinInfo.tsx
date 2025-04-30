@@ -11,7 +11,7 @@ interface CoinInfoProps {
 }
 
 const CoinInfo = ({ coin, currency, icon, classTW }: CoinInfoProps) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   return (
     <CardContent className="flex flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">

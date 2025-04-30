@@ -12,7 +12,7 @@ interface CoinPriceProps {
 }
 
 const CoinPrice = ({ id, price, priceChange24h }: CoinPriceProps) => {
-  const format = useFormat();
+  const [format] = useFormat();
   const { assets } = useAppSelector((state) => state.portfolio);
 
   const isInPortfolio = assets.find((asset) => asset.id === id);
