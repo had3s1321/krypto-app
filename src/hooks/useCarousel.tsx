@@ -17,8 +17,8 @@ interface CarouselHook {
 
 export function useCarousel(data: CarouselItemData[]): CarouselHook {
   const { selectedCoins, currency } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
   const [isCompare, setIsCompare] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSelectedCoins = (item: CarouselItemData) => {
     if (isCompare) {
@@ -44,6 +44,16 @@ export function useCarousel(data: CarouselItemData[]): CarouselHook {
   useEffect(() => {
     dispatch(changeSelectedCoins([data[0]]));
   }, []); //eslint-disable-line
+
+  useEffect(() => {
+    if (!data.length || !selectedCoins.length) return;
+    const updatedSelected = selectedCoins.map((selected) =>
+      data.find((d) => d.id === selected.id),
+    );
+    if (updatedSelected.length > 0) {
+      dispatch(changeSelectedCoins(updatedSelected));
+    }
+  }, [data]); //eslint-disable-line
 
   return {
     currency,

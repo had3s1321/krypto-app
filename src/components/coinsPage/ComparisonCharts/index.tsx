@@ -8,9 +8,10 @@ import CustomBarChart from "./BarChart";
 import IntervalTabs from "../../ui/IntervalTabs";
 
 const ComparisonCharts = () => {
-  const { selectedCoins } = useAppSelector((state) => state.user);
+  const { selectedCoins, currency } = useAppSelector((state) => state.user);
   const { data, error, isLoading } = useGetChartDataByCoinQuery({
     coins: selectedCoins.map((coin) => coin.id),
+    currency,
     path: "home",
   });
 

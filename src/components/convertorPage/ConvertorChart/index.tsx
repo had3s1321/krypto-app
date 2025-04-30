@@ -6,8 +6,10 @@ import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { useLazyGetChartDataByCoinQuery } from "@/services/coingeckoApi";
 import ChartSuspenseSkeleton from "./ChartSuspenseSkeleton";
+import { useAppSelector } from "@/lib/hooks";
 
 const ConvertorChart = () => {
+  const { currency } = useAppSelector((state) => state.user);
   const { conversionCoins } = useContext(ConvertorContext);
   const [trigger, { data, error, isFetching }] =
     useLazyGetChartDataByCoinQuery();
@@ -27,8 +29,8 @@ const ConvertorChart = () => {
     if (!conversionCoins[0] || !conversionCoins[1]) return;
 
     const coins = conversionCoins.map((coin) => coin.id);
-    trigger({ coins, path: "convertor" });
-  }, [conversionCoins, trigger]);
+    trigger({ coins, currency, path: "convertor" });
+  }, [conversionCoins, trigger]); //eslint-disable-line
 
   if (!conversionCoins[0] || !conversionCoins[1])
     return <ChartSuspenseSkeleton type="no-data" />;

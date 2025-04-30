@@ -1,3 +1,4 @@
+import { Currencies } from "@/lib/features/user/userSlice";
 import { ParsedChartData } from "@/utils/types/ChartData";
 import { HistoricalCoinPrice } from "@/utils/types/HistoricalCoinData";
 import {
@@ -13,6 +14,7 @@ export interface ChartDataByCoin {
 
 export interface ChartDataByCoinArg {
   coins: string[];
+  currency: Currencies;
   path: "home" | "convertor";
 }
 

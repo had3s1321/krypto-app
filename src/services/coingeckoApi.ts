@@ -46,7 +46,7 @@ export const coingeckoApi = createApi({
   endpoints: (build) => ({
     getChartDataByCoin: build.query<ChartDataByCoin, ChartDataByCoinArg>({
       queryFn: async (
-        { coins, path },
+        { coins, currency, path },
         _queryApi,
         _extraOptions,
         fetchWithBQ,
@@ -54,7 +54,9 @@ export const coingeckoApi = createApi({
         try {
           const responses = await Promise.all(
             coins.map(async (coin) =>
-              fetchWithBQ(`coins/${coin}/market_chart?vs_currency=usd&days=1`),
+              fetchWithBQ(
+                `coins/${coin}/market_chart?vs_currency=${currency}&days=1`,
+              ),
             ),
           );
           const data = responses.map((res) => {
