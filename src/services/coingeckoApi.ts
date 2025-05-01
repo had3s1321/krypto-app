@@ -44,6 +44,7 @@ export const coingeckoApi = createApi({
     },
     method: "GET",
   }),
+  keepUnusedDataFor: 0,
   endpoints: (build) => ({
     getChartDataByCoin: build.query<ChartDataByCoin, ChartDataByCoinArg>({
       queryFn: async (

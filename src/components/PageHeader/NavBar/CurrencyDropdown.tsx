@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/shadcn/dropdown-menu";
 import { DropdownDownIcon } from "@/components/PageHeader/NavBar/icons";
 import { BadgeDollarSign, BadgeEuro, BadgePoundSterling } from "lucide-react";
+import { useEffect } from "react";
 
 interface CurrenciesConfig {
   name: Currencies;
@@ -38,12 +39,15 @@ const CurrencyDropdown = () => {
     const currenciesList = currencies.map((curr) => curr.name);
     if (currenciesList.includes(value as Currencies)) {
       dispatch(changeCurrency(value as Currencies));
-      const params = new URLSearchParams(searchParams.toString());
-      setCookie("currency", currency);
-      params.set("currency", currency);
-      router.push(`/?${params.toString()}`);
     }
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    setCookie("currency", currency);
+    params.set("currency", currency);
+    router.push(`/?${params.toString()}`);
+  }, [currency]); // eslint-disable-line
 
   return (
     <DropdownMenu>

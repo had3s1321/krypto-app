@@ -12,12 +12,14 @@ interface CarouselHook {
   currency: Currencies;
   selectedCoins: CarouselItemData[];
   compare: Compare;
+  isLoading: boolean;
   handleSelectedCoins: (item: CarouselItemData) => void; //eslint-disable-line
 }
 
 export function useCarousel(data: CarouselItemData[]): CarouselHook {
   const { selectedCoins, currency } = useAppSelector((state) => state.user);
   const [isCompare, setIsCompare] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleSelectedCoins = (item: CarouselItemData) => {
@@ -55,6 +57,11 @@ export function useCarousel(data: CarouselItemData[]): CarouselHook {
     }
   }, [data]); //eslint-disable-line
 
+  useEffect(() => {
+    if (currency !== data[0].currency) setIsLoading(true);
+    else setIsLoading(false);
+  }, [data, currency]);
+
   return {
     currency,
     selectedCoins,
@@ -62,6 +69,7 @@ export function useCarousel(data: CarouselItemData[]): CarouselHook {
       isCompare,
       handleCompare,
     },
+    isLoading,
     handleSelectedCoins,
   };
 }

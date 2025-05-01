@@ -10,5 +10,5 @@ export const getCarouselSliderData = async (currency: string) => {
     { cache: "no-store" },
   );
 
-  return parseCarouselSliderData(response);
+  return parseCarouselSliderData(response, currency);
 };

@@ -9,13 +9,13 @@ import IntervalTabs from "../../ui/IntervalTabs";
 
 const ComparisonCharts = () => {
   const { selectedCoins, currency } = useAppSelector((state) => state.user);
-  const { data, error, isLoading } = useGetChartDataByCoinQuery({
+  const { data, error, isLoading, isFetching } = useGetChartDataByCoinQuery({
     coins: selectedCoins.map((coin) => coin.id),
     currency,
     path: "home",
   });
 
-  if (isLoading) return <ChartsSuspenseSkeleton type="loading" />;
+  if (isLoading || isFetching) return <ChartsSuspenseSkeleton type="loading" />;
 
   if (error) return <ChartsSuspenseSkeleton type="error" />;
 

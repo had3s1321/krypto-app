@@ -7,6 +7,7 @@ export interface CarouselItemData {
   priceChange: number;
   marketCap: number;
   volume: number;
+  currency: string;
 }
 
 interface ROI {
