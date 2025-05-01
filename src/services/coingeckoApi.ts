@@ -22,6 +22,7 @@ import { HistoricalCoinResponse } from "@/utils/types/HistoricalCoinData";
 import {
   ChartDataByCoin,
   ChartDataByCoinArg,
+  GetCoinTableArg,
   HistoricalCoinData,
   HistoricalCoinDataArg,
   IndividualCoinData,
@@ -80,16 +81,26 @@ export const coingeckoApi = createApi({
         }
       },
     }),
-    getCoinTableData: build.infiniteQuery<ParsedTableData[], string, number>({
+    getCoinTableData: build.infiniteQuery<
+      ParsedTableData[],
+      GetCoinTableArg,
+      number
+    >({
       infiniteQueryOptions: {
         initialPageParam: 1,
         getNextPageParam: (_lastPage, _allPages, lastPageParam) =>
           lastPageParam + 1,
       },
-      queryFn: async ({ pageParam }, _queryApi, _extraOptions, fetchWithBQ) => {
+      queryFn: async (
+        { queryArg, pageParam },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ,
+      ) => {
+        const { currency } = queryArg;
         try {
           const response = await fetchWithBQ(
-            `coins/markets?vs_currency=usd&per_page=50&page=${pageParam}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
+            `coins/markets?vs_currency=${currency}&per_page=50&page=${pageParam}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
           );
           if (response.error) return { error: response.error };
 

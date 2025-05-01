@@ -18,6 +18,10 @@ export interface ChartDataByCoinArg {
   path: "home" | "convertor";
 }
 
+export interface GetCoinTableArg {
+  currency: Currencies;
+}
+
 export type IndividualCoinData =
   | ConversionCoinData
   | PortfolioCoinData

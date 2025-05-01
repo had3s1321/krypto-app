@@ -13,16 +13,18 @@ const ProgressCell = ({ data1, data2, sign }: ProgressCellProps) => {
   const value = (100 * data1) / data2;
   const isPositive =
     sign > 0
-      ? ["text-[#00B1A6]", "bg-[#00B1A6]", "bg-[#AFE5E5]"]
-      : ["text-[#FE2264]", "bg-[#FE2264]", "bg-[#FBBAD1]"];
+      ? ["text-[#00B1A6]", "bg-[#00B1A6]", "bg-[#AFE5E5]", "text-[#AFE5E5]"]
+      : ["text-[#FE2264]", "bg-[#FE2264]", "bg-[#FBBAD1]", "text-[#FBBAD1]"];
 
   return (
     <TableCell>
       <div className="flex justify-between">
-        <span className={`${isPositive[0]} hover:cursor-pointer`}>
+        <span className={`${isPositive[0]} text-xs hover:cursor-pointer`}>
           {format(data1, { style: "currency", notation: "compact" })}
         </span>
-        <span className="text-[var(--clr-text)] hover:cursor-pointer">
+        <span
+          className={`${isPositive[3]} text-xs text-[var(--clr-text)] hover:cursor-pointer`}
+        >
           {format(data2, { style: "currency", notation: "compact" })}
         </span>
       </div>

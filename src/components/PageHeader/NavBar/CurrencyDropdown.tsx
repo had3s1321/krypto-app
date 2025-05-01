@@ -38,9 +38,9 @@ const CurrencyDropdown = () => {
     const currenciesList = currencies.map((curr) => curr.name);
     if (currenciesList.includes(value as Currencies)) {
       dispatch(changeCurrency(value as Currencies));
-      setCookie("currency", value);
       const params = new URLSearchParams(searchParams.toString());
-      params.set("currency", value);
+      setCookie("currency", currency);
+      params.set("currency", currency);
       router.push(`/?${params.toString()}`);
     }
   };
