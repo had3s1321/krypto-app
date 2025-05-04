@@ -33,7 +33,7 @@ const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
             ? skeletonArray.map((_, i) => (
                 <CarouselItem
                   key={`skeleton-${i}`} // eslint-disable-line
-                  className="basis-1/5 [&:not(:first-child)]:pl-2"
+                  className="basis-1/5 pb-20 [&:not(:first-child)]:pl-2"
                 >
                   <Card className="flex items-center gap-2 rounded-md border-none bg-[var(--foreground)] px-4 py-[22px] shadow-lg">
                     <div className="mx-auto h-8 w-8">

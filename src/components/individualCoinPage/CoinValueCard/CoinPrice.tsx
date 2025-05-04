@@ -7,17 +7,17 @@ import { getValueIndicator } from "@/utils/getValueIndicator";
 
 interface CoinPriceProps {
   id: string;
-  price: number;
-  priceChange24h: number;
+  price: Record<string, number>;
+  priceChange24h: Record<string, number>;
 }
 
 const CoinPrice = ({ id, price, priceChange24h }: CoinPriceProps) => {
-  const [format] = useFormat();
+  const [format, currency] = useFormat();
   const { assets } = useAppSelector((state) => state.portfolio);
 
   const isInPortfolio = assets.find((asset) => asset.id === id);
   const profit = isInPortfolio
-    ? price * isInPortfolio.amount - isInPortfolio.equity
+    ? price[currency] * isInPortfolio.amount - isInPortfolio.equity
     : null;
   const formattedProfit =
     profit &&
@@ -26,17 +26,20 @@ const CoinPrice = ({ id, price, priceChange24h }: CoinPriceProps) => {
       maximumFractionDigits: 2,
       minimumFractionDigits: 0,
     });
-  const formattedPrice = format(price, {
+  const formattedPrice = format(price[currency], {
     style: "currency",
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
   });
-  const formattedPriceChange = format(Math.abs(priceChange24h) / 100, {
-    style: "percent",
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 0,
-  });
-  const { icon, classTW } = getValueIndicator(priceChange24h);
+  const formattedPriceChange = format(
+    Math.abs(priceChange24h[currency]) / 100,
+    {
+      style: "percent",
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+    },
+  );
+  const { icon, classTW } = getValueIndicator(priceChange24h[currency]);
   const profitClassTW = profit && getValueIndicator(profit).classTW;
 
   return (

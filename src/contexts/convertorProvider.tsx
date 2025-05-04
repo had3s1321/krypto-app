@@ -28,15 +28,15 @@ export const ConvertorProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { selectedCoins } = useAppSelector((state) => state.user);
+  const { selectedCoins, currency } = useAppSelector((state) => state.user);
   const [conversionCoins, setConversionCoins] = useState(
-    selectedCoins.map((coin) => {
+    selectedCoins.map((coin): ConversionCoinData => {
       return {
         id: coin.id,
         symbol: coin.symbol,
         name: coin.name,
         image: coin.image,
-        price: coin.price,
+        price: { [currency]: coin.price },
       };
     }),
   );
@@ -88,7 +88,8 @@ export const ConvertorProvider = ({
   useEffect(() => {
     if (!conversionCoins[0] || !conversionCoins[1]) return;
 
-    const ratio = conversionCoins[1].price / conversionCoins[0].price;
+    const ratio =
+      conversionCoins[1].price[currency] / conversionCoins[0].price[currency];
     setConversionRatio(ratio);
     const newBuyQuantity = Number(sellQuantity) * (1 / ratio);
     setBuyQuantity(trimDecimals(newBuyQuantity));

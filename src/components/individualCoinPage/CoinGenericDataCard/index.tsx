@@ -11,6 +11,7 @@ import {
 } from "@/utils/types/IndividualCoinData";
 import { PlusIcon } from "../icons";
 import SupplyProgressBar from "./SupplyProgressBar";
+import { handleGenericValues } from "@/utils/handleGenericValues";
 
 interface CoinGenericDataCardProps {
   data: VolumeCardData | SupplyCardData | MarketCardData;
@@ -21,7 +22,7 @@ const CoinGenericDataCard = ({
   data,
   hasProgressBar,
 }: CoinGenericDataCardProps) => {
-  const [format] = useFormat();
+  const [format, currency] = useFormat();
 
   const formatValue = (value: number, type: string) => {
     switch (type) {
@@ -48,18 +49,21 @@ const CoinGenericDataCard = ({
   return (
     <Card className="w-[calc(50%-1.5rem)] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
       <CardContent className="flex flex-col gap-4 p-4">
-        {dataValues.map((value: GenericDataPoint) => (
-          <div
-            key={value.displayName}
-            className="flex w-full items-center gap-2"
-          >
-            <PlusIcon />
-            <div className="flex w-full justify-between text-base">
-              <span>{value.displayName}:</span>
-              <span>{formatValue(value.value, value.type)}</span>
+        {dataValues.map((value: GenericDataPoint) => {
+          const genericValue = handleGenericValues(value.value, currency);
+          return (
+            <div
+              key={value.displayName}
+              className="flex w-full items-center gap-2"
+            >
+              <PlusIcon />
+              <div className="flex w-full justify-between text-base">
+                <span>{value.displayName}:</span>
+                <span>{formatValue(genericValue, value.type)}</span>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {hasProgressBar && <SupplyProgressBar data={dataValues} />}
       </CardContent>
     </Card>

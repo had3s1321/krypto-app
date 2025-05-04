@@ -6,12 +6,12 @@ import { getPercentageChange } from "@/utils/getPercentageChange";
 import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const PortfolioCoinInfo = ({ coin }: { coin: PortfolioCoinData }) => {
-  const [format] = useFormat();
+  const [format, currency] = useFormat();
 
   const percentageChange = getPercentageChange(
     coin.equity,
     coin.amount,
-    coin.price,
+    coin.price[currency],
   );
   const { icon, classTW } = getValueIndicator(percentageChange);
   const formattedPercentChange = format(Math.abs(percentageChange) / 100, {
@@ -19,7 +19,7 @@ const PortfolioCoinInfo = ({ coin }: { coin: PortfolioCoinData }) => {
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
   });
-  const formattedBalance = format(coin.price * coin.amount, {
+  const formattedBalance = format(coin.price[currency] * coin.amount, {
     style: "currency",
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,

@@ -1,12 +1,15 @@
 import { useFormat } from "@/hooks/useFormat";
 import { Progress } from "@/components/ui/shadcn/progress";
 import { GenericDataPoint } from "@/utils/types/IndividualCoinData";
+import { handleGenericValues } from "@/utils/handleGenericValues";
 
 const SupplyProgressBar = ({ data }: { data: GenericDataPoint[] }) => {
-  const [format] = useFormat();
+  const [format, currency] = useFormat();
 
   const [maxSupply, circulatingSupply] = data;
-  const leftValue = circulatingSupply.value / maxSupply.value;
+  const leftValue =
+    handleGenericValues(circulatingSupply.value, currency) /
+    handleGenericValues(maxSupply.value, currency);
   const rightValue = 1 - leftValue;
   const formattedLeftValue = format(leftValue, { style: "percent" });
   const formattedRightValue = format(rightValue, { style: "percent" });

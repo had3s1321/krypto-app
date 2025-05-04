@@ -5,20 +5,20 @@ import { useFormat } from "@/hooks/useFormat";
 import { getDate } from "@/utils/formatUtils";
 
 interface AllTimePriceProps {
-  data: { value: number; date: string };
+  data: { value: Record<string, number>; date: Record<string, string> };
   type: "Low" | "High";
 }
 
 const AllTimePrice = ({ data, type }: AllTimePriceProps) => {
-  const [format] = useFormat();
+  const [format, currency] = useFormat();
 
   const { value, date } = data;
-  const formattedValue = format(value, {
+  const formattedValue = format(value[currency], {
     style: "currency",
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
   });
-  const formattedDate = getDate(date);
+  const formattedDate = getDate(date[currency]);
 
   return (
     <div className="flex justify-between">

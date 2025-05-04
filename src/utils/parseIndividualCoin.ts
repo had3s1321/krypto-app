@@ -1,4 +1,10 @@
-import { IndividualCoinDataResponse } from "./types/IndividualCoinData";
+import { IndividualCoinData } from "@/services/types";
+import {
+  ConversionCoinData,
+  IndividualCoinDataResponse,
+  IndividualCoinStructuredData,
+  PortfolioCoinData,
+} from "./types/IndividualCoinData";
 
 export interface PortfolioParams {
   amount: number;
@@ -8,22 +14,21 @@ export interface PortfolioParams {
 export const parseIndividualCoin = (
   data: IndividualCoinDataResponse,
   path: "convertor" | "portfolio" | "individual",
-) => {
+): IndividualCoinData => {
   const convertorData = {
     id: data.id,
     symbol: data.symbol,
     name: data.name,
     image: data.image.large,
-    price: data.market_data.current_price.usd,
-    priceChange24h:
-      data.market_data.price_change_percentage_24h_in_currency.usd,
+    price: data.market_data.current_price,
+    priceChange24h: data.market_data.price_change_percentage_24h_in_currency,
   };
 
   const portfolioData = {
     ...convertorData,
     priceChangePercentage24h: data.market_data.price_change_percentage_24h,
-    totalVolume: data.market_data.total_volume.usd,
-    marketCap: data.market_data.market_cap.usd,
+    totalVolume: data.market_data.total_volume,
+    marketCap: data.market_data.market_cap,
     circulatingSupply: data.market_data.circulating_supply,
     maxSupply: data.market_data.max_supply,
   };
@@ -33,18 +38,17 @@ export const parseIndividualCoin = (
       id: data.id,
       symbol: data.symbol,
       name: data.name,
-      price: data.market_data.current_price.usd,
-      priceChange24h:
-        data.market_data.price_change_percentage_24h_in_currency.usd,
+      price: data.market_data.current_price,
+      priceChange24h: data.market_data.price_change_percentage_24h_in_currency,
       image: data.image.large,
       homepage: data.links.homepage[0],
       ath: {
-        value: data.market_data.ath.usd,
-        date: data.market_data.ath_date.usd,
+        value: data.market_data.ath,
+        date: data.market_data.ath_date,
       },
       atl: {
-        value: data.market_data.atl.usd,
-        date: data.market_data.atl_date.usd,
+        value: data.market_data.atl,
+        date: data.market_data.atl_date,
       },
     },
     descriptionCardData: {
@@ -59,13 +63,12 @@ export const parseIndividualCoin = (
       },
       volume24h: {
         displayName: "Volume 24h",
-        value: data.market_data.total_volume.usd,
+        value: data.market_data.total_volume,
         type: "currency",
       },
       volumeMarketFraction: {
         displayName: "Volume/Market",
-        value:
-          data.market_data.total_volume.usd / data.market_data.market_cap.usd,
+        value: [data.market_data.total_volume, data.market_data.market_cap],
         type: "number",
       },
     },
@@ -84,12 +87,12 @@ export const parseIndividualCoin = (
     marketCardData: {
       marketCap: {
         displayName: "Market Cap",
-        value: data.market_data.market_cap.usd,
+        value: data.market_data.market_cap,
         type: "currency",
       },
       fullyDilutedValuation: {
         displayName: "Fully Diluted Valuation",
-        value: data.market_data.fully_diluted_valuation.usd,
+        value: data.market_data.fully_diluted_valuation,
         type: "currency",
       },
     },
@@ -97,11 +100,14 @@ export const parseIndividualCoin = (
 
   switch (path) {
     case "convertor":
-      return convertorData;
+      return convertorData as ConversionCoinData;
     case "portfolio":
-      return portfolioData;
+      return portfolioData as Omit<
+        PortfolioCoinData,
+        "amount" | "equity" | "lastPurchased"
+      >;
     case "individual":
-      return individualData;
+      return individualData as IndividualCoinStructuredData;
     default:
       throw new Error(`Invalid path: ${path}`);
   }

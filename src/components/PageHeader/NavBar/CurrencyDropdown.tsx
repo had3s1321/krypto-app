@@ -2,7 +2,7 @@
 
 import { changeCurrency, Currencies } from "@/lib/features/user/userSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import {
@@ -31,6 +31,7 @@ const CurrencyDropdown = () => {
   const { currency } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
 
   const selectedCurrency =
@@ -43,10 +44,13 @@ const CurrencyDropdown = () => {
   };
 
   useEffect(() => {
+    const regex = /^\/(?:\?currency=[A-Za-z]{3})?$/;
     const params = new URLSearchParams(searchParams.toString());
     setCookie("currency", currency);
-    params.set("currency", currency);
-    router.push(`/?${params.toString()}`);
+    if (pathname.match(regex)) {
+      params.set("currency", currency);
+      router.push(`/?${params.toString()}`);
+    }
   }, [currency]); // eslint-disable-line
 
   return (

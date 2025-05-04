@@ -3,13 +3,14 @@ export interface ConversionCoinData {
   symbol: string;
   name: string;
   image: string;
-  price: number;
+  price: Record<string, number>;
+  priceChange24h?: Record<string, number> | number;
 }
 
 export interface PortfolioCoinData extends ConversionCoinData {
   priceChangePercentage24h: number;
-  totalVolume: number;
-  marketCap: number;
+  totalVolume: Record<string, number>;
+  marketCap: Record<string, number>;
   circulatingSupply: number;
   maxSupply: number | null;
   amount: number;
@@ -21,17 +22,17 @@ export interface ValueCardData {
   id: string;
   symbol: string;
   name: string;
-  price: number;
-  priceChange24h: number;
+  price: Record<string, number>;
+  priceChange24h: Record<string, number>;
   image: string;
   homepage: string;
   ath: {
-    value: number;
-    date: string;
+    value: Record<string, number>;
+    date: Record<string, string>;
   };
   atl: {
-    value: number;
-    date: string;
+    value: Record<string, number>;
+    date: Record<string, string>;
   };
 }
 
@@ -40,9 +41,14 @@ export interface DescriptionCardData {
   links: string[];
 }
 
+export type GenericDataPointValue =
+  | Record<string, number>
+  | Record<string, number>[]
+  | number;
+
 export interface GenericDataPoint {
   displayName: string;
-  value: number;
+  value: GenericDataPointValue;
   type: string;
 }
 
