@@ -7,7 +7,7 @@ import { CoinsListMarketData } from "@/utils/types/CoinsListMarketData";
 export const getCarouselSliderData = async (currency: string) => {
   const response: CoinsListMarketData = await fetchData(
     `coins/markets?vs_currency=${currency}&per_page=100`,
-    { cache: "no-store" },
+    { noStore: true },
   );
 
   return parseCarouselSliderData(response, currency);
