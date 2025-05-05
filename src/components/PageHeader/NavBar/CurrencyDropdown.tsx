@@ -1,10 +1,6 @@
 "use client";
 
-import { changeCurrency, Currencies } from "@/lib/features/user/userSlice";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { usePathname, useSearchParams } from "next/navigation";
-import { setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useCurrencyDropdown } from "@/hooks/useCurrencyDropdown";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,45 +9,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/shadcn/dropdown-menu";
 import { DropdownDownIcon } from "@/components/PageHeader/NavBar/icons";
-import { BadgeDollarSign, BadgeEuro, BadgePoundSterling } from "lucide-react";
-import { useEffect } from "react";
-
-interface CurrenciesConfig {
-  name: Currencies;
-  icon: React.ReactNode;
-}
-
-const currencies: CurrenciesConfig[] = [
-  { name: "usd", icon: <BadgeDollarSign size={16} /> },
-  { name: "eur", icon: <BadgeEuro size={16} /> },
-  { name: "gbp", icon: <BadgePoundSterling size={16} /> },
-];
 
 const CurrencyDropdown = () => {
-  const { currency } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const selectedCurrency =
-    currencies.find((el) => el.name === currency) || currencies[0];
-  const handleSelectedCurrency = (value: string) => {
-    const currenciesList = currencies.map((curr) => curr.name);
-    if (currenciesList.includes(value as Currencies)) {
-      dispatch(changeCurrency(value as Currencies));
-    }
-  };
-
-  useEffect(() => {
-    const regex = /^\/(?:\?currency=[A-Za-z]{3})?$/;
-    const params = new URLSearchParams(searchParams.toString());
-    setCookie("currency", currency);
-    if (pathname.match(regex)) {
-      params.set("currency", currency);
-      router.push(`/?${params.toString()}`);
-    }
-  }, [currency]); // eslint-disable-line
+  const { currency, currencies, selectedCurrency, handleSelectedCurrency } =
+    useCurrencyDropdown();
 
   return (
     <DropdownMenu>
