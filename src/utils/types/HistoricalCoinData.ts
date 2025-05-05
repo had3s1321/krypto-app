@@ -1,6 +1,6 @@
 export interface HistoricalCoinPrice {
   id: string;
-  price: number;
+  price: Record<string, number>;
 }
 
 export interface HistoricalCoinResponse {
