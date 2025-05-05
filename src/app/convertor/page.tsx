@@ -1,7 +1,6 @@
 import CoinsConvertor from "@/components/convertorPage/CoinsConvertor";
 import ConvertorChart from "@/components/convertorPage/ConvertorChart";
 import ConvertorHeader from "@/components/convertorPage/ConvertorHeader";
-import IntervalTabs from "@/components/ui/IntervalTabs";
 import PageTabs from "@/components/ui/PageTabs";
 import { ConvertorProvider } from "@/contexts/convertorProvider";
 import { Metadata } from "next";
@@ -21,7 +20,6 @@ export default function Convertor() {
       <ConvertorProvider>
         <CoinsConvertor />
         <ConvertorChart />
-        <IntervalTabs />
       </ConvertorProvider>
     </main>
   );

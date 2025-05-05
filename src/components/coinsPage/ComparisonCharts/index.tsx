@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
 import { useGetChartDataByCoinQuery } from "@/services/coingeckoApi";
 import ChartsSuspenseSkeleton from "./ChartsSuspenseSkeleton";
@@ -8,6 +9,7 @@ import CustomBarChart from "./BarChart";
 import IntervalTabs from "../../ui/IntervalTabs";
 
 const ComparisonCharts = () => {
+  const [tabValue, setTabValue] = useState("1D");
   const { selectedCoins, currency } = useAppSelector((state) => state.user);
   const { data, error, isLoading, isFetching } = useGetChartDataByCoinQuery({
     coins: selectedCoins.map((coin) => coin.id),
@@ -25,7 +27,7 @@ const ComparisonCharts = () => {
         <CustomAreaChart chartData={data?.prices} coins={selectedCoins} />
         <CustomBarChart chartData={data?.volumes} coins={selectedCoins} />
       </div>
-      <IntervalTabs />
+      <IntervalTabs value={tabValue} onValueChange={setTabValue} />
     </>
   );
 };

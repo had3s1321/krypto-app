@@ -1,16 +1,28 @@
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/shadcn/tabs";
 
-const IntervalTabs = () => {
-  const intervalValues = ["1D", "14D", "1W", "1M", "1Y"];
+interface IntervalTabsProps {
+  value?: string;
+  onValueChange?: (val: string) => void; // eslint-disable-line
+  disabled?: boolean;
+}
 
+const intervalValues = ["1D", "14D", "1W", "1M", "1Y"];
+
+const IntervalTabs = ({
+  value,
+  onValueChange,
+  disabled,
+}: IntervalTabsProps) => {
   return (
     <Tabs
       defaultValue="1D"
-      className="flex w-max rounded-sm bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-lg"
+      value={value}
+      onValueChange={onValueChange}
+      className={`${disabled && "hover:cursor-not-allowed"} flex w-max rounded-sm bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-lg`}
     >
       <TabsList>
         {intervalValues.map((el) => (
-          <TabsTrigger key={el} value={el} className="px-5">
+          <TabsTrigger key={el} value={el} disabled={disabled} className="px-5">
             {el}
           </TabsTrigger>
         ))}
