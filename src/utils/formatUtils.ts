@@ -42,3 +42,26 @@ export const trimDecimals = (value: number) => {
   }
   return value.toFixed(2).replace(/\.?0+$/, "");
 };
+
+export const getTimeRangeInUNIX = (interval: string) => {
+  const HOUR = 60 * 60;
+  const DAY = 24 * HOUR;
+  const MONTH = 30 * DAY;
+  const YEAR = 12 * MONTH;
+  const today = Math.round(Date.now() / 1000);
+
+  switch (interval) {
+    case "1D":
+      return { from: today - DAY, to: today };
+    case "7D":
+      return { from: today - 7 * DAY, to: today };
+    case "14D":
+      return { from: today - 14 * DAY, to: today };
+    case "1M":
+      return { from: today - MONTH, to: today };
+    case "1Y":
+      return { from: today - YEAR, to: today };
+    default:
+      return { from: today - DAY, to: today };
+  }
+};

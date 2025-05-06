@@ -28,6 +28,7 @@ import {
   IndividualCoinData,
   IndividualCoinDataArg,
 } from "./types";
+import { getTimeRangeInUNIX } from "@/utils/formatUtils";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -48,16 +49,18 @@ export const coingeckoApi = createApi({
   endpoints: (build) => ({
     getChartDataByCoin: build.query<ChartDataByCoin, ChartDataByCoinArg>({
       queryFn: async (
-        { coins, currency, path },
+        { coins, currency, path, range },
         _queryApi,
         _extraOptions,
         fetchWithBQ,
       ) => {
+        const { from, to } = getTimeRangeInUNIX(range);
+
         try {
           const responses = await Promise.all(
             coins.map(async (coin) =>
               fetchWithBQ(
-                `coins/${coin}/market_chart?vs_currency=${currency}&days=1`,
+                `coins/${coin}/market_chart/range?vs_currency=${currency}&from=${from}&to=${to}`,
               ),
             ),
           );
@@ -68,13 +71,13 @@ export const coingeckoApi = createApi({
 
           if (path === "convertor")
             return {
-              data: { prices: parseConversionCoinsChartData(data) },
+              data: { prices: parseConversionCoinsChartData(data, range) },
             };
 
           return {
             data: {
-              prices: parseChartData(data, coins, "prices"),
-              volumes: parseChartData(data, coins, "total_volumes"),
+              prices: parseChartData(data, coins, "prices", range),
+              volumes: parseChartData(data, coins, "total_volumes", range),
             },
           };
         } catch (error) {

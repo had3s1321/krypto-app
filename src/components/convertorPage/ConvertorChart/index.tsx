@@ -19,8 +19,8 @@ const ConvertorChart = () => {
     if (!conversionCoins[0] || !conversionCoins[1]) return;
 
     const coins = conversionCoins.map((coin) => coin.id);
-    trigger({ coins, currency, path: "convertor" });
-  }, [conversionCoins, trigger]); //eslint-disable-line
+    trigger({ coins, currency, path: "convertor", range: tabValue });
+  }, [conversionCoins, tabValue, trigger]); //eslint-disable-line
 
   if (!conversionCoins[0] || !conversionCoins[1])
     return <ChartSuspenseSkeleton type="no-data" />;

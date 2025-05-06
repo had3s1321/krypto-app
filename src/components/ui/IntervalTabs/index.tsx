@@ -6,7 +6,7 @@ interface IntervalTabsProps {
   disabled?: boolean;
 }
 
-const intervalValues = ["1D", "14D", "1W", "1M", "1Y"];
+const intervalValues = ["1D", "7D", "14D", "1M", "1Y"];
 
 const IntervalTabs = ({
   value,

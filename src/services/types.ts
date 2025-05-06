@@ -16,6 +16,7 @@ export interface ChartDataByCoinArg {
   coins: string[];
   currency: Currencies;
   path: "home" | "convertor";
+  range: string;
 }
 
 export interface GetCoinTableArg {

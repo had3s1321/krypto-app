@@ -15,6 +15,7 @@ const ComparisonCharts = () => {
     coins: selectedCoins.map((coin) => coin.id),
     currency,
     path: "home",
+    range: tabValue,
   });
 
   if (isLoading || isFetching) return <ChartsSuspenseSkeleton type="loading" />;
