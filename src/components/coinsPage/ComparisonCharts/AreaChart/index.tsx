@@ -94,15 +94,18 @@ const CustomAreaChart = ({
           dataKey="time"
           tick={({ x, y, payload }) => (
             <text
-              x={x - 10}
+              x={x}
               y={y + 10}
               textAnchor="middle"
-              style={{ fill: "var(--clr-text)", fontSize: 12 }}
+              style={{
+                fill: "var(--clr-text)",
+                fontSize: 12,
+              }}
             >
               {payload.value}
             </text>
           )}
-          minTickGap={100}
+          minTickGap={50}
           axisLine={false}
           tickLine={false}
         />

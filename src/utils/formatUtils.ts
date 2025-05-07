@@ -65,3 +65,9 @@ export const getTimeRangeInUNIX = (interval: string) => {
       return { from: today - DAY, to: today };
   }
 };
+
+export const formatChartDate = (input: string) => {
+  if (input.length < 6) return input;
+  const [date] = input.split(" ");
+  return getDate(date);
+};
