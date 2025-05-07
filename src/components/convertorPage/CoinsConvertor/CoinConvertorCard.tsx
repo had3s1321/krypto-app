@@ -15,6 +15,10 @@ import Separator from "@/components/ui/Separator";
 import CoinsDropdown from "./CoinsDropdown";
 import SelectedCoin from "./SelectedCoin";
 import CoinFiatValue from "./CoinFiatValue";
+import { FadeStaggerSquares } from "@/components/ui/icons";
+import { useLazyGetIndividualCoinDataQuery } from "@/services/coingeckoApi";
+import { Coin } from "@/utils/types/SearchBarData";
+import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
 
 const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -24,10 +28,28 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
     buyQuantity,
     handleSellQuantity,
     handleBuyQuantity,
-    handleNewCoin,
+    setConversionCoins,
   } = useContext(ConvertorContext);
   const { data, value, handleChange, clearSearchResults } =
     useDebouncedSearch(250);
+  const [trigger, { isFetching }] = useLazyGetIndividualCoinDataQuery();
+
+  const handleNewCoin = (
+    payload: Coin,
+    cb: () => void,
+    isSelling?: boolean,
+  ) => {
+    trigger({ coin: payload.id, path: "convertor" }).then((result) => {
+      if (result.data) {
+        const { data } = result;
+        if (isSelling)
+          setConversionCoins([data as ConversionCoinData, conversionCoins[1]]);
+        else
+          setConversionCoins([conversionCoins[0], data as ConversionCoinData]);
+      }
+    });
+    cb();
+  };
 
   const conversionCoin = isSelling ? conversionCoins[0] : conversionCoins[1];
 
@@ -53,14 +75,14 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="relative mb-4 flex justify-between text-xl font-medium">
+        <div className="relative mb-4 flex w-full justify-between text-xl font-medium">
           <Input
             type="text"
             value={value}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
-            placeholder={`${conversionCoin ? "" : "Please select a coin"}`}
+            placeholder={`${conversionCoin || isFetching ? "" : "Please select a coin"}`}
             className="w-2/3 border-none px-0 !text-xl shadow-none placeholder:text-xl focus:placeholder:text-transparent focus-visible:ring-0"
           />
           {conversionCoin && (
@@ -82,6 +104,11 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
             handleBlur={handleBlur}
             isSelling={isSelling}
           />
+          {isFetching && (
+            <div className="mr-auto h-8 w-8">
+              <FadeStaggerSquares />
+            </div>
+          )}
         </div>
         <Separator />
       </CardContent>

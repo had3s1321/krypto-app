@@ -2,10 +2,8 @@
 
 import { createContext, useEffect, useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
-import { useLazyGetIndividualCoinDataQuery } from "@/services/coingeckoApi";
 import { trimDecimals } from "@/utils/formatUtils";
 import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
-import { Coin } from "@/utils/types/SearchBarData";
 
 interface ConvertorContextType {
   conversionCoins: ConversionCoinData[];
@@ -15,7 +13,7 @@ interface ConvertorContextType {
   /* eslint-disable no-unused-vars */
   handleSellQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBuyQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleNewCoin: (payload: Coin, cb: () => void, isSelling?: boolean) => void;
+  setConversionCoins: (coins: ConversionCoinData[]) => void;
   /* eslint-enable no-unused-vars */
 }
 
@@ -43,24 +41,6 @@ export const ConvertorProvider = ({
   const [sellQuantity, setSellQuantity] = useState<string>("1");
   const [buyQuantity, setBuyQuantity] = useState<string>("");
   const [conversionRatio, setConversionRatio] = useState<number>(1);
-  const [trigger] = useLazyGetIndividualCoinDataQuery();
-
-  const handleNewCoin = (
-    payload: Coin,
-    cb: () => void,
-    isSelling?: boolean,
-  ) => {
-    trigger({ coin: payload.id, path: "convertor" }).then((result) => {
-      if (result.data) {
-        const { data } = result;
-        if (isSelling)
-          setConversionCoins([data as ConversionCoinData, conversionCoins[1]]);
-        else
-          setConversionCoins([conversionCoins[0], data as ConversionCoinData]);
-      }
-    });
-    cb();
-  };
 
   const handleSellQuantity = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newSellQuantity = e.target.value.replace(/^0+(?=\d)/, "");
@@ -104,7 +84,7 @@ export const ConvertorProvider = ({
         handleSwitch,
         handleSellQuantity,
         handleBuyQuantity,
-        handleNewCoin,
+        setConversionCoins,
       }}
     >
       {children}
