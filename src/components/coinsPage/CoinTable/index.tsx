@@ -24,13 +24,6 @@ const CoinTable = () => {
   const [format] = useFormat();
   const allResults = data?.pages.flat() ?? [];
 
-  if (isFetching)
-    return (
-      <div className="mx-auto h-8 w-8">
-        <FadeStaggerSquares />
-      </div>
-    );
-
   return (
     <>
       <Table className="w-full border-separate border-spacing-y-2 overflow-x-hidden font-grotesk">

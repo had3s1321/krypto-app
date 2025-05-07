@@ -102,6 +102,7 @@ export const coingeckoApi = createApi({
         fetchWithBQ,
       ) => {
         const { currency } = queryArg;
+
         try {
           const response = await fetchWithBQ(
             `coins/markets?vs_currency=${currency}&per_page=50&page=${pageParam}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
