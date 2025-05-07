@@ -14,7 +14,7 @@ const CustomAreaChart = ({
   chartData: ParsedChartData | undefined;
   coins: CarouselItemData[];
 }) => {
-  const format = useFormat();
+  const [format] = useFormat();
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -94,29 +94,51 @@ const CustomAreaChart = ({
           dataKey="time"
           tick={({ x, y, payload }) => (
             <text
-              x={x - 10}
+              x={x}
               y={y + 10}
               textAnchor="middle"
-              style={{ fill: "var(--clr-text)", fontSize: 12 }}
+              style={{
+                fill: "var(--clr-text)",
+                fontSize: 12,
+              }}
             >
               {payload.value}
             </text>
           )}
-          minTickGap={100}
+          minTickGap={50}
           axisLine={false}
           tickLine={false}
         />
-        <YAxis domain={["dataMin", "dataMax"]} hide />
+        <YAxis
+          dataKey={coins[0].id}
+          yAxisId="left"
+          scale={coins.length > 1 ? "log" : "linear"}
+          domain={["dataMin", "dataMax"]}
+          hide
+        />
+        {coins.length > 1 && chartData && chartData[1] ? (
+          <YAxis
+            dataKey={coins[1].id}
+            yAxisId="right"
+            scale="log"
+            domain={["dataMin", "dataMax"]}
+            orientation="right"
+            hide
+          />
+        ) : null}
         <Tooltip />
         <Area
+          yAxisId="left"
           type="monotone"
           dataKey={coins[0].id}
           stroke="#8884d8"
           fillOpacity={1}
           fill="url(#colorUv)"
         />
-        {chartData && chartData[1] && coins[1] ? (
+
+        {coins.length > 1 && chartData && chartData[1] ? (
           <Area
+            yAxisId="right"
             type="monotone"
             dataKey={coins[1].id}
             stroke="#82ca9d"

@@ -54,6 +54,7 @@ const AddAssetForm = () => {
   const [historicalCoinTrigger] = useLazyGetHistoricalCoinDataQuery();
   const dispatch = useAppDispatch();
   const { assets } = useAppSelector((state) => state.portfolio);
+  const { currency } = useAppSelector((state) => state.user);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -96,7 +97,8 @@ const AddAssetForm = () => {
       dispatch(
         updateAsset({
           ...foundAsset,
-          equity: Number(values.amount) * (historicalCoinData?.price || 0),
+          equity:
+            Number(values.amount) * (historicalCoinData?.price[currency] || 0),
           amount: Number(values.amount),
           lastPurchased: values.purchaseDate.toLocaleString(),
         }),
@@ -110,7 +112,8 @@ const AddAssetForm = () => {
         addAsset({
           ...individualCoinData,
           amount: Number(values.amount),
-          equity: Number(values.amount) * (historicalCoinData?.price || 1),
+          equity:
+            Number(values.amount) * (historicalCoinData?.price[currency] || 1),
           lastPurchased: values.purchaseDate.toLocaleString(),
         } as PortfolioCoinData),
       );
@@ -150,6 +153,7 @@ const AddAssetForm = () => {
                     />
                     <SearchDropdown
                       data={data}
+                      onBlur={() => form.setValue("coin", "")}
                       handleCoinSelect={handleCoinSelect}
                     />
                   </div>

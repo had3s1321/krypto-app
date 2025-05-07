@@ -1,10 +1,12 @@
-export const CopyIcon = () => (
+export const CopyIcon = ({ onClick }: { onClick?: () => void }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="18"
     height="18"
     fill="none"
     viewBox="0 0 18 18"
+    className="hover:cursor-pointer"
+    onClick={onClick}
   >
     <g
       stroke="#fff"

@@ -4,6 +4,8 @@ import DataTable from "@/components/coinsPage/CoinTable";
 import CoinSlider from "@/components/coinsPage/CoinSlider";
 import ComparisonCharts from "@/components/coinsPage/ComparisonCharts";
 
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>;
+
 export const metadata: Metadata = {
   title: "Krypto Land | Live Crypto Prices, Charts & Compare",
   description:
@@ -11,11 +13,14 @@ export const metadata: Metadata = {
   // TODO: add openGraph and twitter entries, when the app will be deployed
 };
 
-export default function Home() {
+export default async function Home(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams;
+  const query = searchParams.currency;
+
   return (
     <main className="mx-auto w-full max-w-[1296] text-black">
       <PageTabs route="Coins" />
-      <CoinSlider />
+      <CoinSlider query={query} />
       <ComparisonCharts />
       <DataTable />
     </main>

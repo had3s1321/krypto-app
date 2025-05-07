@@ -1,6 +1,9 @@
 import { CoinsListMarketData } from "./types/CoinsListMarketData";
 
-export const parseCarouselSliderData = (data: CoinsListMarketData) => {
+export const parseCarouselSliderData = (
+  data: CoinsListMarketData,
+  currency: string,
+) => {
   return data.map((coin) => {
     return {
       id: coin.id,
@@ -11,6 +14,7 @@ export const parseCarouselSliderData = (data: CoinsListMarketData) => {
       priceChange: coin.price_change_percentage_24h / 100,
       marketCap: coin.market_cap,
       volume: coin.total_volume,
+      currency: currency,
     };
   });
 };

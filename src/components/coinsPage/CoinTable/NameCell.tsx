@@ -19,8 +19,8 @@ const NameCell = ({
         height={24}
         className="float-start mr-4"
       />
-      <span className="inline-block">
-        {name} ({symbol})
+      <span className="inline-block hover:cursor-pointer">
+        {name} ({symbol.toUpperCase()})
       </span>
     </TableCell>
   );

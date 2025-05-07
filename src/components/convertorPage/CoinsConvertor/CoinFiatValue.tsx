@@ -6,14 +6,14 @@ const CoinFiatValue = ({
 }: {
   conversionCoin?: ConversionCoinData;
 }) => {
-  const format = useFormat();
+  const [format, currency] = useFormat();
 
   if (!conversionCoin) return;
 
   return (
     <>
       1 {conversionCoin.symbol.toUpperCase()} ={" "}
-      {format(conversionCoin.price, {
+      {format(conversionCoin.price[currency], {
         style: "currency",
         maximumFractionDigits: 2,
       })}

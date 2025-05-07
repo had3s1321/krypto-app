@@ -22,11 +22,13 @@ import { HistoricalCoinResponse } from "@/utils/types/HistoricalCoinData";
 import {
   ChartDataByCoin,
   ChartDataByCoinArg,
+  GetCoinTableArg,
   HistoricalCoinData,
   HistoricalCoinDataArg,
   IndividualCoinData,
   IndividualCoinDataArg,
 } from "./types";
+import { getTimeRangeInUNIX } from "@/utils/formatUtils";
 
 export const coingeckoApi = createApi({
   reducerPath: "coingeckoApi",
@@ -43,18 +45,23 @@ export const coingeckoApi = createApi({
     },
     method: "GET",
   }),
+  keepUnusedDataFor: 0,
   endpoints: (build) => ({
     getChartDataByCoin: build.query<ChartDataByCoin, ChartDataByCoinArg>({
       queryFn: async (
-        { coins, path },
+        { coins, currency, path, range },
         _queryApi,
         _extraOptions,
         fetchWithBQ,
       ) => {
+        const { from, to } = getTimeRangeInUNIX(range);
+
         try {
           const responses = await Promise.all(
             coins.map(async (coin) =>
-              fetchWithBQ(`coins/${coin}/market_chart?vs_currency=usd&days=1`),
+              fetchWithBQ(
+                `coins/${coin}/market_chart/range?vs_currency=${currency}&from=${from}&to=${to}`,
+              ),
             ),
           );
           const data = responses.map((res) => {
@@ -64,13 +71,13 @@ export const coingeckoApi = createApi({
 
           if (path === "convertor")
             return {
-              data: { prices: parseConversionCoinsChartData(data) },
+              data: { prices: parseConversionCoinsChartData(data, range) },
             };
 
           return {
             data: {
-              prices: parseChartData(data, coins, "prices"),
-              volumes: parseChartData(data, coins, "total_volumes"),
+              prices: parseChartData(data, coins, "prices", range),
+              volumes: parseChartData(data, coins, "total_volumes", range),
             },
           };
         } catch (error) {
@@ -78,16 +85,27 @@ export const coingeckoApi = createApi({
         }
       },
     }),
-    getCoinTableData: build.infiniteQuery<ParsedTableData[], string, number>({
+    getCoinTableData: build.infiniteQuery<
+      ParsedTableData[],
+      GetCoinTableArg,
+      number
+    >({
       infiniteQueryOptions: {
         initialPageParam: 1,
         getNextPageParam: (_lastPage, _allPages, lastPageParam) =>
           lastPageParam + 1,
       },
-      queryFn: async ({ pageParam }, _queryApi, _extraOptions, fetchWithBQ) => {
+      queryFn: async (
+        { queryArg, pageParam },
+        _queryApi,
+        _extraOptions,
+        fetchWithBQ,
+      ) => {
+        const { currency } = queryArg;
+
         try {
           const response = await fetchWithBQ(
-            `coins/markets?vs_currency=usd&per_page=50&page=${pageParam}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
+            `coins/markets?vs_currency=${currency}&per_page=50&page=${pageParam}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`,
           );
           if (response.error) return { error: response.error };
 

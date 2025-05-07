@@ -4,10 +4,12 @@ export const fetchData = async <T>(
   url: string,
   {
     localData,
-    cache = "force-cache",
+    revalidate = 1800,
+    noStore = false,
   }: {
     localData?: T;
-    cache?: RequestCache;
+    revalidate?: number;
+    noStore?: boolean;
   } = {},
 ): Promise<T> => {
   const options: RequestInit = {
@@ -16,7 +18,7 @@ export const fetchData = async <T>(
       accept: "application/json",
       "x-cg-demo-api-key": process.env.NEXT_PUBLIC_COINGECKO_API_KEY,
     } as HeadersInit,
-    cache,
+    next: noStore ? { revalidate: 0 } : { revalidate },
   };
   if (localData && process.env.NODE_ENV === "development") return localData;
 

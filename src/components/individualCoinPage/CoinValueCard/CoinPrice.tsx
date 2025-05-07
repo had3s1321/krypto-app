@@ -1,29 +1,46 @@
+"use client";
+
+import Link from "next/link";
 import { useFormat } from "@/hooks/useFormat";
+import { useAppSelector } from "@/lib/hooks";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 
 interface CoinPriceProps {
-  price: number;
-  priceChange24h: number;
+  id: string;
+  price: Record<string, number>;
+  priceChange24h: Record<string, number>;
 }
 
-const CoinPrice = ({ price, priceChange24h }: CoinPriceProps) => {
-  const format = useFormat();
-  const formattedPrice = format(price, {
+const CoinPrice = ({ id, price, priceChange24h }: CoinPriceProps) => {
+  const [format, currency] = useFormat();
+  const { assets } = useAppSelector((state) => state.portfolio);
+
+  const isInPortfolio = assets.find((asset) => asset.id === id);
+  const profit = isInPortfolio
+    ? price[currency] * isInPortfolio.amount - isInPortfolio.equity
+    : null;
+  const formattedProfit =
+    profit &&
+    format(profit, {
+      style: "currency",
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+    });
+  const formattedPrice = format(price[currency], {
     style: "currency",
     maximumFractionDigits: 2,
     minimumFractionDigits: 0,
   });
-  const formattedPriceChange = format(priceChange24h / 100, {
-    style: "percent",
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 0,
-  });
-  const formattedProfit = format(1504, {
-    style: "currency",
-    maximumFractionDigits: 2,
-    minimumFractionDigits: 0,
-  });
-  const { icon, classTW } = getValueIndicator(priceChange24h);
+  const formattedPriceChange = format(
+    Math.abs(priceChange24h[currency]) / 100,
+    {
+      style: "percent",
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 0,
+    },
+  );
+  const { icon, classTW } = getValueIndicator(priceChange24h[currency]);
+  const profitClassTW = profit && getValueIndicator(profit).classTW;
 
   return (
     <div>
@@ -35,9 +52,19 @@ const CoinPrice = ({ price, priceChange24h }: CoinPriceProps) => {
           {icon} {formattedPriceChange}
         </span>
       </span>
-      <span className="flex gap-4 text-base">
-        Profit:<span className={`${classTW}`}>{formattedProfit}</span>
-      </span>
+      {isInPortfolio ? (
+        <span className="flex gap-4 text-base">
+          <span>Profit:</span>
+          <span className={`${profitClassTW}`}>{formattedProfit}</span>
+        </span>
+      ) : (
+        <Link
+          href="/portfolio"
+          className="text-base underline hover:text-[--clr-hover]"
+        >
+          Add to portfolio
+        </Link>
+      )}
     </div>
   );
 };

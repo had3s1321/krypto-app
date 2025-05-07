@@ -32,7 +32,7 @@ export const parseStatsBarData = (
       },
     },
     {
-      value: data.total_market_cap.usd,
+      value: data.total_market_cap,
       icon: icon,
       formatOptions: {
         style: "decimal",
@@ -42,7 +42,7 @@ export const parseStatsBarData = (
       },
     },
     {
-      value: data.total_volume.usd,
+      value: data.total_volume,
       hasProgressBar: true,
       progressValue: data.market_cap_change_percentage_24h_usd,
       progressBarColor: "bg-[#FFFFFF]",

@@ -1,9 +1,13 @@
 import { useCallback, useRef } from "react";
+import { useAppSelector } from "@/lib/hooks";
+
 import { useGetCoinTableDataInfiniteQuery } from "@/services/coingeckoApi";
 
 export function useInfiniteScroll() {
-  const { data, isFetching, fetchNextPage } =
-    useGetCoinTableDataInfiniteQuery("");
+  const { currency } = useAppSelector((state) => state.user);
+  const { data, isFetching, fetchNextPage } = useGetCoinTableDataInfiniteQuery({
+    currency,
+  });
 
   const observer = useRef<IntersectionObserver | null>(null);
 

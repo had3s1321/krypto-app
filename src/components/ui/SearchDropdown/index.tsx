@@ -1,13 +1,19 @@
 import { Coin, SearchBarData } from "@/utils/types/SearchBarData";
 
+interface SearchDropdownProps {
+  data?: SearchBarData;
+  /* eslint-disable no-unused-vars */
+  handleCoinSelect?: (coin: Coin) => void;
+  handleClick?: (coinId: string) => void;
+  /* eslint-enable no-unused-vars */
+  onBlur?: () => void;
+}
+
 const SearchDropdown = ({
   data,
   handleCoinSelect,
-}: {
-  data?: SearchBarData;
-  // eslint-disable-next-line no-unused-vars
-  handleCoinSelect?: (coin: Coin) => void;
-}) => {
+  handleClick,
+}: SearchDropdownProps) => {
   if (!data) return null;
 
   return (
@@ -19,6 +25,9 @@ const SearchDropdown = ({
             onMouseDown={(e) => {
               e.preventDefault();
               if (handleCoinSelect) handleCoinSelect(coin);
+            }}
+            onClick={() => {
+              if (handleClick) handleClick(coin.id);
             }}
             className="px-4 py-3 hover:cursor-pointer hover:bg-[var(--clr-hover)]"
           >

@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/shadcn/progress";
 export interface StatsBarElementProps {
   icon?: React.ReactNode;
   name?: string;
-  value: number;
+  value: number | Record<string, number>;
   hasProgressBar?: boolean;
   progressBarColor?: string;
   progressValue?: number;
@@ -21,18 +21,20 @@ const StatsBarElement = ({
   progressValue,
   formatOptions,
 }: StatsBarElementProps) => {
-  const format = useFormat();
+  const [format, currency] = useFormat();
+  const displayValue =
+    typeof value === "number" ? value : value[currency] || value.usd;
 
   return (
     <div className="flex items-center justify-center gap-1">
       <span>{icon}</span>
       <span>{name ? name : null}</span>
-      <span>{format(value, formatOptions)}</span>
+      <span>{format(displayValue, formatOptions)}</span>
       <span>
         {hasProgressBar ? (
           <Progress
             className="w-20"
-            value={progressValue ?? value * 100}
+            value={progressValue ?? displayValue * 100}
             indicatorClassName={progressBarColor}
           />
         ) : null}

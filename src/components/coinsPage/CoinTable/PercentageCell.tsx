@@ -3,7 +3,7 @@ import { TableCell } from "@/components/ui/shadcn/table";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 
 const PercentageCell = ({ data }: { data?: number }) => {
-  const format = useFormat();
+  const [format] = useFormat();
 
   if (!data) return <TableCell>N/A</TableCell>;
   const { icon, classTW } = getValueIndicator(data);

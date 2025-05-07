@@ -1,15 +1,14 @@
 "use server";
 
 import { fetchData } from "@/utils/fetchData";
-import { coins_market_data } from "@/utils/mockData/coins_market_data";
 import { parseCarouselSliderData } from "@/utils/parseCarouselSliderData";
 import { CoinsListMarketData } from "@/utils/types/CoinsListMarketData";
 
-export const getCarouselSliderData = async () => {
+export const getCarouselSliderData = async (currency: string) => {
   const response: CoinsListMarketData = await fetchData(
-    "coins/markets?vs_currency=usd&per_page=100",
-    { localData: coins_market_data },
+    `coins/markets?vs_currency=${currency}&per_page=100`,
+    { noStore: true },
   );
 
-  return parseCarouselSliderData(response);
+  return parseCarouselSliderData(response, currency);
 };
