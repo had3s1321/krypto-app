@@ -129,6 +129,7 @@ const CustomBarChart = ({
           stackId="a"
           fillOpacity={1}
           fill="url(#colorUv)"
+          radius={[4, 4, 0, 0]}
         />
         {chartData && chartData[1] && coins[1] ? (
           <Bar
@@ -140,6 +141,7 @@ const CustomBarChart = ({
             stroke="#82ca9d"
             fillOpacity={1}
             fill="url(#colorPv)"
+            radius={[4, 4, 0, 0]}
           />
         ) : null}
       </BarChart>
