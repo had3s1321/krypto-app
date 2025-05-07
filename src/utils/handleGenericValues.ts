@@ -5,7 +5,7 @@ export const handleGenericValues = (
   currency: string,
 ) => {
   if (Array.isArray(value)) return value[0][currency] / value[1][currency];
-  if (typeof value === "object") return value[currency];
+  if (value && typeof value === "object") return value[currency];
   if (typeof value === "number") return value;
   return 0;
 };
