@@ -1,12 +1,12 @@
 "use client";
 
-import { useIsMobile } from "@/hooks/useDeviceWidth";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import StatsBarElement, { StatsBarElementProps } from "./StatusBarElement";
 
 const StatsBarList = ({ data }: { data: StatsBarElementProps[] }) => {
-  const isMobile = useIsMobile();
+  const breakpoint = useScreenBreakpoint();
 
-  const list = isMobile ? data.slice(3) : data;
+  const list = breakpoint === "md" ? data.slice(3) : data;
 
   return (
     <>

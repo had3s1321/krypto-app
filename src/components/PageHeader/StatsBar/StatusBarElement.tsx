@@ -33,7 +33,7 @@ const StatsBarElement = ({
       <span>
         {hasProgressBar ? (
           <Progress
-            className="w-12 md:w-20"
+            className="w-16 md:w-20"
             value={progressValue ?? displayValue * 100}
             indicatorClassName={progressBarColor}
           />
