@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 
 const PageHeader = () => {
   return (
-    <header className="mb-8 flex flex-col-reverse font-inter md:flex-col">
+    <header className="mb-4 flex flex-col-reverse font-inter md:mb-8 md:flex-col">
       <StatsBar />
       <NavBar />
     </header>

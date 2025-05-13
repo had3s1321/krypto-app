@@ -22,7 +22,7 @@ const ThemeToggler = () => {
   return (
     <Button
       onClick={handleTheme}
-      className="h-full bg-[var(--clr-nav-foreground)] shadow-lg hover:bg-[var(--clr-hover)]"
+      className="h-full bg-[var(--clr-nav-foreground)] px-3 shadow-lg hover:bg-[var(--clr-hover)] md:px-3"
     >
       {mounted && resolvedTheme === "dark" ? (
         <Sun className="fill-[var(--clr-nav-text)] stroke-[var(--clr-nav-text)]" />

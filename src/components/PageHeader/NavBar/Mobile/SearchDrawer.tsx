@@ -18,7 +18,7 @@ const SearchDrawer = () => {
 
   return (
     <Drawer>
-      <DrawerTrigger className="rounded-md bg-[var(--clr-nav-foreground)] px-4 !pb-0 shadow-lg focus-visible:outline-none">
+      <DrawerTrigger className="rounded-md bg-[var(--clr-nav-foreground)] px-3 !pb-0 shadow-lg focus-visible:outline-none">
         <SearchIcon />
       </DrawerTrigger>
       <DrawerContent className="h-4/5 text-[var(--clr-nav-text)]">

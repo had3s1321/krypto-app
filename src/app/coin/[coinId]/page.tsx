@@ -23,7 +23,7 @@ export default async function TaskDetail({
   } = (await getIndividualCoinData(coinId)) as IndividualCoinStructuredData;
 
   return (
-    <main className="mx-auto flex w-full max-w-[calc(100%-16px)] flex-col gap-8 font-grotesk lg:max-w-[1296]">
+    <main className="mx-auto flex w-full max-w-[calc(100%-16px)] flex-col gap-8 font-grotesk md:max-w-[calc(100%-32px)] lg:max-w-[1296px]">
       <div className="flex h-[352px] w-full gap-8">
         <CoinValueCard data={valueCardData} />
         <CoinDescriptionCard data={descriptionCardData} />
