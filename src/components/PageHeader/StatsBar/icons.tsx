@@ -39,6 +39,7 @@ export const BitcoinIcon = () => (
     height="24"
     fill="none"
     viewBox="0 0 24 24"
+    className="size-4 md:size-6"
   >
     <g clipPath="url(#clip0_587_10851)">
       <path

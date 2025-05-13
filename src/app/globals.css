@@ -77,6 +77,11 @@ body {
   background: var(--background);
 }
 
+html body[data-scroll-locked] {
+  margin-right: 0px !important;
+  overflow: auto !important;
+}
+
 input,
 button {
   font: inherit;

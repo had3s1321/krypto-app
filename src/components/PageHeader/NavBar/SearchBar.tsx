@@ -2,19 +2,24 @@
 
 import { useRouter } from "next/navigation";
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch ";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { Input } from "@/components/ui/shadcn/input";
-import { SearchIcon } from "@/components/PageHeader/NavBar/icons";
 import SearchDropdown from "@/components/ui/SearchDropdown";
+import SearchDrawer from "./Mobile/SearchDrawer";
+import { SearchIcon } from "@/components/PageHeader/NavBar/icons";
 
 const SearchBar = () => {
   const { data, value, handleChange, clearSearchResults } =
     useDebouncedSearch(250);
   const router = useRouter();
+  const breakpoint = useScreenBreakpoint();
 
   const handleSelect = (coinId: string) => {
     router.push(`/coin/${coinId}`);
     clearSearchResults();
   };
+
+  if (breakpoint === "md") return <SearchDrawer />;
 
   return (
     <div className="relative w-80 [&>svg]:absolute [&>svg]:left-0 [&>svg]:top-3 [&>svg]:ml-3">

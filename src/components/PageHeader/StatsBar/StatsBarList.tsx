@@ -6,10 +6,15 @@ import StatsBarElement, { StatsBarElementProps } from "./StatusBarElement";
 const StatsBarList = ({ data }: { data: StatsBarElementProps[] }) => {
   const breakpoint = useScreenBreakpoint();
 
-  const list = breakpoint === "md" ? data.slice(3) : data;
+  const list =
+    breakpoint === "md"
+      ? data.slice(3)
+      : breakpoint === "lg"
+        ? data.slice(2)
+        : data;
 
   return (
-    <>
+    <ul className="mx-4 flex h-full max-w-full items-center justify-between gap-0 md:justify-center md:gap-8">
       {list.map((item, i) => (
         <StatsBarElement
           key={i} // eslint-disable-line
@@ -22,7 +27,7 @@ const StatsBarList = ({ data }: { data: StatsBarElementProps[] }) => {
           formatOptions={item.formatOptions}
         />
       ))}
-    </>
+    </ul>
   );
 };
 

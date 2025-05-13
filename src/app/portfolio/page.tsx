@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function Portfolio() {
   return (
-    <main className="mx-auto w-full max-w-[1296]">
+    <main className="mx-auto w-full max-w-[calc(100%-16px)] lg:max-w-[1296]">
       <PortfolioHeader />
       <PortfolioCoinList />
     </main>
