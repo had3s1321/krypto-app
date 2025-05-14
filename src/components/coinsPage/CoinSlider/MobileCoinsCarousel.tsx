@@ -26,7 +26,7 @@ const MobileCoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
   return (
     <>
       <CarouselTitle compare={compare} />
-      <ul className="no-scrollbar relative mb-8 flex gap-2 overflow-x-auto">
+      <ul className="no-scrollbar relative mb-8 flex gap-2 overflow-x-auto text-[var(--clr-text)]">
         {data.map((coin) => {
           const isSelected = selectedCoins.some(
             (item) => item.name === coin.name,
