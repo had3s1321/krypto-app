@@ -6,9 +6,14 @@ import { getValueIndicator } from "@/utils/getValueIndicator";
 interface PercentageCellProps {
   priceChange?: number;
   price?: number;
+  rounded?: boolean;
 }
 
-const PercentageCell = ({ priceChange, price }: PercentageCellProps) => {
+const PercentageCell = ({
+  priceChange,
+  price,
+  rounded,
+}: PercentageCellProps) => {
   const [format] = useFormat();
   const breakpoint = useScreenBreakpoint();
 
@@ -26,7 +31,7 @@ const PercentageCell = ({ priceChange, price }: PercentageCellProps) => {
   const { icon, classTW } = getValueIndicator(priceChange);
 
   return (
-    <TableCell className={`${classTW}`}>
+    <TableCell className={`${classTW} ${rounded && "rounded-r-md"}`}>
       {breakpoint === "md" && (
         <span className="text-[var(--clr-text)]">
           {formattedPriceChangeInCurrency}

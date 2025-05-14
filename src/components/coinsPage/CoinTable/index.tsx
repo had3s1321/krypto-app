@@ -28,10 +28,10 @@ const CoinTable = () => {
 
   const tableHeader =
     breakpoint === "xl"
-      ? tableHeaderConfig
-      : breakpoint === "md"
-        ? tableHeaderConfig.slice(1, 5)
-        : tableHeaderConfig.slice(0, 6);
+      ? tableHeaderConfig.xl
+      : breakpoint === "lg"
+        ? tableHeaderConfig.lg
+        : tableHeaderConfig.md;
   const isLargeScreen = breakpoint === "lg";
   const isExtraLargeSCreen = breakpoint == "xl";
 
@@ -73,7 +73,11 @@ const CoinTable = () => {
                 })}
               </TableCell>
               <PercentageCell priceChange={coin.change1h} price={coin.price} />
-              <PercentageCell priceChange={coin.change24h} price={coin.price} />
+              <PercentageCell
+                priceChange={coin.change24h}
+                price={coin.price}
+                rounded
+              />
               {(isLargeScreen || isExtraLargeSCreen) && (
                 <PercentageCell priceChange={coin.change7d} />
               )}
@@ -89,8 +93,10 @@ const CoinTable = () => {
                     data2={coin.progress2.totalSupply}
                     sign={coin.progress2.sign}
                   />
-                  <ChartCell data={coin.chart} />
                 </>
+              )}
+              {(isLargeScreen || isExtraLargeSCreen) && (
+                <ChartCell data={coin.chart} />
               )}
             </TableRow>
           ))}

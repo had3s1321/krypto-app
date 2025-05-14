@@ -14,7 +14,7 @@ const NameCell = ({ image, name, symbol }: NameCellProps) => {
     breakpoint === "md" ? symbol.toUpperCase() : `(${symbol.toUpperCase()})`;
 
   return (
-    <TableCell className="w-[35%] font-semibold text-[var(--clr-text)] md:w-[20%]">
+    <TableCell className="w-[35%] rounded-l-md font-semibold text-[var(--clr-text)] md:w-[20%] md:rounded-l-none">
       <div className="flex w-full items-center gap-4">
         <Image
           src={image}

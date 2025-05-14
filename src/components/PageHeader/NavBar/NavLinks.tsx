@@ -2,11 +2,12 @@
 
 import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import NavLink from "./NavLink";
+import MobileNavigation from "./Mobile/MobileNavigation";
 
 const NavLinks = () => {
   const breakpoint = useScreenBreakpoint();
 
-  if (breakpoint === "md") return null;
+  if (breakpoint === "md") return <MobileNavigation />;
 
   return (
     <ul className="flex items-center justify-center gap-8">
