@@ -15,6 +15,7 @@ const SelectedCoins = ({ list, handleClick }: SelectedCoinsProps) => {
   const breakpoint = useScreenBreakpoint();
 
   const isMobile = breakpoint === "md";
+  const imgSize = isMobile ? 16 : 20;
 
   return (
     <div className="absolute -mt-6 flex w-fit gap-1 md:-mt-10 md:gap-3">
@@ -27,8 +28,8 @@ const SelectedCoins = ({ list, handleClick }: SelectedCoinsProps) => {
           <Image
             src={el.image}
             alt={el.name}
-            width={isMobile ? 16 : 20}
-            height={isMobile ? 16 : 20}
+            width={imgSize}
+            height={imgSize}
           />
           {!isMobile && el.name}
           {!isMobile && <CircleX size={16} strokeWidth={1} />}

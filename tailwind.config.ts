@@ -17,6 +17,8 @@ export default {
     "text-[#ffffff]",
     "text-[#808080]",
     "text-[#353570]",
+    "bg-[var(--clr-nav-foreground)]",
+    "bg-[var(--primary-foreground)]",
   ],
   theme: {
     extend: {

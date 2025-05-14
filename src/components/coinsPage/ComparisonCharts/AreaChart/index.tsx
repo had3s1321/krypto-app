@@ -1,6 +1,7 @@
 "use client";
 
 import { useFormat } from "@/hooks/useFormat";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { getDate } from "@/utils/formatUtils";
@@ -15,6 +16,8 @@ const CustomAreaChart = ({
   coins: CarouselItemData[];
 }) => {
   const [format] = useFormat();
+  const breakpoint = useScreenBreakpoint();
+
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -25,19 +28,30 @@ const CustomAreaChart = ({
       color: "#60a5fa",
     },
   } satisfies ChartConfig;
+  const isLargeScreen = breakpoint === "lg";
+  const isMobile = breakpoint === "md";
 
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-video min-h-[200px] w-[calc(50%-2rem)] rounded-md bg-[var(--foreground)] shadow-lg"
+      className="aspect-video min-h-[200px] w-full rounded-md bg-[var(--foreground)] shadow-lg md:w-[calc(50%-2rem)]"
     >
       <AreaChart
         data={chartData}
         width={730}
         height={250}
-        margin={{ top: 120, right: 30, left: 30, bottom: 0 }}
+        margin={
+          isMobile
+            ? { top: 110, right: 10, left: 10, bottom: 0 }
+            : { top: 120, right: 30, left: 30, bottom: 0 }
+        }
       >
-        <text x={30} y={40} fontSize={20} fill="var(--clr-text)">
+        <text
+          x={isMobile ? 10 : 30}
+          y={isMobile ? 35 : 40}
+          fontSize={isLargeScreen ? 16 : 20}
+          fill="var(--clr-text)"
+        >
           {coins &&
             coins.map((coin, i) => {
               if (i === 1) return ` - ${coin.name} (${coin.symbol})`;
@@ -45,9 +59,9 @@ const CustomAreaChart = ({
             })}
         </text>
         <text
-          x={30}
-          y={80}
-          fontSize={28}
+          x={isMobile ? 10 : 30}
+          y={isMobile ? 70 : 80}
+          fontSize={isLargeScreen ? 24 : 28}
           fontWeight={700}
           fill="var(--clr-text)"
         >
@@ -71,7 +85,12 @@ const CustomAreaChart = ({
               });
             })}
         </text>
-        <text x={30} y={105} fontSize={16} fill="var(--clr-nav-text)">
+        <text
+          x={isMobile ? 10 : 30}
+          y={isMobile ? 95 : 105}
+          fontSize={isLargeScreen ? 12 : 16}
+          fill="var(--clr-nav-text)"
+        >
           {coins &&
             coins.map((_, i) => {
               if (i === 1) return null;
