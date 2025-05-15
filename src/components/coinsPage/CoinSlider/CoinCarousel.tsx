@@ -18,7 +18,7 @@ import { FadeStaggerSquares } from "@/components/ui/icons";
 import { getValueIndicator } from "@/utils/getValueIndicator";
 import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 
-const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
+const CoinCarousel = ({ data }: { data: CarouselItemData[] }) => {
   const { currency, selectedCoins, compare, isLoading, handleSelectedCoins } =
     useCarousel(data);
   const breakpoint = useScreenBreakpoint();
@@ -97,4 +97,4 @@ const CoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
   );
 };
 
-export default CoinsCarousel;
+export default CoinCarousel;
