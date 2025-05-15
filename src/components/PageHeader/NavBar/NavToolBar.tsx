@@ -4,7 +4,7 @@ import ThemeToggler from "./ThemeToggler";
 
 const NavToolBar = () => {
   return (
-    <div className="flex gap-3 pt-1">
+    <div className="flex gap-2 pt-1 md:gap-3">
       <SearchBar />
       <CurrencyDropdown />
       <ThemeToggler />

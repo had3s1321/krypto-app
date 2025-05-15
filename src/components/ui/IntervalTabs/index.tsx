@@ -18,9 +18,9 @@ const IntervalTabs = ({
       defaultValue="1D"
       value={value}
       onValueChange={onValueChange}
-      className={`${disabled && "hover:cursor-not-allowed"} flex w-max rounded-sm bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-lg`}
+      className={`${disabled && "hover:cursor-not-allowed"} flex w-full rounded-sm bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-lg md:w-max`}
     >
-      <TabsList>
+      <TabsList className="flex w-full justify-between">
         {intervalValues.map((el) => (
           <TabsTrigger key={el} value={el} disabled={disabled} className="px-5">
             {el}

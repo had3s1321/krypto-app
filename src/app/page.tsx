@@ -18,7 +18,7 @@ export default async function Home(props: { searchParams: SearchParams }) {
   const query = searchParams.currency;
 
   return (
-    <main className="mx-auto w-full max-w-[1296] text-black">
+    <main className="mx-auto w-full max-w-[calc(100%-16px)] text-black md:max-w-[calc(100%-32px)] lg:max-w-[1296px]">
       <PageTabs route="Coins" />
       <CoinSlider query={query} />
       <ComparisonCharts />

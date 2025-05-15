@@ -1,7 +1,7 @@
 "use client";
 
 import { TableCell } from "@/components/ui/shadcn/table";
-import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
+import { Area, AreaChart, XAxis, YAxis } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { useId } from "react";
 
@@ -26,8 +26,8 @@ const ChartCell = ({ data }: { data: number[] }) => {
   });
 
   return (
-    <TableCell>
-      <ChartContainer config={chartConfig} className="h-[50px] w-[160px]">
+    <TableCell className="rounded-r-md">
+      <ChartContainer config={chartConfig} className="h-[50px] w-full">
         <AreaChart data={chartData}>
           <defs>
             <linearGradient id={`colorUv-${id}`} x1="0" y1="0" x2="0" y2="1">
@@ -40,7 +40,6 @@ const ChartCell = ({ data }: { data: number[] }) => {
           </defs>
           <XAxis dataKey="time" hide />
           <YAxis domain={["dataMin", "dataMax"]} hide />
-          <Tooltip />
           <Area
             type="monotone"
             dataKey="value"

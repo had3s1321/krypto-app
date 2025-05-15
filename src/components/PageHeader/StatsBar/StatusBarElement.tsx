@@ -26,20 +26,20 @@ const StatsBarElement = ({
     typeof value === "number" ? value : value[currency] || value.usd;
 
   return (
-    <div className="flex items-center justify-center gap-1">
+    <li className="flex items-center justify-between gap-[2px] md:justify-center md:gap-1">
       <span>{icon}</span>
       <span>{name ? name : null}</span>
       <span>{format(displayValue, formatOptions)}</span>
       <span>
         {hasProgressBar ? (
           <Progress
-            className="w-20"
+            className="min-w-14 md:w-20"
             value={progressValue ?? displayValue * 100}
             indicatorClassName={progressBarColor}
           />
         ) : null}
       </span>
-    </div>
+    </li>
   );
 };
 

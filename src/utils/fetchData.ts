@@ -18,7 +18,7 @@ export const fetchData = async <T>(
       accept: "application/json",
       "x-cg-demo-api-key": process.env.NEXT_PUBLIC_COINGECKO_API_KEY,
     } as HeadersInit,
-    next: noStore ? { revalidate: 0 } : { revalidate },
+    next: noStore ? { revalidate: 600 } : { revalidate },
   };
   if (localData && process.env.NODE_ENV === "development") return localData;
 

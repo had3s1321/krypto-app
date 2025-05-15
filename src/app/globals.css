@@ -62,6 +62,16 @@
   }
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 *,
 *::before,
 *::after {
@@ -75,6 +85,11 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   background: var(--background);
+}
+
+html body[data-scroll-locked] {
+  margin-right: 0px !important;
+  overflow: auto !important;
 }
 
 input,

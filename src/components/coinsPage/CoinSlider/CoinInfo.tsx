@@ -15,6 +15,7 @@ const CoinInfo = ({ coin, currency, icon, classTW }: CoinInfoProps) => {
 
   const formattedPrice = format(coin.price, {
     style: "decimal",
+    notation: "compact",
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
   });
@@ -24,17 +25,19 @@ const CoinInfo = ({ coin, currency, icon, classTW }: CoinInfoProps) => {
   });
 
   return (
-    <CardContent className="flex flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">
-      <span className="text-xl font-medium hover:cursor-pointer">
-        {coin.name} ({coin.symbol})
-      </span>
+    <CardContent className="flex min-w-0 flex-1 flex-col items-start justify-center gap-1 p-3 text-[var(--clr-text)]">
+      <div className="flex w-full items-center justify-between gap-2">
+        <span className="min-w-0 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-lg font-medium hover:cursor-pointer lg:text-xl">
+          {coin.name} ({coin.symbol})
+        </span>
+      </div>
       <div className="flex hover:cursor-pointer">
-        <span className="flex gap-1 hover:cursor-pointer">
+        <span className="flex gap-1 text-xs hover:cursor-pointer lg:text-sm">
           <span>{formattedPrice}</span>
           <span>{currency.toUpperCase()}</span>
         </span>
         <span
-          className={`ml-2 flex items-center hover:cursor-pointer ${classTW}`}
+          className={`ml-2 flex items-center text-xs hover:cursor-pointer lg:text-sm ${classTW}`}
         >
           {icon}
           {formattedChange}

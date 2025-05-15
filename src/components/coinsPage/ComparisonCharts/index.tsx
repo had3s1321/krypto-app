@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { useAppSelector } from "@/lib/hooks";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { useGetChartDataByCoinQuery } from "@/services/coingeckoApi";
 import ChartsSuspenseSkeleton from "./ChartsSuspenseSkeleton";
-import CustomAreaChart from "./AreaChart";
-import CustomBarChart from "./BarChart";
 import IntervalTabs from "../../ui/IntervalTabs";
+import MobileCharts from "./MobileCharts";
+import DesktopCharts from "./DesktopCharts";
 
 const ComparisonCharts = () => {
   const [tabValue, setTabValue] = useState("1D");
@@ -17,6 +18,9 @@ const ComparisonCharts = () => {
     path: "home",
     range: tabValue,
   });
+  const breakpoint = useScreenBreakpoint();
+
+  const isMobile = breakpoint === "md";
 
   if (isLoading || isFetching) return <ChartsSuspenseSkeleton type="loading" />;
 
@@ -24,10 +28,11 @@ const ComparisonCharts = () => {
 
   return (
     <>
-      <div className="mb-5 flex justify-between font-grotesk">
-        <CustomAreaChart chartData={data?.prices} coins={selectedCoins} />
-        <CustomBarChart chartData={data?.volumes} coins={selectedCoins} />
-      </div>
+      {isMobile ? (
+        <MobileCharts data={data} selectedCoins={selectedCoins} />
+      ) : (
+        <DesktopCharts data={data} selectedCoins={selectedCoins} />
+      )}
       <IntervalTabs value={tabValue} onValueChange={setTabValue} />
     </>
   );

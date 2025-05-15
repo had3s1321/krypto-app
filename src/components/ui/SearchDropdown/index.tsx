@@ -17,7 +17,7 @@ const SearchDropdown = ({
   if (!data) return null;
 
   return (
-    <ul className="scrollbar absolute top-9 z-50 -mt-1 max-h-96 w-full overflow-y-auto bg-[var(--clr-nav-foreground)] shadow-lg">
+    <ul className="scrollbar static top-9 z-50 -mt-1 max-h-96 w-full overflow-y-auto bg-[var(--clr-nav-foreground)] shadow-lg">
       {data &&
         data.coins.map((coin) => (
           <li

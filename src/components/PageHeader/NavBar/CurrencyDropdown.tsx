@@ -1,6 +1,7 @@
 "use client";
 
 import { useCurrencyDropdown } from "@/hooks/useCurrencyDropdown";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,12 +14,13 @@ import { DropdownDownIcon } from "@/components/PageHeader/NavBar/icons";
 const CurrencyDropdown = () => {
   const { currency, currencies, selectedCurrency, handleSelectedCurrency } =
     useCurrencyDropdown();
+  const breakpoint = useScreenBreakpoint();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex h-full items-center justify-center gap-2 rounded-md bg-[var(--clr-nav-foreground)] px-3 shadow-lg hover:bg-[var(--clr-hover)] focus-visible:outline-none">
         <span className="flex items-center gap-1">
-          {selectedCurrency.icon}
+          {!(breakpoint === "md") && selectedCurrency.icon}
           {selectedCurrency.name.toUpperCase()}
         </span>
         <DropdownDownIcon />

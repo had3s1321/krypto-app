@@ -1,29 +1,24 @@
+"use client";
+
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import IntervalTabs from "@/components/ui/IntervalTabs";
-import { FadeStaggerSquares } from "@/components/ui/icons";
+import CoinsChartSuspenseSkeleton from "./ChartSuspenseSkeleton";
 
 const ChartsSuspenseSkeleton = ({ type }: { type: "loading" | "error" }) => {
+  const breakpoint = useScreenBreakpoint();
+
+  const isMobile = breakpoint === "md";
+
   return (
-    <div>
-      <div className="mb-5 flex w-full justify-between gap-16 font-grotesk">
-        <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--foreground)] shadow-lg">
-          <div className="h-10 w-10 text-[var(--clr-text)]">
-            {type === "loading" ? (
-              <FadeStaggerSquares />
-            ) : (
-              "Something went wrong"
-            )}
-          </div>
+    <div className="font-grotesk">
+      {isMobile ? (
+        <CoinsChartSuspenseSkeleton type={type} />
+      ) : (
+        <div className="flex w-full justify-between gap-16">
+          <CoinsChartSuspenseSkeleton type={type} />
+          <CoinsChartSuspenseSkeleton type={type} />
         </div>
-        <div className="flex aspect-video w-full items-center justify-center rounded-md bg-[var(--foreground)] shadow-lg">
-          <div className="h-10 w-10 text-[var(--clr-text)]">
-            {type === "loading" ? (
-              <FadeStaggerSquares />
-            ) : (
-              "Something went wrong"
-            )}
-          </div>
-        </div>
-      </div>
+      )}
       <IntervalTabs disabled />
     </div>
   );
