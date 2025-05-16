@@ -17,7 +17,7 @@ const ConvertorAreaChart = ({ data }: { data?: ChartDataByCoin }) => {
   return (
     <ChartContainer
       config={chartConfig}
-      className="mb-8 h-64 min-h-[200px] w-full rounded-md bg-[var(--foreground)]"
+      className="mb-8 aspect-video h-auto w-full rounded-md bg-[var(--foreground)] md:aspect-auto md:h-64"
     >
       <AreaChart
         data={data?.prices}
