@@ -6,14 +6,14 @@ import { trimDecimals } from "@/utils/formatUtils";
 import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
 
 interface ConvertorContextType {
-  conversionCoins: ConversionCoinData[];
+  conversionCoins: (ConversionCoinData | null)[];
   sellQuantity: string;
   buyQuantity: string;
   handleSwitch: () => void;
   /* eslint-disable no-unused-vars */
   handleSellQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBuyQuantity: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setConversionCoins: (coins: ConversionCoinData[]) => void;
+  setConversionCoins: (coins: (ConversionCoinData | null)[]) => void;
   /* eslint-enable no-unused-vars */
 }
 
@@ -27,7 +27,9 @@ export const ConvertorProvider = ({
   children: React.ReactNode;
 }) => {
   const { selectedCoins, currency } = useAppSelector((state) => state.user);
-  const [conversionCoins, setConversionCoins] = useState(
+  const [conversionCoins, setConversionCoins] = useState<
+    (ConversionCoinData | null)[]
+  >(
     selectedCoins.map((coin): ConversionCoinData => {
       return {
         id: coin.id,

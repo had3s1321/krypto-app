@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch ";
 import { ConvertorContext } from "@/contexts/convertorProvider";
 import {
@@ -33,6 +33,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   const { data, value, handleChange, clearSearchResults } =
     useDebouncedSearch(250);
   const [trigger, { isFetching }] = useLazyGetIndividualCoinDataQuery();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleNewCoin = (
     payload: Coin,
@@ -62,6 +63,16 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
     clearSearchResults();
   };
 
+  const handleCoinClick = () => {
+    if (isSelling) {
+      setConversionCoins([null, conversionCoins[1]]);
+    } else {
+      setConversionCoins([conversionCoins[0], null]);
+    }
+    setIsFocused(true);
+    inputRef.current?.focus();
+  };
+
   const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (isSelling) return handleSellQuantity(e);
     return handleBuyQuantity(e);
@@ -70,7 +81,7 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
   return (
     <Card className="w-full border-none bg-[var(--foreground)] text-[var(--clr-nav-text)] shadow-lg">
       <CardHeader>
-        <CardTitle className="cursor-default text-sm font-normal">
+        <CardTitle className="cursor-default text-sm font-normal md:text-base">
           {isSelling ? "You sell" : "You buy"}
         </CardTitle>
       </CardHeader>
@@ -78,12 +89,13 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
         <div className="relative mb-4 flex w-full justify-between text-xl font-medium">
           <Input
             type="text"
+            ref={inputRef}
             value={value}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
             placeholder={`${conversionCoin || isFetching ? "" : "Please select a coin"}`}
-            className="w-2/3 border-none px-0 !text-xl shadow-none placeholder:text-xl focus:placeholder:text-transparent focus-visible:ring-0"
+            className="w-2/3 border-none px-0 !text-xl shadow-none placeholder:text-base focus:placeholder:text-transparent focus-visible:ring-0 md:placeholder:text-xl"
           />
           {conversionCoin && (
             <Input
@@ -96,7 +108,10 @@ const CoinConvertorCard = ({ isSelling }: { isSelling?: boolean }) => {
             />
           )}
           {conversionCoin && !isFocused && (
-            <SelectedCoin conversionCoin={conversionCoin} />
+            <SelectedCoin
+              conversionCoin={conversionCoin}
+              onClick={handleCoinClick}
+            />
           )}
           <CoinsDropdown
             data={data}

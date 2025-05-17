@@ -18,7 +18,7 @@ const ConvertorChart = () => {
   useEffect(() => {
     if (!conversionCoins[0] || !conversionCoins[1]) return;
 
-    const coins = conversionCoins.map((coin) => coin.id);
+    const coins = conversionCoins.map((coin) => (coin ? coin.id : ""));
     trigger({ coins, currency, path: "convertor", range: tabValue });
   }, [conversionCoins, tabValue, trigger]); //eslint-disable-line
 

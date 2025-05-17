@@ -32,15 +32,18 @@ const CoinsDropdown = ({
               e.stopPropagation();
               handleNewCoin(coin, handleBlur, isSelling);
             }}
-            className="flex gap-2 px-4 py-3 hover:cursor-pointer hover:bg-[var(--clr-hover)]"
+            className="flex items-center gap-2 px-4 py-3 hover:cursor-pointer hover:bg-[var(--clr-hover)]"
           >
             <Image
               src={coin.large || ""}
               alt={coin.name}
               width={28}
               height={24}
+              className="shrink-0"
             />
-            {coin.name} ({coin.symbol})
+            <span className="truncate text-sm leading-tight md:text-base">
+              {coin.name} ({coin.symbol})
+            </span>
           </li>
         ))}
     </ul>
