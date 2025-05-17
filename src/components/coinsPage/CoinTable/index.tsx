@@ -26,12 +26,7 @@ const CoinTable = () => {
   const allResults = data?.pages.flat() ?? [];
   const breakpoint = useScreenBreakpoint();
 
-  const tableHeader =
-    breakpoint === "xl"
-      ? tableHeaderConfig.xl
-      : breakpoint === "lg"
-        ? tableHeaderConfig.lg
-        : tableHeaderConfig.md;
+  const tableHeader = tableHeaderConfig[breakpoint];
   const isLargeScreen = breakpoint === "lg";
   const isExtraLargeSCreen = breakpoint == "xl";
 
