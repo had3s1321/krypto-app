@@ -4,11 +4,11 @@ import { ConversionCoinData } from "@/utils/types/IndividualCoinData";
 const CoinFiatValue = ({
   conversionCoin,
 }: {
-  conversionCoin?: ConversionCoinData;
+  conversionCoin?: ConversionCoinData | null;
 }) => {
   const [format, currency] = useFormat();
 
-  if (!conversionCoin) return;
+  if (!conversionCoin) return null;
 
   return (
     <>

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FadeStaggerSquares } from "@/components/ui/icons";
 import SelectedCoins from "./SelectedCoins";
 
-const MobileCoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
+const MobileCoinCarousel = ({ data }: { data: CarouselItemData[] }) => {
   const { selectedCoins, compare, isLoading, handleSelectedCoins } =
     useCarousel(data);
 
@@ -50,4 +50,4 @@ const MobileCoinsCarousel = ({ data }: { data: CarouselItemData[] }) => {
   );
 };
 
-export default MobileCoinsCarousel;
+export default MobileCoinCarousel;
