@@ -8,7 +8,7 @@ const PortfolioCoinTitle = ({ coin }: { coin: PortfolioCoinData }) => {
   const notLargeScreen = breakpoint === "xl" || breakpoint == "md";
 
   return (
-    <CardTitle className="mb-4 flex items-center gap-2 text-2xl font-bold">
+    <CardTitle className="mb-4 flex flex-row-reverse items-center justify-between gap-2 text-2xl font-bold md:flex-row md:justify-normal">
       <Image src={coin.image} alt={coin.name} width={32} height={32} />
       <div className="flex flex-row gap-0 md:flex-col lg:flex-row lg:gap-1">
         <span>{coin.name}</span>
