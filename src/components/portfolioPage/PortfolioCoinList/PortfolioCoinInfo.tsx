@@ -27,25 +27,31 @@ const PortfolioCoinInfo = ({ coin }: { coin: PortfolioCoinData }) => {
     minimumFractionDigits: 0,
   });
   const formattedDate = getDate(coin.lastPurchased);
+  const notSmallScreen = breakpoint !== "md";
+  const extraLargeScreen = breakpoint === "xl";
 
   return (
     <CardDescription className="flex flex-col gap-1">
-      <span className="flex items-center text-2xl font-bold">
-        {coin.amount} {coin.symbol.toUpperCase()}
-      </span>
-      <span className="flex gap-4">
-        <span>
-          {breakpoint === "xl" && "Balance: "}
+      {notSmallScreen && (
+        <span className="flex items-center text-2xl font-bold">
+          {coin.amount} {coin.symbol.toUpperCase()}
+        </span>
+      )}
+      <span className="flex items-end gap-4 md:items-center">
+        <span className="text-2xl font-bold md:text-sm md:font-normal">
+          {extraLargeScreen && "Balance: "}
           {formattedBalance}
         </span>
-        <span className={`${classTW} flex items-center`}>
+        <span
+          className={`${classTW} flex items-center font-medium md:font-normal`}
+        >
           {icon}
           {formattedPercentChange}
         </span>
       </span>
-      {breakpoint !== "md" && (
+      {notSmallScreen && (
         <span>
-          {breakpoint === "xl" && "Last purchased: "}
+          {extraLargeScreen && "Last purchased: "}
           {formattedDate}
         </span>
       )}
