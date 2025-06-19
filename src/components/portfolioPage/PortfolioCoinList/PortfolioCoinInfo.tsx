@@ -43,10 +43,12 @@ const PortfolioCoinInfo = ({ coin }: { coin: PortfolioCoinData }) => {
           {formattedPercentChange}
         </span>
       </span>
-      <span>
-        {breakpoint === "xl" && "Last purchased: "}
-        {formattedDate}
-      </span>
+      {breakpoint !== "md" && (
+        <span>
+          {breakpoint === "xl" && "Last purchased: "}
+          {formattedDate}
+        </span>
+      )}
     </CardDescription>
   );
 };
