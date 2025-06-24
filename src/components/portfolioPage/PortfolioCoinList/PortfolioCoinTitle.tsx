@@ -12,7 +12,7 @@ const PortfolioCoinTitle = ({ coin }: { coin: PortfolioCoinData }) => {
   return (
     <CardTitle className="mb-4 flex flex-row-reverse items-center justify-between gap-2 text-2xl font-medium md:flex-row md:justify-normal md:font-bold">
       {smallScreen && (
-        <div className="absolute right-0 z-0 -mr-12">
+        <div className="absolute right-0 z-0 -mr-14 mt-2">
           <Image
             src={coin.image}
             alt={coin.name}
@@ -20,7 +20,7 @@ const PortfolioCoinTitle = ({ coin }: { coin: PortfolioCoinData }) => {
             height={192}
             className="opacity-30 brightness-[0.2] hue-rotate-[220deg] saturate-[1] sepia [clip-path:inset(23%_31%_0_0)]"
           />
-          <div className="right-100w absolute z-30 -mt-[152px] h-[138] w-[136px] rounded-tr-xl border-r-[3px] border-t-4 border-[var(--secondary-foreground)]"></div>
+          <div className="right-100w absolute z-30 -mt-[152px] h-[138] w-[136px] rounded-tr-xl border-r-[3px] border-t-4 border-white dark:border-[var(--secondary-foreground)]"></div>
         </div>
       )}
       <Image
