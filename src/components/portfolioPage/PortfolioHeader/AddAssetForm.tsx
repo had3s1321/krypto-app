@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { z } from "zod";
 import { cn } from "@/utils/shadcn_utils";
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch ";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SearchDropdown from "@/components/ui/SearchDropdown";
 import { Input } from "@/components/ui/shadcn/input";
@@ -26,7 +27,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/shadcn/popover";
 import { Calendar } from "@/components/ui/shadcn/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, SaveIcon, XIcon } from "lucide-react";
 import { Coin } from "@/utils/types/SearchBarData";
 import DialogImage from "./DialogImage";
 import {
@@ -38,16 +39,27 @@ import { addAsset, updateAsset } from "@/lib/features/portfolio/portfolioSlice";
 import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const formSchema = z.object({
-  coin: z.string().min(1, {
-    message: "Please select a coin.",
+  coin: z.string(),
+  coinId: z.string().min(1, {
+    message: "Invalid coin selection.",
   }),
-  coinId: z.string(),
   coinImage: z.string(),
-  amount: z.string(),
+  amount: z
+    .string()
+    .nonempty("Value is required")
+    .refine(
+      (val) => {
+        const num = parseFloat(val);
+        return !isNaN(num) && num > 0;
+      },
+      {
+        message: "Value must be greater than 0",
+      },
+    ),
   purchaseDate: z.date(),
 });
 
-const AddAssetForm = () => {
+const AddAssetForm = ({ closeDialog }: { closeDialog: () => void }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data, handleChange, clearSearchResults } = useDebouncedSearch(250);
   const [individualCoinTrigger] = useLazyGetIndividualCoinDataQuery();
@@ -55,6 +67,7 @@ const AddAssetForm = () => {
   const dispatch = useAppDispatch();
   const { assets } = useAppSelector((state) => state.portfolio);
   const { currency } = useAppSelector((state) => state.user);
+  const breakpoint = useScreenBreakpoint();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -67,7 +80,11 @@ const AddAssetForm = () => {
   });
 
   const handleCoinSelect = (coin: Coin) => {
-    form.setValue("coinId", coin.id);
+    form.setValue("coinId", coin.id, {
+      shouldValidate: true,
+      shouldTouch: true,
+      shouldDirty: true,
+    });
     form.setValue("coin", coin.name, {
       shouldDirty: true,
       shouldTouch: true,
@@ -93,7 +110,7 @@ const AddAssetForm = () => {
         .replace(/\//g, "-"),
     });
 
-    if (foundAsset)
+    if (foundAsset) {
       dispatch(
         updateAsset({
           ...foundAsset,
@@ -103,7 +120,8 @@ const AddAssetForm = () => {
           lastPurchased: values.purchaseDate.toLocaleString(),
         }),
       );
-    else {
+      closeDialog();
+    } else {
       const { data: individualCoinData } = await individualCoinTrigger({
         coin: values.coinId,
         path: "portfolio",
@@ -117,19 +135,22 @@ const AddAssetForm = () => {
           lastPurchased: values.purchaseDate.toLocaleString(),
         } as PortfolioCoinData),
       );
+      closeDialog();
     }
   };
 
   return (
     <Form {...form}>
       <div className="flex gap-8">
-        <DialogImage
-          src={form.getValues("coinImage")}
-          alt={form.getValues("coin")}
-        />
+        {breakpoint === "xl" && (
+          <DialogImage
+            src={form.getValues("coinImage")}
+            alt={form.getValues("coin")}
+          />
+        )}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-4 font-grotesk"
+          className="w-full space-y-4 font-grotesk xl:w-2/3"
         >
           <FormField
             control={form.control}
@@ -161,7 +182,11 @@ const AddAssetForm = () => {
                 <FormDescription hidden>
                   This is the selected coin.
                 </FormDescription>
-                <FormMessage />
+                {form.formState.errors.coinId && (
+                  <p className="text-sm font-medium text-destructive">
+                    {form.formState.errors.coinId.message}
+                  </p>
+                )}
               </FormItem>
             )}
           />
@@ -231,20 +256,18 @@ const AddAssetForm = () => {
               </FormItem>
             )}
           />
-          <DialogFooter className="w-full gap-2 pt-4">
+          <DialogFooter className="w-full flex-row gap-2 pt-4">
             <DialogClose asChild>
               <Button className="w-1/2 bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-none">
-                Cancel
+                {breakpoint === "md" ? <XIcon /> : "Cancel"}
               </Button>
             </DialogClose>
-            <DialogClose asChild>
-              <Button
-                type="submit"
-                className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
-              >
-                Save and Continue
-              </Button>
-            </DialogClose>
+            <Button
+              type="submit"
+              className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
+            >
+              {breakpoint === "md" ? <SaveIcon /> : "Save and Continue"}
+            </Button>
           </DialogFooter>
         </form>
       </div>

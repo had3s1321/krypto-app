@@ -30,8 +30,8 @@ const ProgressCell = ({ data1, data2, sign }: ProgressCellProps) => {
       </div>
       <Progress
         value={value}
-        className={isPositive[2]}
-        indicatorClassName={isPositive[1]}
+        className={isPositive[1]}
+        indicatorClassName={isPositive[2]}
       />
     </TableCell>
   );

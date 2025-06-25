@@ -23,6 +23,7 @@ const PortfolioCoinAnalytics = ({ coin }: { coin: PortfolioCoinData }) => {
           value={entry[1]}
           description={entry[0]}
           valueType={index === 0 ? "currency" : "percent"}
+          hasIndicator={Boolean(index % 2)}
         />
       ))}
     </>
