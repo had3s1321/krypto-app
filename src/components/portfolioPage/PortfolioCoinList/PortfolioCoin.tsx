@@ -8,7 +8,7 @@ import PortfolioCoinTitle from "./PortfolioCoinTitle";
 const PortfolioCoin = ({ coin }: { coin: PortfolioCoinData }) => {
   return (
     <Card className="relative flex flex-col border-none bg-[var(--clr-nav-bg)] font-grotesk text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)] md:flex-row">
-      <CardHeader className="mb-0 w-full rounded-l-xl rounded-bl-none rounded-tr-xl pb-2 dark:bg-[var(--secondary-foreground)] md:mb-2 md:w-1/4 md:rounded-bl-lg md:rounded-tr-none">
+      <CardHeader className="border-b-none border-r-none mb-0 w-full rounded-l-xl rounded-bl-none rounded-tr-xl pb-0 dark:border-[var(--secondary-foreground)] dark:bg-[var(--secondary-foreground)] md:w-1/4 md:rounded-bl-lg md:rounded-tr-none md:border-b-[5px] md:border-r-[5px] md:pb-2">
         <PortfolioCoinTitle coin={coin} />
         <PortfolioCoinInfo coin={coin} />
       </CardHeader>
