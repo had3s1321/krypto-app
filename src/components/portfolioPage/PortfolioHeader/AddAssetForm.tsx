@@ -6,6 +6,7 @@ import { format } from "date-fns";
 import { z } from "zod";
 import { cn } from "@/utils/shadcn_utils";
 import { useDebouncedSearch } from "@/hooks/useDebouncedSearch ";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { zodResolver } from "@hookform/resolvers/zod";
 import SearchDropdown from "@/components/ui/SearchDropdown";
 import { Input } from "@/components/ui/shadcn/input";
@@ -26,7 +27,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/shadcn/popover";
 import { Calendar } from "@/components/ui/shadcn/calendar";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, SaveIcon, XIcon } from "lucide-react";
 import { Coin } from "@/utils/types/SearchBarData";
 import DialogImage from "./DialogImage";
 import {
@@ -55,6 +56,7 @@ const AddAssetForm = () => {
   const dispatch = useAppDispatch();
   const { assets } = useAppSelector((state) => state.portfolio);
   const { currency } = useAppSelector((state) => state.user);
+  const breakpoint = useScreenBreakpoint();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -123,13 +125,15 @@ const AddAssetForm = () => {
   return (
     <Form {...form}>
       <div className="flex gap-8">
-        <DialogImage
-          src={form.getValues("coinImage")}
-          alt={form.getValues("coin")}
-        />
+        {breakpoint === "xl" && (
+          <DialogImage
+            src={form.getValues("coinImage")}
+            alt={form.getValues("coin")}
+          />
+        )}
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-4 font-grotesk"
+          className="w-full space-y-4 font-grotesk xl:w-2/3"
         >
           <FormField
             control={form.control}
@@ -231,10 +235,10 @@ const AddAssetForm = () => {
               </FormItem>
             )}
           />
-          <DialogFooter className="w-full gap-2 pt-4">
+          <DialogFooter className="w-full flex-row gap-2 pt-4">
             <DialogClose asChild>
               <Button className="w-1/2 bg-[var(--clr-nav-foreground)] text-[var(--clr-nav-text)] shadow-none">
-                Cancel
+                {breakpoint === "md" ? <XIcon /> : "Cancel"}
               </Button>
             </DialogClose>
             <DialogClose asChild>
@@ -242,7 +246,7 @@ const AddAssetForm = () => {
                 type="submit"
                 className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
               >
-                Save and Continue
+                {breakpoint === "md" ? <SaveIcon /> : "Save and Continue"}
               </Button>
             </DialogClose>
           </DialogFooter>
