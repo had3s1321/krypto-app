@@ -18,9 +18,9 @@ const PortfolioCoinTitle = ({ coin }: { coin: PortfolioCoinData }) => {
             alt={coin.name}
             width={192}
             height={192}
-            className="opacity-30 brightness-[0.2] hue-rotate-[220deg] saturate-[1] sepia [clip-path:inset(23%_31%_0_0)]"
+            className="opacity-10 brightness-[0.2] hue-rotate-[220deg] saturate-[1] sepia [clip-path:inset(23%_31%_0_0)] dark:opacity-20"
           />
-          <div className="right-100w absolute z-30 -mt-[152px] h-[138] w-[136px] rounded-tr-xl border-r-[3px] border-t-4 border-white dark:border-[var(--secondary-foreground)]"></div>
+          <div className="right-100w absolute z-30 -mt-[152px] h-[138px] w-[136px] rounded-tr-xl border-r-[3px] border-t-4 border-white dark:border-[var(--secondary-foreground)]"></div>
         </div>
       )}
       <Image
