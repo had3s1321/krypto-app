@@ -39,16 +39,27 @@ import { addAsset, updateAsset } from "@/lib/features/portfolio/portfolioSlice";
 import { PortfolioCoinData } from "@/utils/types/IndividualCoinData";
 
 const formSchema = z.object({
-  coin: z.string().min(1, {
-    message: "Please select a coin.",
+  coin: z.string(),
+  coinId: z.string().min(1, {
+    message: "Invalid coin selection.",
   }),
-  coinId: z.string(),
   coinImage: z.string(),
-  amount: z.string(),
+  amount: z
+    .string()
+    .nonempty("Value is required")
+    .refine(
+      (val) => {
+        const num = parseFloat(val);
+        return !isNaN(num) && num > 0;
+      },
+      {
+        message: "Value must be greater than 0",
+      },
+    ),
   purchaseDate: z.date(),
 });
 
-const AddAssetForm = () => {
+const AddAssetForm = ({ closeDialog }: { closeDialog: () => void }) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const { data, handleChange, clearSearchResults } = useDebouncedSearch(250);
   const [individualCoinTrigger] = useLazyGetIndividualCoinDataQuery();
@@ -69,7 +80,11 @@ const AddAssetForm = () => {
   });
 
   const handleCoinSelect = (coin: Coin) => {
-    form.setValue("coinId", coin.id);
+    form.setValue("coinId", coin.id, {
+      shouldValidate: true,
+      shouldTouch: true,
+      shouldDirty: true,
+    });
     form.setValue("coin", coin.name, {
       shouldDirty: true,
       shouldTouch: true,
@@ -95,7 +110,7 @@ const AddAssetForm = () => {
         .replace(/\//g, "-"),
     });
 
-    if (foundAsset)
+    if (foundAsset) {
       dispatch(
         updateAsset({
           ...foundAsset,
@@ -105,7 +120,8 @@ const AddAssetForm = () => {
           lastPurchased: values.purchaseDate.toLocaleString(),
         }),
       );
-    else {
+      closeDialog();
+    } else {
       const { data: individualCoinData } = await individualCoinTrigger({
         coin: values.coinId,
         path: "portfolio",
@@ -119,6 +135,7 @@ const AddAssetForm = () => {
           lastPurchased: values.purchaseDate.toLocaleString(),
         } as PortfolioCoinData),
       );
+      closeDialog();
     }
   };
 
@@ -165,7 +182,11 @@ const AddAssetForm = () => {
                 <FormDescription hidden>
                   This is the selected coin.
                 </FormDescription>
-                <FormMessage />
+                {form.formState.errors.coinId && (
+                  <p className="text-sm font-medium text-destructive">
+                    {form.formState.errors.coinId.message}
+                  </p>
+                )}
               </FormItem>
             )}
           />
@@ -241,14 +262,12 @@ const AddAssetForm = () => {
                 {breakpoint === "md" ? <XIcon /> : "Cancel"}
               </Button>
             </DialogClose>
-            <DialogClose asChild>
-              <Button
-                type="submit"
-                className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
-              >
-                {breakpoint === "md" ? <SaveIcon /> : "Save and Continue"}
-              </Button>
-            </DialogClose>
+            <Button
+              type="submit"
+              className="w-1/2 text-[var(--clr-nav-text)] shadow-none"
+            >
+              {breakpoint === "md" ? <SaveIcon /> : "Save and Continue"}
+            </Button>
           </DialogFooter>
         </form>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { PlusIcon } from "lucide-react";
 import {
@@ -13,12 +14,13 @@ import AddAssetForm from "./AddAssetForm";
 import { Button } from "@/components/ui/shadcn/button";
 
 const AddAssetDialog = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const breakpoint = useScreenBreakpoint();
 
   const isMobile = breakpoint === "md";
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Button className="absolute bottom-28 right-5 h-16 w-16 rounded-full bg-[var(--primary-foreground)] text-[var(--clr-light-perm)] shadow-lg md:static md:h-auto md:w-1/6 md:rounded-md">
           {isMobile ? <PlusIcon className="!size-8" /> : "Add Asset"}
@@ -28,7 +30,7 @@ const AddAssetDialog = () => {
         <DialogHeader>
           <DialogTitle>Select coin</DialogTitle>
         </DialogHeader>
-        <AddAssetForm />
+        <AddAssetForm closeDialog={() => setIsOpen(false)} />
       </DialogContent>
     </Dialog>
   );
