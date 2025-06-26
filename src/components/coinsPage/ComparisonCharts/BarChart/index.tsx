@@ -7,13 +7,18 @@ import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
 import { getDate } from "@/utils/formatUtils";
 import { ParsedChartData } from "@/utils/types/ChartData";
 import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
+import { setTicksPosition } from "@/utils/setTicksPosition";
 
 const CustomBarChart = ({
   chartData,
   coins,
+  interval,
+  smallScreen,
 }: {
   chartData: ParsedChartData | undefined;
   coins: CarouselItemData[];
+  interval: string;
+  smallScreen?: boolean;
 }) => {
   const [format] = useFormat();
   const breakpoint = useScreenBreakpoint();
@@ -110,7 +115,7 @@ const CustomBarChart = ({
           dataKey="time"
           tick={({ x, y, payload }) => (
             <text
-              x={x}
+              x={setTicksPosition(x, interval, "coins", smallScreen)}
               y={y + 10}
               textAnchor="middle"
               style={{ fill: "var(--clr-text)", fontSize: 12 }}

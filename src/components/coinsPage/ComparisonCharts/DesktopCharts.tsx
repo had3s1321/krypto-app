@@ -6,13 +6,22 @@ import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 export interface ChartProps {
   data?: ChartDataByCoin;
   selectedCoins: CarouselItemData[];
+  interval: string;
 }
 
-const DesktopCharts = ({ data, selectedCoins }: ChartProps) => {
+const DesktopCharts = ({ data, selectedCoins, interval }: ChartProps) => {
   return (
     <div className="mb-5 flex justify-between font-grotesk">
-      <CustomAreaChart chartData={data?.prices} coins={selectedCoins} />
-      <CustomBarChart chartData={data?.volumes} coins={selectedCoins} />
+      <CustomAreaChart
+        chartData={data?.prices}
+        coins={selectedCoins}
+        interval={interval}
+      />
+      <CustomBarChart
+        chartData={data?.volumes}
+        coins={selectedCoins}
+        interval={interval}
+      />
     </div>
   );
 };

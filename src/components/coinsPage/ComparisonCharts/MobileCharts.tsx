@@ -10,9 +10,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 export interface ChartProps {
   data?: ChartDataByCoin;
   selectedCoins: CarouselItemData[];
+  interval: string;
 }
 
-const MobileChart = ({ data, selectedCoins }: ChartProps) => {
+const MobileChart = ({ data, selectedCoins, interval }: ChartProps) => {
   const [selectedChart, setSelectedChart] = useState<"left" | "right">("left");
 
   const handleSelect = () => {
@@ -43,9 +44,19 @@ const MobileChart = ({ data, selectedCoins }: ChartProps) => {
         </button>
       </div>
       {selectedChart === "left" ? (
-        <CustomAreaChart chartData={data?.prices} coins={selectedCoins} />
+        <CustomAreaChart
+          chartData={data?.prices}
+          coins={selectedCoins}
+          interval={interval}
+          smallScreen
+        />
       ) : (
-        <CustomBarChart chartData={data?.volumes} coins={selectedCoins} />
+        <CustomBarChart
+          chartData={data?.volumes}
+          coins={selectedCoins}
+          interval={interval}
+          smallScreen
+        />
       )}
     </div>
   );

@@ -29,9 +29,17 @@ const ComparisonCharts = () => {
   return (
     <>
       {isMobile ? (
-        <MobileCharts data={data} selectedCoins={selectedCoins} />
+        <MobileCharts
+          data={data}
+          selectedCoins={selectedCoins}
+          interval={tabValue}
+        />
       ) : (
-        <DesktopCharts data={data} selectedCoins={selectedCoins} />
+        <DesktopCharts
+          data={data}
+          selectedCoins={selectedCoins}
+          interval={tabValue}
+        />
       )}
       <IntervalTabs value={tabValue} onValueChange={setTabValue} />
     </>
