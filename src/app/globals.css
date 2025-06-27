@@ -90,7 +90,7 @@ body {
 
 html body[data-scroll-locked] {
   margin-right: 0px !important;
-  overflow: auto !important;
+  overflow: none !important;
 }
 
 input,

@@ -26,7 +26,7 @@ const SupplyProgressBar = ({ data }: { data: GenericDataPoint[] }) => {
         )}
         <span className="flex items-center gap-1 text-xs text-[#F8D2A6]">
           <div className="h-2 w-2 rounded-full bg-[#F8D2A6]"></div>
-          {maxSupply.value ? formattedRightValue : "Unlimited supply"}
+          {maxSupply.value ? formattedRightValue : "∞"}
         </span>
       </span>
       <Progress

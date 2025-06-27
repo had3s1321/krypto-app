@@ -42,20 +42,21 @@ const DataPoint = ({
         className={`ml-2 text-xl font-medium ${valueType === "percent" && !isInfinite ? classTW : ""}`}
       >
         {isInfinite ? (
-          "Unlimited supply"
+          "∞"
         ) : hasIndicator ? (
           <span className="flex items-center gap-2">
             {icon}{" "}
             {Math.abs(
               Number(formattedValue.slice(0, formattedValue.length - 1)),
-            )}
+            )}{" "}
+            %
           </span>
         ) : (
           <span className="flex items-center gap-2">
             {formattedValue}
             {valueType === "percent" && (
               <Progress
-                className={`${isPositive[0]} "mr-2"`}
+                className={`${isPositive[0]} mr-2`}
                 indicatorClassName={isPositive[1]}
                 value={Number(
                   formattedValue.slice(0, formattedValue.length - 1),
