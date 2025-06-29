@@ -35,7 +35,7 @@ const PortfolioCoinTitle = ({ coin }: { coin: PortfolioCoinData }) => {
           {coin.name} {notLargeScreen && `(${coin.symbol.toUpperCase()})`}
         </span>
         {smallScreen && (
-          <span className="text-base">
+          <span className="text-base opacity-80">
             Purchased {getDate(coin.lastPurchased)}
           </span>
         )}

@@ -37,7 +37,7 @@ const PortfolioCoinInfo = ({ coin }: { coin: PortfolioCoinData }) => {
           {coin.amount} {coin.symbol.toUpperCase()}
         </span>
       )}
-      <span className="flex items-end gap-4 md:items-center">
+      <span className="mb-2 flex items-end gap-4 md:mb-0 md:items-center">
         <span className="text-2xl font-bold md:text-sm md:font-normal">
           {extraLargeScreen && "Balance: "}
           {formattedBalance}

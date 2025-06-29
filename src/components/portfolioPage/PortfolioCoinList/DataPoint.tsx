@@ -39,12 +39,12 @@ const DataPoint = ({
   return (
     <div className="flex w-[calc(50%-0.75rem)] flex-col justify-center rounded-md border-2 border-[var(--clr-nav-foreground)] dark:border-[var(--secondary-foreground)]">
       <span
-        className={`ml-2 text-xl font-medium ${valueType === "percent" && !isInfinite ? classTW : ""}`}
+        className={`ml-2 text-xl font-medium ${valueType === "percent" && !isInfinite ? classTW : ""} text-sm md:text-base`}
       >
         {isInfinite ? (
           "∞"
         ) : hasIndicator ? (
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 text-sm md:text-base">
             {icon}{" "}
             {Math.abs(
               Number(formattedValue.slice(0, formattedValue.length - 1)),
@@ -52,7 +52,7 @@ const DataPoint = ({
             %
           </span>
         ) : (
-          <span className="flex items-center gap-2">
+          <span className="flex items-center gap-2 text-sm md:text-base">
             {formattedValue}
             {valueType === "percent" && (
               <Progress
@@ -66,7 +66,7 @@ const DataPoint = ({
           </span>
         )}
       </span>
-      <span className="ml-2">{description}</span>
+      <span className="ml-2 opacity-80">{description}</span>
     </div>
   );
 };
