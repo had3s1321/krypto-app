@@ -104,10 +104,7 @@ const AddAssetForm = ({ closeDialog }: { closeDialog: () => void }) => {
     const foundAsset = assets.find((asset) => asset.id === values.coinId);
     const { data: historicalCoinData } = await historicalCoinTrigger({
       coin: values.coinId,
-      date: values.purchaseDate
-        .toLocaleString("en-GB")
-        .split(",")[0]
-        .replace(/\//g, "-"),
+      date: format(values.purchaseDate, "dd-MM-yyyy"),
     });
 
     if (foundAsset) {
