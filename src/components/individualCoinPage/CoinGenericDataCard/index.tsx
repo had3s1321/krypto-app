@@ -47,7 +47,7 @@ const CoinGenericDataCard = ({
   const dataValues = Object.values(data);
 
   return (
-    <Card className="w-[calc(50%-1.5rem)] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
+    <Card className="w-full border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)] md:w-[calc(50%-1.5rem)]">
       <CardContent className="flex flex-col gap-4 p-4">
         {dataValues.map((value: GenericDataPoint) => {
           const genericValue = handleGenericValues(value.value, currency);

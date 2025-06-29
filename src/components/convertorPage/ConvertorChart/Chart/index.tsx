@@ -1,8 +1,19 @@
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
+import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
+import { setTicksPosition } from "@/utils/setTicksPosition";
 import { ChartDataByCoin } from "@/services/types";
 
-const ConvertorAreaChart = ({ data }: { data?: ChartDataByCoin }) => {
+const ConvertorAreaChart = ({
+  data,
+  interval,
+}: {
+  data?: ChartDataByCoin;
+  interval: string;
+}) => {
+  const breakpoint = useScreenBreakpoint();
+
+  const mobileScreen = breakpoint === "md";
   const chartConfig = {
     desktop: {
       label: "Desktop",
@@ -35,7 +46,7 @@ const ConvertorAreaChart = ({ data }: { data?: ChartDataByCoin }) => {
           dataKey="time"
           tick={({ x, y, payload }) => (
             <text
-              x={x - 10}
+              x={setTicksPosition(x, interval, "convertor", mobileScreen)}
               y={y + 10}
               textAnchor="middle"
               style={{ fill: "var(--clr-text)", fontSize: 12 }}
@@ -43,7 +54,7 @@ const ConvertorAreaChart = ({ data }: { data?: ChartDataByCoin }) => {
               {payload.value}
             </text>
           )}
-          minTickGap={100}
+          minTickGap={30}
           axisLine={false}
           tickLine={false}
         />

@@ -22,11 +22,11 @@ const AddAssetDialog = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="absolute bottom-28 right-5 h-16 w-16 rounded-full bg-[var(--primary-foreground)] text-[var(--clr-light-perm)] shadow-lg md:static md:h-auto md:w-1/6 md:rounded-md">
+        <Button className="fixed bottom-28 right-5 z-50 h-16 w-16 rounded-full bg-[var(--primary-foreground)] text-[var(--clr-light-perm)] shadow-lg md:static md:h-auto md:w-1/6 md:rounded-md">
           {isMobile ? <PlusIcon className="!size-8" /> : "Add Asset"}
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-1/2 p-10 text-[var(--clr-nav-text)]">
+      <DialogContent className="w-auto p-10 text-[var(--clr-nav-text)] md:w-1/2">
         <DialogHeader>
           <DialogTitle>Select coin</DialogTitle>
         </DialogHeader>

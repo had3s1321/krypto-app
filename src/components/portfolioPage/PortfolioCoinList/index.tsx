@@ -7,7 +7,7 @@ const PortfolioCoinList = () => {
   const { assets } = useAppSelector((state) => state.portfolio);
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="mb-36 flex flex-col gap-5 md:mb-0">
       {assets.map((coin) => (
         <PortfolioCoin key={coin.id} coin={coin} />
       ))}

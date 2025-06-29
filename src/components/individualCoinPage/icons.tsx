@@ -35,3 +35,28 @@ export const PlusIcon = () => (
     />
   </svg>
 );
+
+export const RedirectIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="21"
+    height="20"
+    fill="none"
+    viewBox="0 0 21 20"
+  >
+    <path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      d="M11.038 9.116a4.783 4.783 0 0 1 0 6.775c-1.876 1.867-4.909 1.875-6.775 0s-1.875-4.908 0-6.775"
+    ></path>
+    <path
+      stroke="#fff"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      d="M8.978 11.175a5.01 5.01 0 0 1 0-7.075c1.95-1.958 5.117-1.95 7.075 0s1.95 5.117 0 7.075"
+    ></path>
+  </svg>
+);

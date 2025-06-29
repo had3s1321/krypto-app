@@ -30,10 +30,10 @@ const ConvertorChart = () => {
   if (isFetching) return <ChartSuspenseSkeleton type="loading" />;
 
   return (
-    <>
-      <ConvertorAreaChart data={data} />
+    <div className="mb-32 md:mb-0">
+      <ConvertorAreaChart data={data} interval={tabValue} />
       <IntervalTabs value={tabValue} onValueChange={setTabValue} />
-    </>
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import { useFormat } from "@/hooks/useFormat";
 import { useScreenBreakpoint } from "@/hooks/useScreenBreakpoint";
 import { Area, AreaChart, XAxis, YAxis, Tooltip } from "recharts";
 import { ChartConfig, ChartContainer } from "@/components/ui/shadcn/chart";
+import { setTicksPosition } from "@/utils/setTicksPosition";
 import { getDate } from "@/utils/formatUtils";
 import { ParsedChartData } from "@/utils/types/ChartData";
 import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
@@ -11,9 +12,13 @@ import { CarouselItemData } from "@/utils/types/CoinsListMarketData";
 const CustomAreaChart = ({
   chartData,
   coins,
+  interval,
+  smallScreen,
 }: {
   chartData: ParsedChartData | undefined;
   coins: CarouselItemData[];
+  interval: string;
+  smallScreen?: boolean;
 }) => {
   const [format] = useFormat();
   const breakpoint = useScreenBreakpoint();
@@ -113,7 +118,7 @@ const CustomAreaChart = ({
           dataKey="time"
           tick={({ x, y, payload }) => (
             <text
-              x={x}
+              x={setTicksPosition(x, interval, "coins", smallScreen)}
               y={y + 10}
               textAnchor="middle"
               style={{
@@ -124,7 +129,6 @@ const CustomAreaChart = ({
               {payload.value}
             </text>
           )}
-          minTickGap={50}
           axisLine={false}
           tickLine={false}
         />

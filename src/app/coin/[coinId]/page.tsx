@@ -24,12 +24,12 @@ export default async function TaskDetail({
 
   return (
     <main className="mx-auto flex w-full max-w-[calc(100%-16px)] flex-col gap-8 font-grotesk md:max-w-[calc(100%-32px)] lg:max-w-[1296px]">
-      <div className="flex h-[352px] w-full gap-8">
+      <div className="flex h-full w-full flex-col gap-8 md:h-[352px] md:flex-row">
         <CoinValueCard data={valueCardData} />
         <CoinDescriptionCard data={descriptionCardData} />
       </div>
       <Separator />
-      <div className="flex w-full flex-wrap gap-4">
+      <div className="mb-28 flex w-full flex-col flex-wrap gap-4 md:mb-0 md:flex-row">
         <CoinGenericDataCard data={volumeCardData} />
         <CoinGenericDataCard data={supplyCardData} hasProgressBar />
         <CoinGenericDataCard data={marketCardData} />

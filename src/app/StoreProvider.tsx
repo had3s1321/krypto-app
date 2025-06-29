@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import { makeStore, AppStore } from "../lib/store";
+import Loading from "@/components/ui/Loading";
 
 export default function StoreProvider({
   children,
@@ -26,14 +27,11 @@ export default function StoreProvider({
   }, []);
 
   if (!persistor) {
-    return <div className="text-[var(--clr-text)]">loading...</div>;
+    return <Loading />;
   }
   return (
     <Provider store={storeRef.current}>
-      <PersistGate
-        loading={<div className="text-[var(--clr-text)]">loading...</div>}
-        persistor={persistor}
-      >
+      <PersistGate loading={<Loading />} persistor={persistor}>
         {children}
       </PersistGate>
     </Provider>
