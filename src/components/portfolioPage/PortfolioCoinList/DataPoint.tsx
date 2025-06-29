@@ -42,7 +42,7 @@ const DataPoint = ({
         className={`ml-2 text-xl font-medium ${valueType === "percent" && !isInfinite ? classTW : ""} text-sm md:text-base`}
       >
         {isInfinite ? (
-          "∞"
+          <span className="text-lg">∞</span>
         ) : hasIndicator ? (
           <span className="flex items-center gap-2 text-sm md:text-base">
             {icon}{" "}

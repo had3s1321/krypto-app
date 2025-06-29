@@ -4,7 +4,7 @@ import { DescriptionCardData } from "@/utils/types/IndividualCoinData";
 
 const CoinDescriptionCard = ({ data }: { data: DescriptionCardData }) => {
   return (
-    <Card className="h-full w-[55%] border-none text-[var(--clr-nav-text)] shadow-none">
+    <Card className="h-full w-[52.5%] border-none text-[var(--clr-nav-text)] shadow-none">
       <CardContent className="flex h-full flex-col justify-between gap-4 p-0">
         <div className="scrollbar h-auto min-h-0 flex-1 overflow-y-auto">
           <p className="mr-2">{data.description}</p>
@@ -16,9 +16,9 @@ const CoinDescriptionCard = ({ data }: { data: DescriptionCardData }) => {
             .map((link) => (
               <Card
                 key={link}
-                className="flex h-fit w-fit items-center border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]"
+                className="flex h-fit w-fit items-center overflow-hidden border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]"
               >
-                <CardContent className="p-4">
+                <CardContent className="overflow-hidden text-ellipsis whitespace-nowrap p-4">
                   <LinkContainer url={link} />
                 </CardContent>
               </Card>

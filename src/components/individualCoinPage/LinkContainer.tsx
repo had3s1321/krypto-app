@@ -1,6 +1,6 @@
 "use client";
 
-import { CopyIcon } from "./icons";
+import { CopyIcon, RedirectIcon } from "./icons";
 import { useCopyToClipboard } from "@/hooks/useClipboard";
 
 const LinkContainer = ({ url }: { url: string }) => {
@@ -9,7 +9,12 @@ const LinkContainer = ({ url }: { url: string }) => {
   return (
     <>
       <span className="relative flex items-center gap-2">
-        {url}
+        <a href={url} target="_blank" rel="noopener noreferrer">
+          <RedirectIcon />
+        </a>
+        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+          {url}
+        </span>
         <CopyIcon onClick={() => copy(url)} />
       </span>
       <span className="absolute right-0 top-0 bg-red-500">

@@ -11,8 +11,8 @@ const CoinValueCard = ({ data }: { data: ValueCardData }) => {
     <Card className="w-[45%] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
       <CardHeader className="flex flex-row gap-6">
         <Image src={data.image} alt={data.name} width={52} height={48} />
-        <div className="!m-0 flex flex-col">
-          <span className="text-2xl font-bold">
+        <div className="!m-0 flex flex-col overflow-hidden">
+          <span className="overflow-hidden text-ellipsis whitespace-nowrap text-2xl font-bold">
             {data.name} ({data.symbol.toUpperCase()})
           </span>
           <LinkContainer url={data.homepage} />
