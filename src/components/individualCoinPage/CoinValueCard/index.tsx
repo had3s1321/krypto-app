@@ -8,7 +8,7 @@ import { ValueCardData } from "@/utils/types/IndividualCoinData";
 
 const CoinValueCard = ({ data }: { data: ValueCardData }) => {
   return (
-    <Card className="w-[45%] border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)]">
+    <Card className="w-full border-none bg-[var(--clr-nav-bg)] text-[var(--clr-nav-text)] shadow-lg dark:bg-[var(--clr-nav-foreground)] md:w-[45%]">
       <CardHeader className="flex flex-row gap-6">
         <Image src={data.image} alt={data.name} width={52} height={48} />
         <div className="!m-0 flex flex-col overflow-hidden">

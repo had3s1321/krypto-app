@@ -4,11 +4,13 @@ import { DescriptionCardData } from "@/utils/types/IndividualCoinData";
 
 const CoinDescriptionCard = ({ data }: { data: DescriptionCardData }) => {
   return (
-    <Card className="h-full w-[52.5%] border-none text-[var(--clr-nav-text)] shadow-none">
+    <Card className="h-full w-full border-none text-[var(--clr-nav-text)] shadow-none md:w-[52.5%]">
       <CardContent className="flex h-full flex-col justify-between gap-4 p-0">
-        <div className="scrollbar h-auto min-h-0 flex-1 overflow-y-auto">
-          <p className="mr-2">{data.description}</p>
-        </div>
+        {data.description && (
+          <div className="scrollbar h-auto min-h-0 flex-1 overflow-y-auto">
+            <p className="mr-2">{data.description}</p>
+          </div>
+        )}
         <div className="flex flex-wrap gap-1">
           {data.links
             .slice(0, 3)
