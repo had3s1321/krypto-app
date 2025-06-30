@@ -114,7 +114,7 @@ const AddAssetForm = ({ closeDialog }: { closeDialog: () => void }) => {
           equity:
             Number(values.amount) * (historicalCoinData?.price[currency] || 0),
           amount: Number(values.amount),
-          lastPurchased: values.purchaseDate.toLocaleString(),
+          lastPurchased: Math.floor(values.purchaseDate.getTime()),
         }),
       );
       closeDialog();
@@ -129,7 +129,7 @@ const AddAssetForm = ({ closeDialog }: { closeDialog: () => void }) => {
           amount: Number(values.amount),
           equity:
             Number(values.amount) * (historicalCoinData?.price[currency] || 1),
-          lastPurchased: values.purchaseDate.toLocaleString(),
+          lastPurchased: Math.floor(values.purchaseDate.getTime()),
         } as PortfolioCoinData),
       );
       closeDialog();
