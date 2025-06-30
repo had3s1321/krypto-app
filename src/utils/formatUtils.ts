@@ -16,16 +16,16 @@ export const getTime = (locale?: string, dateStamp?: number) => {
 
 export const getDate = (
   date?: number | string | Date,
-  options: { isShort?: "short"; locale: string } = {
-    locale: "en-US",
-  },
+  options: { isShort?: "short"; locale: string } = { locale: "en-US" },
 ) => {
   const currentDate = date ? new Date(date) : new Date();
-  const formattedDate = new Intl.DateTimeFormat(options.locale || "en-US", {
+
+  const formattedDate = new Intl.DateTimeFormat(options.locale, {
     day: "numeric",
     month: options.isShort ? "numeric" : "long",
     year: "numeric",
   }).format(currentDate);
+
   return formattedDate;
 };
 
